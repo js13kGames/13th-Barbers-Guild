@@ -4,6 +4,12 @@ html, body, #app {
   margin: 0;
   background: #241c1c;
 }
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
 svg {
   display: block;
 }
