@@ -1,5 +1,6 @@
 import {theme} from './theme';
-import {hmirror, move, resize, rect} from './utils';
+import {rect, hmirror, move, resize, skewY} from './utils';
+import {bricks} from './bricks';
 
 const bg = rect(720, 800, theme.wall);
 
@@ -19,6 +20,8 @@ const internalFloor = `<polygon
 />`;
 
 const pillar = rect(20, 1100, theme.bg);
+
+const backRow = rect(270, 50, theme.bg);
 
 const shadow = rect(920, 2800, "url('#shadow')");
 
@@ -45,11 +48,16 @@ export function createWalls() {
       ${hmirror(move(pillar, 50, 100))}
       ${move(resize(roofPespective, 3.5, 1), 495, 0)}
       ${move(hmirror(resize(roofPespective, 3.5, 1)), -495, 0)}
-      <rect x="225" y="100" width="270" height="50" style="fill:${theme.bg};" />
+      ${move(backRow, 225, 100)}
       ${move(pillar, 225, 100)}
       ${move(pillar, 225 + 270 - 20, 100)}
       ${move(internalFloor, 50, 750)}
+      ${move(skewY(bricks(), 15), 90, 110)}
+      ${hmirror(move(skewY(bricks(), 15), 90, 110))}
+      ${move(bricks(), 380, 630)}
       ${move(shadow, -100, -1000)}
+      ${move(skewY(bricks(), -40), 685, 660)}
+      ${hmirror(move(skewY(bricks(), -40), 685, 660))}
     </svg>
   `;
 }
