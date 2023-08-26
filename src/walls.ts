@@ -24,7 +24,7 @@ const shadow = rect(920, 2800, "url('#shadow')");
 
 export function createWalls() {
   return `
-    <svg width="720" height="800" viewBox="0 0 720 800" preserveAspectRatio="true">
+    <svg width="720" height="900">
       <defs>
         <radialGradient fr="20%" id="shadow">
           <stop offset="0%" stop-color="rgba(0,0,0,0)" />
