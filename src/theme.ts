@@ -5,4 +5,7 @@ export const theme = {
   wall: 'rgb(108,83,83)',
   brick: 'rgba(0,0,0,0.1)',
   l: 'rgba(255,0,255,0.3)',
+  shelfFront: 'rgb(53,39,39)',
+  shelfSide: 'rgb(39,29,29)',
+  shelfBottom: 'rgb(24,18,18)',
 }
