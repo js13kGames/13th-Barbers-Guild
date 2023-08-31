@@ -1,5 +1,5 @@
-import {theme} from './theme';
-import {rect, move} from './utils';
+import { theme } from "./theme";
+import { rect, move } from "./utils";
 
 const shadow = rect(800, 2800, "url('#shadow')");
 
@@ -8,7 +8,9 @@ export function createShadow() {
     <defs>
       <radialGradient fr="20%" id="shadow">
         <stop offset="0%" stop-color="rgba(0,0,0,0)">
-          <animate attributeName="stop-color" dur="500ms" values="${theme.bg0};${theme.bg5}" repeatCount="indefinite" />
+          <animate attributeName="stop-color" dur="500ms" values="${
+            theme.bg0
+          };${theme.bg5}" repeatCount="indefinite" />
         </stop>
         <stop offset="75%" stop-color="${theme.bg}">
         <stop offset="100%" stop-color="${theme.bg}" />

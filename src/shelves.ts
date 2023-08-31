@@ -1,5 +1,5 @@
-import {move, hmirror, resize, skewY} from './utils';
-import {theme} from './theme';
+import { move, hmirror, resize, skewY } from "./utils";
+import { theme } from "./theme";
 
 export function createShelves() {
   return `<svg
@@ -29,6 +29,6 @@ const side = `<polygon
 const bottom = `<polygon
   points="0,20 100,40 90,45 -10,35"
   style="fill:${theme.shelfBottom}"
-/>`
+/>`;
 
-const shelf = `${move(front + side + bottom, 10, 70)}`
+const shelf = `${move(front + side + bottom, 10, 70)}`;

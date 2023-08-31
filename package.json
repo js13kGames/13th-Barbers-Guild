@@ -5,11 +5,24 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "lint": "eslint 'src/**'",
     "build": "tsc && vite build && rm -f dist.zip && zip -r -9 dist.zip dist && ls -l dist.zip",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^5.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "^39.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "*",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "eslint": "^8.0.1"
   }
 }
