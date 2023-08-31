@@ -1,3 +1,7 @@
+export function className(content: string, className: string) {
+  return `<g class="${className}">${content}</g>`;
+}
+
 export function rect(
   width: number,
   height: number,
@@ -9,6 +13,18 @@ export function rect(
     output += `rx="${rx}" `;
   }
   return output + "/>";
+}
+
+export function ellipsis(
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  fill: string,
+  stroke: string = "#fff",
+  strokeWidth: number = 0,
+) {
+  return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;
 }
 
 export function move(content: string, x: number, y: number) {
