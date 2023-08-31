@@ -12,8 +12,8 @@ function runApp() {
   root.innerHTML = `<svg width="720" height="900" viewBox="0 0 720 900">
     ${createWalls()}
     ${createShadow()}
-    ${createShelves()}
     ${createPotions()}
+    ${createShelves()}
   </svg>`;
 }
 
