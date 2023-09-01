@@ -1,4 +1,4 @@
-import { ellipsis, move, resize, className } from "./utils";
+import { ellipsis, move, className } from "./utils";
 
 export function createCauldron() {
   const x = 106;

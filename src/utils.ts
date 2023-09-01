@@ -1,3 +1,7 @@
+export function id(idName: string, content: string) {
+  return `<g id="${idName}">${content}</g>`;
+}
+
 export function className(content: string, className: string) {
   return `<g class="${className}">${content}</g>`;
 }

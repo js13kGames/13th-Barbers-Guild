@@ -4,12 +4,19 @@ html, body, #app {
   margin: 0;
   background: #241c1c;
 }
-#app {
+#wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
 }
-svg {
+#app {
+  position: relative;
+  width: 720px;
+  height: 900px;
+}
+#app > svg {
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
