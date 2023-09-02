@@ -20,7 +20,7 @@ export function createShelves(width: number, height: number) {
     shelves,
     width,
     height,
-    `pointer-events: none; z-index: ${theme.layers.shelf}`,
+    {style: `pointer-events: none; z-index: ${theme.layers.shelf}`},
   );
 }
 

@@ -24,20 +24,6 @@ function runApp() {
     ${createPotions()}
     ${createShelves(width, height)}
   `;
-  window.addEventListener(
-    "potionClick",
-    (e) => {
-      console.debug(e);
-    },
-    false,
-  );
-  window.addEventListener(
-    "potionRelease",
-    (e) => {
-      console.debug(e);
-    },
-    false,
-  );
 }
 
 runApp();

@@ -2,7 +2,14 @@ export function wrapper(
   content: string,
   width: number,
   height: number,
-  style: string = "",
+  opt?: {
+    id?: string;
+    style?: string;
+  },
 ) {
-  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="${style}">${content}</svg>`;
+  return `<svg${
+    opt?.id !== undefined ? " id=" + opt.id : ""
+  } width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="${
+    opt?.style ?? ""
+  }">${content}</svg>`;
 }

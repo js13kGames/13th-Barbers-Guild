@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint 'src/**'",
-    "build": "tsc && vite build && rm -f dist.zip && zip -r -9 dist.zip dist && ls -l dist.zip",
+    "build": "tsc && vite build && rm -f dist.zip && advzip -a dist.zip dist/index.html dist/assets/* && ls -l dist.zip",
     "preview": "vite preview"
   },
   "devDependencies": {
