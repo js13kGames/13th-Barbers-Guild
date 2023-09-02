@@ -4,6 +4,9 @@ html, body, #app {
   margin: 0;
   background: #241c1c;
 }
+body {
+  overscroll-behavior: contain; /* avoid mobile reload on scroll */
+}
 #wrap {
   display: flex;
   align-items: center;

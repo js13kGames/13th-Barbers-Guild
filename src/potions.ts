@@ -70,28 +70,32 @@ export function configEvents(id: string, color: string) {
   let initialY = 0;
   let deltaX = 0;
   let deltaY = 0;
+
   const element = document.getElementById(id);
-  if (element === null) {
+  if (!element) {
     return;
   }
-  element.addEventListener("mousedown", (event) => {
-    clicked = true;
-    initialX = event.clientX;
-    initialY = event.clientY;
-    element.dispatchEvent(potionClick(color));
-    element.style.zIndex = theme.layers.activePotion;
-  });
-  window.addEventListener("mousemove", (event) => {
-    if (!clicked) {
+  function begin({ clientX, clientY }: { clientX: number; clientY: number }) {
+    if (!element) {
       return;
     }
-    deltaX = event.clientX - initialX;
-    deltaY = event.clientY - initialY;
+    clicked = true;
+    initialX = clientX;
+    initialY = clientY;
+    element.dispatchEvent(potionClick(color));
+    element.style.zIndex = theme.layers.activePotion;
+  }
+  function move({ clientX, clientY }: { clientX: number; clientY: number }) {
+    if (!clicked || !element) {
+      return;
+    }
+    deltaX = clientX - initialX;
+    deltaY = clientY - initialY;
     element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     element.style.pointerEvents = "none";
-  });
-  window.addEventListener("mouseup", () => {
-    if (!clicked) {
+  }
+  function end() {
+    if (!clicked || !element) {
       return;
     }
     clicked = false;
@@ -101,5 +105,19 @@ export function configEvents(id: string, color: string) {
     element.style.pointerEvents = "";
     element.style.zIndex = theme.layers.potion;
     element.dispatchEvent(potionRelease);
+  }
+  element.addEventListener("mousedown", (event) => {
+    begin(event);
   });
+  element.addEventListener("touchstart", (event) => {
+    begin(event.changedTouches[0]);
+  });
+  window.addEventListener("mousemove", (event) => {
+    move(event);
+  });
+  window.addEventListener("touchmove", (event) => {
+    move(event.changedTouches[0]);
+  });
+  window.addEventListener("mouseup", end);
+  window.addEventListener("touchend", end);
 }
