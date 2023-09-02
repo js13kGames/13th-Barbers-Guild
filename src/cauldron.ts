@@ -29,7 +29,10 @@ export function createCauldron(height: number) {
       toggleHover(touch.clientX, touch.clientY);
     });
     window.addEventListener("touchend", () => {
-      element.classList.remove("hover");
+      // remove class on next event cycle so it happens after potion release
+      setTimeout(() => {
+        element.classList.remove("hover");
+      });
     });
     window.addEventListener("potionClick", (event) => {
       setColor(element, event.detail.color);
@@ -62,7 +65,9 @@ function getGroup(height: number) {
 }
 
 const shadow = move(ellipsis(x, y, x, y, "rgba(0, 0, 0, 0.3)"), 0, 4);
+
 const body = move(ellipsis(x, y, x, y, "#1c1f24"), 4, 0);
+
 const mouth = move(
   className(
     ellipsis(x * 0.66, y * 0.2, x * 0.66, y * 0.2 + 6, "red", "#0f1013", 5),
