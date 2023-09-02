@@ -15,12 +15,11 @@ function runApp() {
   const height = 800;
   root.innerHTML = `
     ${wrapper(
-      createWalls(width, height) +
-        createShadow(width, height) +
-        createCauldron(height),
+      createWalls(width, height) + createShadow(width, height),
       width,
       height,
     )}
+    ${createCauldron(height)},
     ${createPotions()}
     ${createShelves(width, height)}
   `;
