@@ -3,20 +3,32 @@ import { theme } from "./theme";
 import { wrapper } from "./wrapper";
 import { potionClick, potionRelease } from "./events";
 
+type Column = 1 | 2 | 3;
+
+const ingredientNames = [
+  "Frog Paw",
+  "Salamander Tail",
+  "Cat Paw",
+  "Rat Tooth",
+  "Devil's Herb",
+  "Barracuda Eyes",
+];
+
+const centerDeltaY = 15;
+
 export function createPotions() {
   const x1 = 115;
   const x2 = 320;
   const x3 = 530;
   const y1 = 162;
   const y2 = 395;
-  const deltay1 = 15;
   return [
-    createPotion(0, theme.potions[0], x1, y1),
-    createPotion(1, theme.potions[1], x1, y2),
-    createPotion(2, theme.potions[2], x2, y1 + deltay1),
-    createPotion(3, theme.potions[3], x2, y2 + deltay1),
-    createPotion(4, theme.potions[4], x3, y1, true),
-    createPotion(5, theme.potions[5], x3, y2, true),
+    createPotion(0, theme.potions[0], x1, y1, 1),
+    createPotion(1, theme.potions[1], x1, y2, 1),
+    createPotion(2, theme.potions[2], x2, y1 + centerDeltaY, 2),
+    createPotion(3, theme.potions[3], x2, y2 + centerDeltaY, 2),
+    createPotion(4, theme.potions[4], x3, y1, 3),
+    createPotion(5, theme.potions[5], x3, y2, 3),
   ].join("");
 }
 
@@ -25,13 +37,13 @@ function createPotion(
   color: string,
   x: number,
   y: number,
-  right?: boolean,
+  column: Column,
 ) {
   const id = `p-${index}`;
   setTimeout(() => {
     configEvents(id, color);
   });
-  return potion(id, color, x, y, right);
+  return [potion(id, color, x, y, column), label(index, x, y, column)].join("");
 }
 
 function potion(
@@ -39,9 +51,9 @@ function potion(
   color: string,
   x: number,
   y: number,
-  right?: boolean,
+  column: Column,
 ) {
-  const position = right === true ? 0 : 6;
+  const position = column === 3 ? 0 : 6;
   const capY = 25;
   return wrapper(
     move(
@@ -154,4 +166,23 @@ export function configEvents(id: string, color: string) {
   });
   window.addEventListener("mouseup", end);
   window.addEventListener("touchend", end);
+}
+
+function label(index: number, x: number, y: number, column: Column) {
+  let rotation = 0;
+  let width = 120;
+  if (column === 1) {
+    rotation = 10;
+    width = 110;
+  } else if (column === 3) {
+    rotation = -10;
+    width = 110;
+  }
+  const left = x - 20;
+  let top = y - 60;
+  if (column === 2) {
+    top += 5;
+  }
+  const label = ingredientNames[index];
+  return `<p style="left: ${left}px; top: ${top}px; width: ${width}px; transform: rotate(${rotation}deg)">${label}</p>`;
 }
