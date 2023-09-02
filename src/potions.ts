@@ -10,12 +10,12 @@ export function createPotions() {
   const y2 = 415;
   const deltay1 = 15;
   return [
-    createPotion(0, "#ff6600", x1, y1),
-    createPotion(1, "#ff0000", x1, y2),
-    createPotion(2, "#ccff00", x2, y1 + deltay1),
-    createPotion(3, "#d4aa00", x2, y2 + deltay1),
-    createPotion(4, "#ff0066", x3, y1, true),
-    createPotion(5, "#5fd38d", x3, y2, true),
+    createPotion(0, theme.potions[0], x1, y1),
+    createPotion(1, theme.potions[1], x1, y2),
+    createPotion(2, theme.potions[2], x2, y1 + deltay1),
+    createPotion(3, theme.potions[3], x2, y2 + deltay1),
+    createPotion(4, theme.potions[4], x3, y1, true),
+    createPotion(5, theme.potions[5], x3, y2, true),
   ].join("");
 }
 
