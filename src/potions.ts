@@ -16,32 +16,33 @@ const ingredientNames = [
 
 const centerDeltaY = 15;
 
-export function createPotions() {
+export function createPotions(rate: number) {
   const x1 = 115;
   const x2 = 320;
   const x3 = 530;
   const y1 = 162;
   const y2 = 395;
   return [
-    createPotion(0, theme.potions[0], x1, y1, 1),
-    createPotion(1, theme.potions[1], x1, y2, 1),
-    createPotion(2, theme.potions[2], x2, y1 + centerDeltaY, 2),
-    createPotion(3, theme.potions[3], x2, y2 + centerDeltaY, 2),
-    createPotion(4, theme.potions[4], x3, y1, 3),
-    createPotion(5, theme.potions[5], x3, y2, 3),
+    createPotion(0, theme.potions[0], rate, x1, y1, 1),
+    createPotion(1, theme.potions[1], rate, x1, y2, 1),
+    createPotion(2, theme.potions[2], rate, x2, y1 + centerDeltaY, 2),
+    createPotion(3, theme.potions[3], rate, x2, y2 + centerDeltaY, 2),
+    createPotion(4, theme.potions[4], rate, x3, y1, 3),
+    createPotion(5, theme.potions[5], rate, x3, y2, 3),
   ].join("");
 }
 
 function createPotion(
   index: number,
   color: string,
+  rate: number,
   x: number,
   y: number,
   column: Column,
 ) {
   const id = `p-${index}`;
   setTimeout(() => {
-    configEvents(id, color);
+    configEvents(id, color, rate);
   });
   return [potion(id, color, x, y, column), label(index, x, y, column)].join("");
 }
@@ -110,7 +111,7 @@ function shape(color: string, width: number, height: number, blur?: boolean) {
   );
 }
 
-export function configEvents(id: string, color: string) {
+export function configEvents(id: string, color: string, rate: number) {
   let clicked = false;
   let initialX = 0;
   let initialY = 0;
@@ -135,8 +136,8 @@ export function configEvents(id: string, color: string) {
     if (!clicked || element === null) {
       return;
     }
-    deltaX = clientX - initialX;
-    deltaY = clientY - initialY;
+    deltaX = (clientX - initialX) / rate;
+    deltaY = (clientY - initialY) / rate;
     element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     element.style.pointerEvents = "none";
   }

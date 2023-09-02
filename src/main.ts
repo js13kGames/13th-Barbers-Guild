@@ -13,6 +13,14 @@ function runApp() {
   }
   const width = 720;
   const height = 800;
+  const xRate = window.innerWidth / width;
+  const yRate = window.innerHeight / height;
+  const rate = Math.min(xRate, yRate);
+  root.style.setProperty("transform", `scale(${rate})`);
+  root.style.setProperty(
+    "transform-origin",
+    xRate > yRate ? "top" : "left top",
+  );
   root.innerHTML = `
     ${wrapper(
       createWalls(width, height) + createShadow(width, height),
@@ -20,7 +28,7 @@ function runApp() {
       height,
     )}
     ${createCauldron(height)},
-    ${createPotions()}
+    ${createPotions(rate)}
     ${createShelves(width, height)}
   `;
 }

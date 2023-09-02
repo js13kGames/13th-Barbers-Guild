@@ -2,7 +2,7 @@ import { theme } from "./theme";
 import { rect, hmirror, move, resize, skewY } from "./utils";
 import { bricks } from "./bricks";
 
-const bg = rect(720, 800, theme.wall);
+const bg = rect(720, 799, theme.wall);
 
 const floorPerspective = `<polygon
   points="0,750 0,800 50,800"

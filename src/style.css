@@ -11,11 +11,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 #app {
   position: relative;
   width: 720px;
-  height: 800px;
 }
 #app > svg,
 #app > p {
