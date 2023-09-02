@@ -1,6 +1,9 @@
 export default {
   build: {
-    minify: 'terser',
-    cssMinify: 'lightningcss',
-  }
-}
+    minify: "terser",
+    cssMinify: "lightningcss",
+  },
+  server: {
+    host: true,
+  },
+};
