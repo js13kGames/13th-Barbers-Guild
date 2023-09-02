@@ -17,7 +17,7 @@ export function createCauldron(height: number) {
 
 function setColor(color: string) {
   const element = getCauldronElement();
-  if (element) {
+  if (element !== null) {
     element.style.setProperty("--color", color);
   }
 }

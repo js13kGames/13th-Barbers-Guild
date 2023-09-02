@@ -16,12 +16,9 @@ export function createShelves(width: number, height: number) {
     skewY(resize(move(shelf, x2, y1 + delta), 1.5, 1), -5),
     skewY(resize(move(shelf, x2, y2 + delta), 1.5, 1), -5),
   ].join("");
-  return wrapper(
-    shelves,
-    width,
-    height,
-    {style: `pointer-events: none; z-index: ${theme.layers.shelf}`},
-  );
+  return wrapper(shelves, width, height, {
+    style: `pointer-events: none; z-index: ${theme.layers.shelf}`,
+  });
 }
 
 const front = `<polygon

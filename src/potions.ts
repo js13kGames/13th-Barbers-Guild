@@ -118,11 +118,11 @@ export function configEvents(id: string, color: string) {
   let deltaY = 0;
 
   const element = document.getElementById(id);
-  if (!element) {
+  if (element === null) {
     return;
   }
   function begin({ clientX, clientY }: { clientX: number; clientY: number }) {
-    if (!element) {
+    if (element === null) {
       return;
     }
     clicked = true;
@@ -132,7 +132,7 @@ export function configEvents(id: string, color: string) {
     element.style.zIndex = theme.layers.activePotion;
   }
   function move({ clientX, clientY }: { clientX: number; clientY: number }) {
-    if (!clicked || !element) {
+    if (!clicked || element === null) {
       return;
     }
     deltaX = clientX - initialX;
@@ -141,7 +141,7 @@ export function configEvents(id: string, color: string) {
     element.style.pointerEvents = "none";
   }
   function end() {
-    if (!clicked || !element) {
+    if (!clicked || element === null) {
       return;
     }
     clicked = false;
