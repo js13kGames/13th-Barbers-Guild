@@ -5,11 +5,15 @@ export function wrapper(
   opt?: {
     id?: string;
     style?: string;
+    viewBoxWidth?: number;
+    viewBoxHeight?: number;
   },
 ) {
   return `<svg${
     opt?.id !== undefined ? " id=" + opt.id : ""
-  } width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="${
+  } width="${width}" height="${height}" viewBox="0 0 ${
+    opt?.viewBoxWidth ?? width
+  } ${opt?.viewBoxHeight ?? height}" style="${
     opt?.style ?? ""
   }">${content}</svg>`;
 }
