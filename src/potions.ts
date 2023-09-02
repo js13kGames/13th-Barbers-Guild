@@ -4,11 +4,11 @@ import { wrapper } from "./wrapper";
 import { potionClick, potionRelease } from "./events";
 
 export function createPotions() {
-  const x1 = 120;
+  const x1 = 115;
   const x2 = 320;
-  const x3 = 520;
-  const y1 = 125;
-  const y2 = 415;
+  const x3 = 530;
+  const y1 = 162;
+  const y2 = 395;
   const deltay1 = 15;
   return [
     createPotion(0, theme.potions[0], x1, y1),
@@ -44,27 +44,38 @@ function potion(
   const position = right === true ? 0 : 6;
   const capY = 25;
   return wrapper(
-    [
-      move(shape(theme.black50, 66, 66, true), 3, 3 + capY), // shadow
-      move(shape(color, 66, 66), position, capY), // body
-      move(rotate(rect(24, 30, color), -10), 21 + position, 12), // extension
-      move(rotate(ellipsis(11.9, 6, 11.9, 6, color), -10), 20 + position, 6), // extension curvature
-      move(rotate(rect(14, 17, theme.potionCap), -10), 24 + position, 0), // cap
-      move(
-        rotate(ellipsis(7, 3, 7, 3, theme.potionCap), -10),
-        26.5 + position,
-        14,
-      ), // cap bottom
-      move(
-        rotate(
-          ellipsis(6.5, 3, 6.5, 3, theme.potionCork, theme.potionCap, 1),
-          -10,
-        ),
-        24 + position,
-        -3,
-      ), // cap top
-      move(shape(theme.black30, 50, 50), position + 8, 8 + capY), // internal shadow
-    ].join(""),
+    move(
+      rotate(
+        [
+          move(shape(theme.black50, 66, 66, true), 3, 3 + capY), // shadow
+          move(shape(color, 66, 66), position, capY), // body
+          move(rotate(rect(24, 30, color), -10), 21 + position, 12), // extension
+          move(
+            rotate(ellipsis(11.9, 6, 11.9, 6, color), -10),
+            20 + position,
+            6,
+          ), // extension curvature
+          move(rotate(rect(14, 17, theme.potionCap), -10), 24 + position, 0), // cap
+          move(
+            rotate(ellipsis(7, 3, 7, 3, theme.potionCap), -10),
+            26.5 + position,
+            14,
+          ), // cap bottom
+          move(
+            rotate(
+              ellipsis(6.5, 3, 6.5, 3, theme.potionCork, theme.potionCap, 1),
+              -10,
+            ),
+            24 + position,
+            -3,
+          ), // cap top
+          move(shape(theme.black30, 50, 50), position + 8, 8 + capY), // internal shadow
+        ].join(""),
+        10,
+      ),
+      3,
+      0,
+    ),
     75,
     75 + capY,
     { id, style: `top: ${y}px; left: ${x}px; z-index: ${theme.layers.potion}` },
