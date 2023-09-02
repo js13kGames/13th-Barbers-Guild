@@ -2,18 +2,19 @@ import { move, hmirror, resize, skewY } from "./utils";
 import { theme } from "./theme";
 
 export function createShelves() {
-  return `<svg
-    width="720"
-    height="900"
-    viewBox="0 0 720 900"
-  >
-    ${move(shelf, 95, 270)}
-    ${move(shelf, 95, 500)}
-    ${hmirror(move(shelf, 95, 270))}
-    ${hmirror(move(shelf, 95, 500))}
-    ${skewY(resize(move(shelf, 185, 320), 1.5, 1), -5)}
-    ${skewY(resize(move(shelf, 185, 550), 1.5, 1), -5)}
-  </svg>`;
+  const x1 = 95;
+  const x2 = 185;
+  const y1 = 170;
+  const y2 = 400;
+  const delta = 50;
+  return `
+    ${move(shelf, x1, y1)}
+    ${move(shelf, x1, y2)}
+    ${hmirror(move(shelf, x1, y1))}
+    ${hmirror(move(shelf, x1, y2))}
+    ${skewY(resize(move(shelf, x2, y1 + delta), 1.5, 1), -5)}
+    ${skewY(resize(move(shelf, x2, y2 + delta), 1.5, 1), -5)}
+  `;
 }
 
 const front = `<polygon

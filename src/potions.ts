@@ -1,4 +1,4 @@
-import { move, id } from "./utils";
+import { move } from "./utils";
 
 let clicked = false;
 let initialX = 0;
@@ -33,20 +33,30 @@ export function listenToPotionEvents() {
 }
 
 export function createPotions() {
-  return `
-    ${id("a", move(potion("#ff6600"), 115 + deltaX, 215 + deltaY))}
-    ${id("b", move(potion("#ff0000"), 115, 445))}
-    ${id("c", move(potion("#ccff00"), 330, 235))}
-    ${id("d", move(potion("#d4aa00"), 330, 465))}
-    ${id("e", move(potion("#ff0066", true), 525, 220))}
-    ${id("f", move(potion("#5fd38d", true), 525, 450))}
-  `;
+  const x1 = 120;
+  const x2 = 320;
+  const x3 = 520;
+  const y1 = 185;
+  const y2 = 415;
+  const deltay1 = 15;
+  return [
+    createPotion("#ff6600", x1, y1),
+    createPotion("#ff0000", x1, y2),
+    createPotion("#ccff00", x2, y1 + deltay1),
+    createPotion("#d4aa00", x2, y2 + deltay1),
+    createPotion("#ff0066", x3, y1, true),
+    createPotion("#5fd38d", x3, y2, true),
+  ].join("");
 }
 
-function potion(color: string, right?: boolean) {
+function createPotion(color: string, x: number, y: number, right?: boolean) {
+  return potion(color, x, y, right);
+}
+
+function potion(color: string, x: number, y: number, right?: boolean) {
   const position = right === true ? 0 : 6;
   return `
-  <svg width="75" height="75">
+  <svg width="75" height="75" style="top: ${y}px; left: ${x}px">
     ${move(shape("rgba(0, 0, 0, 0.5)", 66, 66, true), 3, 3)}
     ${move(shape(color, 66, 66), position, 0)}
     ${move(shape("rgba(0, 0, 0, 0.5)", 50, 50), position + 8, 8)}

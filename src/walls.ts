@@ -23,9 +23,9 @@ const pillar = rect(20, 1100, theme.bg);
 
 const backRow = rect(270, 50, theme.bg);
 
-export function createWalls() {
+export function createWalls(width: number, height: number) {
   const content = `
-    <svg width="720" height="900">
+    <svg width="${width}" height="${height}">
       ${bg}
       ${floorPerspective}
       ${hmirror(floorPerspective)}
@@ -46,5 +46,5 @@ export function createWalls() {
       ${hmirror(move(skewY(bricks(), -40), 685, 660))}
     </svg>
   `;
-  return move(content, 0, 50);
+  return move(content, 0, -30);
 }
