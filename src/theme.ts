@@ -8,4 +8,9 @@ export const theme = {
   shelfFront: "rgb(53,39,39)",
   shelfSide: "rgb(39,29,29)",
   shelfBottom: "rgb(24,18,18)",
+  layers: {
+    potion: "2",
+    shelf: "3",
+    activePotion: "4",
+  },
 };

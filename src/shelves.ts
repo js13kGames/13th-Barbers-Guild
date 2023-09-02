@@ -1,20 +1,27 @@
 import { move, hmirror, resize, skewY } from "./utils";
 import { theme } from "./theme";
+import { wrapper } from "./wrapper";
 
-export function createShelves() {
+export function createShelves(width: number, height: number) {
   const x1 = 95;
   const x2 = 185;
   const y1 = 170;
   const y2 = 400;
   const delta = 50;
-  return `
-    ${move(shelf, x1, y1)}
-    ${move(shelf, x1, y2)}
-    ${hmirror(move(shelf, x1, y1))}
-    ${hmirror(move(shelf, x1, y2))}
-    ${skewY(resize(move(shelf, x2, y1 + delta), 1.5, 1), -5)}
-    ${skewY(resize(move(shelf, x2, y2 + delta), 1.5, 1), -5)}
-  `;
+  const shelves = [
+    move(shelf, x1, y1),
+    move(shelf, x1, y2),
+    hmirror(move(shelf, x1, y1)),
+    hmirror(move(shelf, x1, y2)),
+    skewY(resize(move(shelf, x2, y1 + delta), 1.5, 1), -5),
+    skewY(resize(move(shelf, x2, y2 + delta), 1.5, 1), -5),
+  ].join("");
+  return wrapper(
+    shelves,
+    width,
+    height,
+    `pointer-events: none; z-index: ${theme.layers.shelf}`,
+  );
 }
 
 const front = `<polygon

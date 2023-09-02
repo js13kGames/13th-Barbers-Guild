@@ -4,6 +4,7 @@ import { createShadow } from "./shadow";
 import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
 import { createCauldron } from "./cauldron";
+import { wrapper } from "./wrapper";
 
 function runApp() {
   const root = document.querySelector<HTMLDivElement>("#app");
@@ -17,14 +18,26 @@ function runApp() {
       createWalls(width, height) +
         createShadow(width, height) +
         createCauldron(height),
+      width,
+      height,
     )}
     ${createPotions()}
-    ${wrapper(createShelves(), "pointer-events: none")}
+    ${createShelves(width, height)}
   `;
-}
-
-function wrapper(content: string, style: string = "") {
-  return `<svg width="720" height="800" viewBox="0 0 720 800" style="${style}">${content}</svg>`;
+  window.addEventListener(
+    "potionClick",
+    (e) => {
+      console.debug(e);
+    },
+    false,
+  );
+  window.addEventListener(
+    "potionRelease",
+    (e) => {
+      console.debug(e);
+    },
+    false,
+  );
 }
 
 runApp();
