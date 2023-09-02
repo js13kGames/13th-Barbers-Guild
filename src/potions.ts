@@ -172,10 +172,10 @@ function label(index: number, x: number, y: number, column: Column) {
   let rotation = 0;
   let width = 120;
   if (column === 1) {
-    rotation = 10;
+    rotation = 12;
     width = 110;
   } else if (column === 3) {
-    rotation = -10;
+    rotation = -12;
     width = 110;
   }
   const left = x - 20;
