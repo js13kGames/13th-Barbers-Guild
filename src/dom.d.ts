@@ -1,4 +1,5 @@
 interface GlobalEventHandlersEventMap {
   potionClick: CustomEvent<{ color: string }>;
-  potionRelease: CustomEvent;
+  potionRelease: CustomEvent<{ color: string }>;
+  cauldronDrop: CustomEvent<{color: string }>;
 }

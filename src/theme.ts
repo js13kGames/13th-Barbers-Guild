@@ -17,5 +17,6 @@ export const theme = {
     potion: "2",
     shelf: "3",
     activePotion: "4",
+    cauldronLight: "5",
   },
 };

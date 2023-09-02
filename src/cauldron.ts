@@ -1,5 +1,6 @@
 import { ellipsis, move, className } from "./utils";
 import { wrapper } from "./wrapper";
+import { cauldronDrop } from "./events";
 
 const id = "cdr";
 
@@ -33,11 +34,17 @@ export function createCauldron(height: number) {
     window.addEventListener("potionClick", (event) => {
       setColor(element, event.detail.color);
     });
-    window.addEventListener("potionRelease", () => {
-      setColor(element, "blue");
+    window.addEventListener("potionRelease", (event) => {
+      if (element.classList.contains("hover")) {
+        const color = event.detail.color;
+        element.style.setProperty("--initColor", color);
+        element.dispatchEvent(cauldronDrop(color));
+      } else {
+        setColor(element, "var(--initColor)");
+      }
     });
   });
-  return style + getGroup(height);
+  return getGroup(height) + getDropAnimation(height);
 }
 
 function setColor(element: HTMLElement, color: string) {
@@ -46,18 +53,6 @@ function setColor(element: HTMLElement, color: string) {
 
 const x = 106;
 const y = 83;
-
-const style = `<style>
-  #${id} {
-    --color: green;
-  }
-  #${id} .ctd ellipse {
-    fill: blue;
-  }
-  #${id}.hover .ctd ellipse {
-    fill: var(--color);
-  }
-</style>`;
 
 function getGroup(height: number) {
   return wrapper(shadow + body + mouth, 216, 170, {
@@ -76,3 +71,27 @@ const mouth = move(
   40,
   8,
 );
+
+export function getDropAnimation(height: number) {
+  setTimeout(() => {
+    const element = document.getElementById("cdr-anim2");
+    if (element === null) {
+      return;
+    }
+    window.addEventListener("cauldronDrop", (event) => {
+      const effect = [{ top: "100%" }, { top: "-100%" }];
+      const timing = {
+        duration: 1000,
+        easing: "ease-in-out",
+      };
+      element.style.setProperty("--animColor", event.detail.color);
+      const animation = element.animate(effect, timing);
+      animation.onfinish = () => {
+        console.log("debug");
+      };
+    });
+  });
+  return `<div id="cdr-anim" style="height: ${
+    height - 150
+  }px"><div id="cdr-anim2"></div></div>`;
+}

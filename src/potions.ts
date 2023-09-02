@@ -150,7 +150,7 @@ export function configEvents(id: string, color: string) {
     element.style.transform = "";
     element.style.pointerEvents = "";
     element.style.zIndex = theme.layers.potion;
-    element.dispatchEvent(potionRelease);
+    element.dispatchEvent(potionRelease(color));
   }
   element.addEventListener("mousedown", (event) => {
     begin(event);

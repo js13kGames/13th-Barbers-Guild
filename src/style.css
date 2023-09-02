@@ -38,3 +38,35 @@ body {
   justify-content: center;
   align-items: flex-end;
 }
+
+#cdr {
+  --initColor: #216778;
+  --color: var(--initColor);
+}
+#cdr .ctd ellipse {
+  fill: var(--initColor);
+}
+#cdr.hover .ctd ellipse {
+  fill: var(--color);
+}
+
+#cdr-anim {
+  position: absolute;
+  top: 0;
+  left: 95px;
+  width: 230px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+#cdr-anim div {
+  --animColor: tranparent;
+  position: absolute;
+  width: calc(100% - 100px);
+  height: 100%;
+  background: var(--animColor);
+  opacity: 0.3;
+  top: calc(100% + 50px);
+  margin: 0 50px;
+  box-shadow: 0 0 50px 15px var(--animColor);
+}
