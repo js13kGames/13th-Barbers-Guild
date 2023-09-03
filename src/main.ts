@@ -4,7 +4,9 @@ import { createShadow } from "./shadow";
 import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
 import { createCauldron } from "./cauldron";
+import { createPatient } from "./patient";
 import { wrapper } from "./wrapper";
+import { reset } from "./events";
 
 function runApp() {
   const root = document.querySelector<HTMLDivElement>("#app");
@@ -30,7 +32,13 @@ function runApp() {
     ${createCauldron(height)},
     ${createPotions(rate)}
     ${createShelves(width, height)}
+    ${createPatient(width, height)}
   `;
+  window.addEventListener("keyup", (event) => {
+    if (event.key === "Escape") {
+      window.dispatchEvent(reset());
+    }
+  });
 }
 
 runApp();

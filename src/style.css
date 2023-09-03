@@ -42,7 +42,8 @@ body {
 }
 
 #cdr {
-  --initColor: #216778;
+  --defaultColor: #216778;
+  --initColor: var(--defaultColor);
   --color: var(--initColor);
 }
 #cdr .ctd ellipse {

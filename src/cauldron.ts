@@ -1,6 +1,6 @@
 import { ellipsis, move, className } from "./utils";
 import { wrapper } from "./wrapper";
-import { cauldronDrop } from "./events";
+import { cauldronDrop, cauldronPrepared } from "./events";
 
 const id = "cdr";
 
@@ -45,6 +45,9 @@ export function createCauldron(height: number) {
       } else {
         setColor(element, "var(--initColor)");
       }
+    });
+    window.addEventListener("reset", () => {
+      element.style.setProperty("--initColor", "var(--defaultColor)");
     });
   });
   return getGroup(height) + getDropAnimation(height);
@@ -92,8 +95,11 @@ export function getDropAnimation(height: number) {
       element.style.setProperty("--animColor", event.detail.color);
       const animation = element.animate(effect, timing);
       animation.onfinish = () => {
-        console.log("debug");
+        element.dispatchEvent(cauldronPrepared(event.detail.color));
       };
+      window.addEventListener("reset", () => {
+        animation.cancel();
+      });
     });
   });
   return `<div id="cdr-anim" style="height: ${
