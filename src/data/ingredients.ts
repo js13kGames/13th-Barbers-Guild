@@ -1,7 +1,7 @@
-import { shuffle } from "./utils";
-import { theme } from "./theme";
+import { shuffle } from "../utils";
+import { theme } from "../theme";
 
-class Ingredient {
+export class Ingredient {
   id: string;
   name: string;
   color: string;

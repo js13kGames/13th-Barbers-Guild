@@ -1,4 +1,4 @@
-import { generateIngredients } from "./ingredients";
+import { type Ingredient } from "./data";
 import { wrapper, move, rect, rotate, ellipsis } from "./utils";
 import { theme } from "./theme";
 import { potionClick, potionRelease } from "./events";
@@ -7,12 +7,11 @@ type Column = 1 | 2 | 3;
 
 const centerDeltaY = 15;
 
-export function createPotions(rate: number) {
-  const ingredients = generateIngredients();
+export function createPotions(ingredients: Ingredient[], scale: number) {
   const positions = Array.from(generatePositions());
   return ingredients
     .map((ingredient, index) =>
-      createPotion(ingredient, rate, ...positions[index]),
+      createPotion(ingredient, scale, ...positions[index]),
     )
     .join("");
 }
@@ -47,14 +46,14 @@ function* generatePositions() {
 }
 
 function createPotion(
-  ingredient: ReturnType<typeof generateIngredients>[number],
-  rate: number,
+  ingredient: Ingredient,
+  scale: number,
   x: number,
   y: number,
   column: Column,
 ) {
   setTimeout(() => {
-    configEvents(ingredient, rate);
+    configEvents(ingredient, scale);
   });
   return [
     potion(ingredient.id, ingredient.color, x, y, column),
@@ -126,10 +125,7 @@ function shape(color: string, width: number, height: number, blur?: boolean) {
   );
 }
 
-export function configEvents(
-  ingredient: ReturnType<typeof generateIngredients>[number],
-  rate: number,
-) {
+export function configEvents(ingredient: Ingredient, scale: number) {
   let clicked = false;
   let initialX = 0;
   let initialY = 0;
@@ -154,8 +150,8 @@ export function configEvents(
     if (!clicked || element === null) {
       return;
     }
-    deltaX = (clientX - initialX) / rate;
-    deltaY = (clientY - initialY) / rate;
+    deltaX = (clientX - initialX) / scale;
+    deltaY = (clientY - initialY) / scale;
     element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     element.style.pointerEvents = "none";
   }

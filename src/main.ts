@@ -1,4 +1,5 @@
 import "../style/style.css";
+import { generateIngredients } from "./data";
 import { createWalls } from "./walls";
 import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
@@ -14,10 +15,11 @@ function runApp() {
 function renderApp() {
   const [width, height, scale, isLandscape] = getFluidDimensions();
   const root = getScaledRoot(scale, isLandscape);
+  const ingredients = generateIngredients();
   root.innerHTML = `
     ${createWalls(width, height)}
     ${createCauldron(height)}
-    ${createPotions(scale)}
+    ${createPotions(ingredients, scale)}
     ${createShelves(width, height)}
     ${createWaitingLounge(width, height)}
   `;
