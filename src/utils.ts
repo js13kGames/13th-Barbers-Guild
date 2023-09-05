@@ -60,3 +60,7 @@ export function skewY(content: string, angle: number) {
     <g style="transform: skewY(${angle}deg)">${content}</g>;
   `;
 }
+
+export function shuffle<T>(list: T[]) {
+  return list.sort(() => Math.random() - 0.5);
+}

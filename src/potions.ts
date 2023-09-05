@@ -1,3 +1,4 @@
+import { generateIngredients } from "./ingredients";
 import { move, rect, rotate, ellipsis } from "./utils";
 import { theme } from "./theme";
 import { wrapper } from "./wrapper";
@@ -5,46 +6,61 @@ import { potionClick, potionRelease } from "./events";
 
 type Column = 1 | 2 | 3;
 
-const ingredientNames = [
-  "Frog Paw",
-  "Salamander Tail",
-  "Cat Paw",
-  "Rat Tooth",
-  "Devil's Herb",
-  "Barracuda Eyes",
-];
-
 const centerDeltaY = 15;
 
 export function createPotions(rate: number) {
+  const ingredients = generateIngredients();
+  const positions = Array.from(generatePositions());
+  return ingredients
+    .map((ingredient, index) =>
+      createPotion(ingredient, rate, ...positions[index]),
+    )
+    .join("");
+}
+
+function* generatePositions() {
   const x1 = 115;
   const x2 = 320;
   const x3 = 530;
   const y1 = 162;
   const y2 = 395;
-  return [
-    createPotion(0, theme.potions[0], rate, x1, y1, 1),
-    createPotion(1, theme.potions[1], rate, x1, y2, 1),
-    createPotion(2, theme.potions[2], rate, x2, y1 + centerDeltaY, 2),
-    createPotion(3, theme.potions[3], rate, x2, y2 + centerDeltaY, 2),
-    createPotion(4, theme.potions[4], rate, x3, y1, 3),
-    createPotion(5, theme.potions[5], rate, x3, y2, 3),
-  ].join("");
+  const columns = [
+    [
+      [x1, y1],
+      [x1, y2],
+    ],
+    [
+      [x2, y1 + centerDeltaY],
+      [x2, y2 + centerDeltaY],
+    ],
+    [
+      [x3, y1],
+      [x3, y2],
+    ],
+  ];
+  let columnIndex = 0;
+  for (const column of columns) {
+    columnIndex++;
+    for (const position of column) {
+      yield [position[0], position[1], columnIndex as Column] as const;
+    }
+  }
 }
 
 function createPotion(
-  index: number,
-  color: string,
+  ingredient: ReturnType<typeof generateIngredients>[number],
   rate: number,
   x: number,
   y: number,
   column: Column,
 ) {
-  const id = `p-${index}`;
   setTimeout(() => {
-    configEvents(id, color, rate);
+    configEvents(ingredient, rate);
   });
-  return [potion(id, color, x, y, column), label(index, x, y, column)].join("");
+  return [
+    potion(ingredient.id, ingredient.color, x, y, column),
+    label(ingredient.name, x, y, column),
+  ].join("");
 }
 
 function potion(
@@ -111,14 +127,17 @@ function shape(color: string, width: number, height: number, blur?: boolean) {
   );
 }
 
-export function configEvents(id: string, color: string, rate: number) {
+export function configEvents(
+  ingredient: ReturnType<typeof generateIngredients>[number],
+  rate: number,
+) {
   let clicked = false;
   let initialX = 0;
   let initialY = 0;
   let deltaX = 0;
   let deltaY = 0;
 
-  const element = document.getElementById(id);
+  const element = document.getElementById(ingredient.id);
   if (element === null) {
     return;
   }
@@ -129,7 +148,7 @@ export function configEvents(id: string, color: string, rate: number) {
     clicked = true;
     initialX = clientX;
     initialY = clientY;
-    element.dispatchEvent(potionClick(color));
+    element.dispatchEvent(potionClick(ingredient.color));
     element.style.zIndex = theme.layers.activePotion;
   }
   function move({ clientX, clientY }: { clientX: number; clientY: number }) {
@@ -151,7 +170,7 @@ export function configEvents(id: string, color: string, rate: number) {
     element.style.transform = "";
     element.style.pointerEvents = "";
     element.style.zIndex = theme.layers.potion;
-    element.dispatchEvent(potionRelease(color));
+    element.dispatchEvent(potionRelease(ingredient.color));
   }
   element.addEventListener("mousedown", (event) => {
     begin(event);
@@ -169,7 +188,7 @@ export function configEvents(id: string, color: string, rate: number) {
   window.addEventListener("touchend", end);
 }
 
-function label(index: number, x: number, y: number, column: Column) {
+function label(name: string, x: number, y: number, column: Column) {
   let rotation = 0;
   let width = 120;
   if (column === 1) {
@@ -184,6 +203,5 @@ function label(index: number, x: number, y: number, column: Column) {
   if (column === 2) {
     top += 5;
   }
-  const label = ingredientNames[index];
-  return `<p style="left: ${left}px; top: ${top}px; width: ${width}px; transform: rotate(${rotation}deg)">${label}</p>`;
+  return `<p style="left: ${left}px; top: ${top}px; width: ${width}px; transform: rotate(${rotation}deg)">${name}</p>`;
 }

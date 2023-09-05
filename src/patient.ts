@@ -42,11 +42,17 @@ function getTakenMedicine(patient: Patient) {
       return;
     }
     const rects = Array.from(element.querySelectorAll("rect"));
+    const initialRects = [...rects];
     window.addEventListener("cauldronPrepared", (event) => {
       const rect = rects.shift();
-      if(rect !== undefined) {
+      if (rect !== undefined) {
         rect.style.fill = event.detail.color;
       }
+    });
+    window.addEventListener("reset", () => {
+      initialRects.forEach((rect) => {
+        rect.style.fill = defaultColor;
+      });
     });
   });
   return move(
@@ -63,4 +69,6 @@ function getTakenMedicine(patient: Patient) {
   );
 }
 
-const medicineIndicator = rect(10, 10, "red");
+const defaultColor = "transparent";
+
+const medicineIndicator = rect(10, 10, defaultColor);

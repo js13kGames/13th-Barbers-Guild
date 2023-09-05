@@ -12,7 +12,9 @@ export const theme = {
   potionCork: "#a40",
   black50: "rgba(0,0,0,0.5)",
   black30: "rgba(0,0,0,0.3)",
-  potions: ["#ff6600", "#ff0000", "#ccff00", "#d4aa00", "#ff0066", "#5fd38d"],
+  ids: {
+    potion: (id: number) => `potion-${id}`,
+  },
   layers: {
     potion: "2",
     shelf: "3",
