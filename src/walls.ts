@@ -1,6 +1,5 @@
 import { theme } from "./theme";
-import { wrapper } from "./wrapper";
-import { rect, hmirror, move, resize, skewY } from "./utils";
+import { wrapper, rect, hmirror, move, resize, skewY } from "./utils";
 
 export function createWalls(width: number, height: number) {
   const walls = `

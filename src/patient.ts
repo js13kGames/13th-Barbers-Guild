@@ -1,5 +1,4 @@
-import { rect, ellipsis, move } from "./utils";
-import { wrapper } from "./wrapper";
+import { wrapper, rect, ellipsis, move } from "./utils";
 
 class Patient {
   medicines: number[];

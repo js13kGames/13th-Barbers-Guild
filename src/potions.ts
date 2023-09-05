@@ -1,7 +1,6 @@
 import { generateIngredients } from "./ingredients";
-import { move, rect, rotate, ellipsis } from "./utils";
+import { wrapper, move, rect, rotate, ellipsis } from "./utils";
 import { theme } from "./theme";
-import { wrapper } from "./wrapper";
 import { potionClick, potionRelease } from "./events";
 
 type Column = 1 | 2 | 3;

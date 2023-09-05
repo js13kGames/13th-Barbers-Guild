@@ -1,6 +1,5 @@
-import { move, hmirror, resize, skewY } from "./utils";
+import { wrapper, move, hmirror, resize, skewY } from "./utils";
 import { theme } from "./theme";
-import { wrapper } from "./wrapper";
 
 export function createShelves(width: number, height: number) {
   const x1 = 95;

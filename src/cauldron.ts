@@ -1,5 +1,4 @@
-import { ellipsis, move, className } from "./utils";
-import { wrapper } from "./wrapper";
+import { wrapper, ellipsis, move, className } from "./utils";
 import { cauldronDrop, cauldronPrepared } from "./events";
 
 const id = "cdr";
