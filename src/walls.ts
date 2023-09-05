@@ -1,27 +1,5 @@
 import { theme } from "./theme";
 import { rect, hmirror, move, resize, skewY } from "./utils";
-import { bricks } from "./bricks";
-
-const bg = rect(720, 799, theme.wall);
-
-const floorPerspective = `<polygon
-  points="0,750 0,800 50,800"
-  style="fill:${theme.bg}"
-/>`;
-
-const roofPespective = `<polygon
-  points="0,100 50,50 50,100 0,150"
-  style="fill:${theme.bg}"
-/>`;
-
-const internalFloor = `<polygon
-  points="0,50 175,0 445,0 620,50"
-  style="fill:${theme.bg}"
-/>`;
-
-const pillar = rect(20, 1100, theme.bg);
-
-const backRow = rect(270, 50, theme.bg);
 
 export function createWalls(width: number, height: number) {
   const content = `
@@ -48,3 +26,30 @@ export function createWalls(width: number, height: number) {
   `;
   return move(content, 0, -30);
 }
+
+const brick = rect(50, 20, theme.brick, 5);
+
+export function bricks() {
+  return `${move(brick, 0, 20)}${move(brick, 20, 50)}${move(brick, 0, 80)}`;
+}
+
+const bg = rect(720, 799, theme.wall);
+
+const floorPerspective = `<polygon
+  points="0,750 0,800 50,800"
+  style="fill:${theme.bg}"
+/>`;
+
+const roofPespective = `<polygon
+  points="0,100 50,50 50,100 0,150"
+  style="fill:${theme.bg}"
+/>`;
+
+const internalFloor = `<polygon
+  points="0,50 175,0 445,0 620,50"
+  style="fill:${theme.bg}"
+/>`;
+
+const pillar = rect(20, 1100, theme.bg);
+
+const backRow = rect(270, 50, theme.bg);
