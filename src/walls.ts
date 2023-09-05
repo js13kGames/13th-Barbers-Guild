@@ -1,8 +1,9 @@
 import { theme } from "./theme";
+import { wrapper } from "./wrapper";
 import { rect, hmirror, move, resize, skewY } from "./utils";
 
 export function createWalls(width: number, height: number) {
-  const content = `
+  const walls = `
     <svg width="${width}" height="${height}">
       ${bg}
       ${floorPerspective}
@@ -24,12 +25,16 @@ export function createWalls(width: number, height: number) {
       ${hmirror(move(skewY(bricks(), -40), 685, 660))}
     </svg>
   `;
-  return move(content, 0, -30);
+  return wrapper(
+    move(walls, 0, -30) + createShadow(width, height),
+    width,
+    height,
+  );
 }
 
 const brick = rect(50, 20, theme.brick, 5);
 
-export function bricks() {
+function bricks() {
   return `${move(brick, 0, 20)}${move(brick, 20, 50)}${move(brick, 0, 80)}`;
 }
 
@@ -53,3 +58,21 @@ const internalFloor = `<polygon
 const pillar = rect(20, 1100, theme.bg);
 
 const backRow = rect(270, 50, theme.bg);
+
+const shadow = rect(800, 2800, "url('#shadow')");
+
+function createShadow(width: number, height: number) {
+  return `<svg width="${width}" height="${height}">
+    <defs>
+      <radialGradient fr="25%" id="shadow">
+        <stop offset="0%" stop-color="rgba(0,0,0,0)">
+        </stop>
+        <stop offset="75%" stop-color="${theme.bg}">
+        <stop offset="100%" stop-color="${theme.bg}" />
+        <animate attributeName="fx" dur="2s" values="50%;40%;50%;60%" repeatCount="indefinite" />
+        <animate attributeName="fy" dur="2s" begin="2s" values="50%;40%;50%;60%" repeatCount="indefinite" />
+      </radialGradient>
+    </defs>
+    ${move(shadow, -40, -900)}
+  </svg>`;
+}
