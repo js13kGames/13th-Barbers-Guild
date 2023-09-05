@@ -1,4 +1,4 @@
-import "./style.css";
+import "../style/style.css";
 import { createWalls } from "./walls";
 import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
