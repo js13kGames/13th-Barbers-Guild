@@ -23,7 +23,7 @@ function renderApp() {
     ${createCauldron(height)}
     ${createPotions(ingredients, scale)}
     ${createShelves(width, height)}
-    ${createNotifications()}
+    ${createNotifications(width, height)}
     ${createWaitingLounge(width, height)}
   `;
   // Init app in the next event cycle so all listeners are in place
@@ -68,6 +68,10 @@ function listenToEvents() {
     if (event.key === " ") {
       window.dispatchEvent(dismiss());
     }
+  });
+  // Dismiss on mouseup, which covers also mobile environments
+  window.addEventListener("mouseup", () => {
+    window.dispatchEvent(dismiss());
   });
 }
 

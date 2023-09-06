@@ -1,5 +1,5 @@
 import { type Ingredient } from "./data";
-import { wrapper, move, rect, rotate, ellipsis } from "./utils";
+import { wrapper, getElement, move, rect, rotate, ellipsis } from "./utils";
 import { theme } from "./theme";
 import { potionClick, potionRelease } from "./events";
 
@@ -132,14 +132,8 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   let deltaX = 0;
   let deltaY = 0;
 
-  const element = document.getElementById(ingredient.id);
-  if (element === null) {
-    return;
-  }
+  const element = getElement(ingredient.id);
   function begin({ clientX, clientY }: { clientX: number; clientY: number }) {
-    if (element === null) {
-      return;
-    }
     clicked = true;
     initialX = clientX;
     initialY = clientY;
@@ -147,25 +141,23 @@ export function configEvents(ingredient: Ingredient, scale: number) {
     element.style.zIndex = theme.layers.activePotion;
   }
   function move({ clientX, clientY }: { clientX: number; clientY: number }) {
-    if (!clicked || element === null) {
-      return;
+    if (clicked) {
+      deltaX = (clientX - initialX) / scale;
+      deltaY = (clientY - initialY) / scale;
+      element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+      element.style.pointerEvents = "none";
     }
-    deltaX = (clientX - initialX) / scale;
-    deltaY = (clientY - initialY) / scale;
-    element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-    element.style.pointerEvents = "none";
   }
   function end() {
-    if (!clicked || element === null) {
-      return;
+    if (clicked) {
+      clicked = false;
+      deltaX = 0;
+      deltaY = 0;
+      element.style.transform = "";
+      element.style.pointerEvents = "";
+      element.style.zIndex = theme.layers.potion;
+      element.dispatchEvent(potionRelease(ingredient.color));
     }
-    clicked = false;
-    deltaX = 0;
-    deltaY = 0;
-    element.style.transform = "";
-    element.style.pointerEvents = "";
-    element.style.zIndex = theme.layers.potion;
-    element.dispatchEvent(potionRelease(ingredient.color));
   }
   element.addEventListener("mousedown", (event) => {
     begin(event);

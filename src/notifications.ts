@@ -1,9 +1,13 @@
 import { getElement } from "./utils";
 import { theme } from "./theme";
 
-export function createNotifications() {
+export function createNotifications(width: number, height: number) {
   const content = `
-<div id="${theme.ids.notification}" style="z-index: ${theme.layers.notification}"><span></span></div>
+<div style="position: absolute; top: 0; left: 0; width: ${width}px; height: ${height}px">
+<div id="${theme.ids.notification}" style="z-index: ${theme.layers.notification}">
+<span></span>
+</div>
+</div>
 `;
   setTimeout(() => {
     let messages: string[] = [];
