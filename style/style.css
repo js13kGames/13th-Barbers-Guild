@@ -79,10 +79,15 @@ body {
   bottom: 50px;
   right: 150px;
   width: 250px;
+  min-height: 5rem;
   background: #fff;
   padding: 0.5rem;
   color: #333;
   display: none;
+  white-space: pre-line;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #ntf:after {
