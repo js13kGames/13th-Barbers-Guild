@@ -1,5 +1,5 @@
 import "../style/style.css";
-import { generateIngredients } from "./data";
+import { generateIngredients, generateLevels } from "./data";
 import { createWalls } from "./walls";
 import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
@@ -32,6 +32,7 @@ function renderApp() {
 }
 
 function initApp() {
+  const levelGenerator = generateLevels(ingredients);
   window.gameStatus = GameStatus.Waiting;
   window.dispatchEvent(
     notify("instructions", [
@@ -42,12 +43,17 @@ function initApp() {
   );
   function updateGame(event: WindowEventMap["dismissed"]) {
     if (event.detail.id === "instructions") {
-      window.dispatchEvent(
-        notify("level", [
-          "Give potions according to the disease:\n🧪 Flu: Rat Tooth + Devil's Herb + Frog Paw\n🧪 Plague: Cat Paw\n🧪 Measles: Salamander Tail",
-          "Are you ready to start?",
-        ]),
-      );
+      const level = levelGenerator.next().value;
+      if (level) {
+        window.dispatchEvent(
+          notify("level", [
+            `Give potions according to the disease:\n${level
+              .getDiseaseIngredientsDescriptions()
+              .join("\n")}`,
+            "Are you ready to start?",
+          ]),
+        );
+      }
     }
     if (event.detail.id === "level") {
       window.gameStatus = GameStatus.Playing;

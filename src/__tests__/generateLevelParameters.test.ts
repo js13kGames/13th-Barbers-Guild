@@ -1,8 +1,8 @@
 import { it, expect } from "vitest";
-import { generateLevels } from "../data";
+import { generateLevelParameters } from "../data";
 
 it("should generate levels", () => {
-  const generator = generateLevels();
+  const generator = generateLevelParameters();
   expect(generator.next().value).toEqual([1, true]);
   expect(generator.next().value).toEqual([1, false]);
   expect(generator.next().value).toEqual([2, true]);

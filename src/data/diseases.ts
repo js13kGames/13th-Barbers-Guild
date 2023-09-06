@@ -1,13 +1,16 @@
-const levels = [
-  [1, 1],
-  [1, 0],
-  [2, 1],
-  [2, 0],
-  [3, 1],
-  [3, 0],
-]
+export const diseases: Disease[] = [
+  { type: DiseaseType.Flu, name: "Flu" },
+  { type: DiseaseType.Measles, name: "Measles" },
+  { type: DiseaseType.Plague, name: "Plague" },
+];
 
+export interface Disease {
+  type: DiseaseType;
+  name: string;
+}
 
-function *generateLevels() {
-  yield [1, 1];
+export enum DiseaseType {
+  Flu,
+  Measles,
+  Plague,
 }
