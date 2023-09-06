@@ -1,5 +1,6 @@
 import { getElement } from "./utils";
 import { theme } from "./theme";
+import { dismissed } from "./events";
 
 export function createNotifications(width: number, height: number) {
   const content = `
@@ -10,6 +11,7 @@ export function createNotifications(width: number, height: number) {
 </div>
 `;
   setTimeout(() => {
+    let messageId: string;
     let messages: string[] = [];
     function renderLatestMessage() {
       const message = messages.shift();
@@ -20,13 +22,18 @@ export function createNotifications(width: number, height: number) {
       }
       span.innerHTML = message ?? "";
       element.style.display = message ? "flex" : "none";
+      return Boolean(message);
     }
     function onNotify(event: WindowEventMap["notify"]) {
+      messageId = event.detail.id;
       messages = event.detail.messages;
       renderLatestMessage();
     }
     function onDismiss() {
-      renderLatestMessage();
+      const hasRendered = renderLatestMessage();
+      if (!hasRendered) {
+        window.dispatchEvent(dismissed(messageId));
+      }
     }
     window.addEventListener("notify", onNotify);
     window.addEventListener("dismiss", onDismiss);

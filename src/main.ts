@@ -29,13 +29,13 @@ function renderApp() {
   // Init app in the next event cycle so all listeners are in place
   setTimeout(function initApp() {
     window.dispatchEvent(
-      notify(
+      notify("instructions", [
         "Welcome young barber surgeon! Hit <em>space</em> or click anywhere in the screen to continue.",
         "You are now in probation. Cure someone and earn a credit, lose someone and lose a credit.",
         "Do you think you can earn ten credits to join our Barber's Guild?",
         "Give potions according to the disease:\n→ Flu: Rat Tooth + Devil's Herb + Frog Paw\n→ Plague: Cat Paw\n→ Measles: Salamander Tail",
         "Are you ready to start?",
-      ),
+      ]),
     );
   });
 }
