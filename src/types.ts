@@ -1,4 +1,4 @@
-interface Ingredient {
-  name: string;
-  color: string;
+export enum GameStatus {
+  Waiting,
+  Playing,
 }

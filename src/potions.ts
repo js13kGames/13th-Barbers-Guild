@@ -2,6 +2,7 @@ import { type Ingredient } from "./data";
 import { wrapper, getElement, move, rect, rotate, ellipsis } from "./utils";
 import { theme } from "./theme";
 import { potionClick, potionRelease } from "./events";
+import { GameStatus } from "./types";
 
 type Column = 1 | 2 | 3;
 
@@ -134,6 +135,9 @@ export function configEvents(ingredient: Ingredient, scale: number) {
 
   const element = getElement(ingredient.id);
   function begin({ clientX, clientY }: { clientX: number; clientY: number }) {
+    if (window.gameStatus !== GameStatus.Playing) {
+      return;
+    }
     clicked = true;
     initialX = clientX;
     initialY = clientY;
