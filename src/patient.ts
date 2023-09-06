@@ -41,17 +41,11 @@ function getTakenMedicine(patient: Patient) {
       return;
     }
     const rects = Array.from(element.querySelectorAll("rect"));
-    const initialRects = [...rects];
     window.addEventListener("cauldronPrepared", (event) => {
       const rect = rects.shift();
       if (rect !== undefined) {
         rect.style.fill = event.detail.color;
       }
-    });
-    window.addEventListener("reset", () => {
-      initialRects.forEach((rect) => {
-        rect.style.fill = defaultColor;
-      });
     });
   });
   return move(

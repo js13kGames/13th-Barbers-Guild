@@ -5,7 +5,8 @@ import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
 import { createCauldron } from "./cauldron";
 import { createWaitingLounge } from "./waitingLounge";
-import { reset } from "./events";
+
+const ingredients = generateIngredients();
 
 function runApp() {
   renderApp();
@@ -15,7 +16,6 @@ function runApp() {
 function renderApp() {
   const [width, height, scale, isLandscape] = getFluidDimensions();
   const root = getScaledRoot(scale, isLandscape);
-  const ingredients = generateIngredients();
   root.innerHTML = `
     ${createWalls(width, height)}
     ${createCauldron(height)}
@@ -47,7 +47,7 @@ function getScaledRoot(scale: number, isLandscape: boolean) {
 function listenToEvents() {
   window.addEventListener("keyup", (event) => {
     if (event.key === "Escape") {
-      window.dispatchEvent(reset());
+      renderApp(); // reset application
     }
   });
 }

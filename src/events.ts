@@ -1,5 +1,3 @@
-export const reset = () => new CustomEvent("reset", { bubbles: true });
-
 export const potionClick = (color: string) =>
   new CustomEvent("potionClick", { bubbles: true, detail: { color } });
 
