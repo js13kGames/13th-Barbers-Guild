@@ -14,11 +14,14 @@ export const theme = {
   black30: "rgba(0,0,0,0.3)",
   ids: {
     potion: (id: number) => `potion-${id}`,
+    notification: "ntf",
   },
   layers: {
-    potion: "2",
-    shelf: "3",
-    activePotion: "4",
-    cauldronLight: "5",
+    potion: "10",
+    shelf: "20",
+    patient: "21",
+    activePotion: "30",
+    cauldronLight: "40",
+    notification: "50",
   },
 };

@@ -1,3 +1,5 @@
+export const reset = () => new CustomEvent('reset');
+
 export const potionClick = (color: string) =>
   new CustomEvent("potionClick", { bubbles: true, detail: { color } });
 
@@ -9,3 +11,8 @@ export const cauldronDrop = (color: string) =>
 
 export const cauldronPrepared = (color: string) =>
   new CustomEvent("cauldronPrepared", { bubbles: true, detail: { color } });
+
+export const notify = (...messages: string[]) =>
+  new CustomEvent("notify", { detail: { messages } });
+
+export const dismiss = () => new CustomEvent("dismiss");

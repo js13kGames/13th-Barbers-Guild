@@ -84,3 +84,12 @@ export function skewY(content: string, angle: number) {
 export function shuffle<T>(list: T[]) {
   return list.sort(() => Math.random() - 0.5);
 }
+
+export function getElement(id: string) {
+  const element = document.getElementById(id);
+  if (element === null) {
+    throw new Error(`Missing #${id}`);
+  }
+  return element;
+}
+

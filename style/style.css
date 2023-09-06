@@ -73,3 +73,27 @@ body {
   margin: 0 50px;
   box-shadow: 0 0 50px 15px var(--animColor);
 }
+
+#ntf {
+  position: absolute;
+  bottom: 50px;
+  right: 150px;
+  width: 250px;
+  background: #fff;
+  padding: 0.5rem;
+  color: #333;
+  display: none;
+}
+
+#ntf:after {
+  content: "";
+  border-left: 4px solid transparent;
+  margin-left: 3px;
+  text-decoration: blink;
+  animation: blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #333; }
+}
