@@ -74,7 +74,7 @@ body {
   box-shadow: 0 0 50px 15px var(--animColor);
 }
 
-#ntf {
+#n {
   position: absolute;
   bottom: 90px;
   right: 150px;
@@ -92,7 +92,7 @@ body {
   font-size: 1.2rem;
 }
 
-#ntf:after {
+#nw:after {
   content: "";
   border-left: 4px solid transparent;
   margin-left: 3px;

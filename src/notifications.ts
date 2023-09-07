@@ -1,20 +1,20 @@
-import { getElement } from "./utils";
+import { absDiv, getElement } from "./utils";
 import { theme } from "./theme";
 
 export function createNotifications(width: number, height: number) {
-  const content = `
-<div style="position: absolute; top: 0; left: 0; width: ${width}px; height: ${height}px; pointer-events: none; z-index: ${theme.layers.notification}">
-<div id="${theme.ids.notification}">
-<span></span>
-</div>
-</div>
-`;
+  const content = absDiv(
+    `<div id="${import.meta.env.VITE_ID_NOTIFICATIONS}"><span></span></div>`,
+    import.meta.env.VITE_ID_NOTIFICATIONS_WRAPPER,
+    width,
+    height,
+    theme.layers.notification,
+  );
   setTimeout(() => {
     let onDismissed: (() => void) | undefined;
     let messages: string[] = [];
     function renderLatestMessage() {
       const message = messages.shift();
-      const element = getElement(theme.ids.notification);
+      const element = getElement(import.meta.env.VITE_ID_NOTIFICATIONS);
       const span = element.querySelector("span");
       const parent = element.parentElement;
       if (!span || !parent) {

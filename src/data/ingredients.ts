@@ -1,5 +1,4 @@
 import { shuffle } from "../utils";
-import { theme } from "../theme";
 
 export class Ingredient {
   id: string;
@@ -7,7 +6,7 @@ export class Ingredient {
   color: string;
 
   constructor(id: number, name: string, color: string) {
-    this.id = theme.ids.potion(id);
+    this.id = import.meta.env.VITE_ID_POTION + id;
     this.name = name;
     this.color = color;
   }
