@@ -2,7 +2,6 @@ import { type Ingredient } from "./data";
 import { wrapper, getElement, move, rect, rotate, ellipsis } from "./utils";
 import { theme } from "./theme";
 import { potionClick, potionRelease } from "./events";
-import { GameStatus } from "./types";
 
 type Column = 1 | 2 | 3;
 
@@ -127,6 +126,7 @@ function shape(color: string, width: number, height: number, blur?: boolean) {
 }
 
 export function configEvents(ingredient: Ingredient, scale: number) {
+  let canDrag = false;
   let clicked = false;
   let initialX = 0;
   let initialY = 0;
@@ -134,8 +134,11 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   let deltaY = 0;
 
   const element = getElement(ingredient.id);
-  function begin({ clientX, clientY }: { clientX: number; clientY: number }) {
-    if (window.gameStatus !== GameStatus.Playing) {
+  function begin({
+    clientX,
+    clientY,
+  }: Pick<MouseEvent, "clientX" | "clientY">) {
+    if (!canDrag) {
       return;
     }
     clicked = true;
@@ -144,7 +147,7 @@ export function configEvents(ingredient: Ingredient, scale: number) {
     element.dispatchEvent(potionClick(ingredient.color));
     element.style.zIndex = theme.layers.activePotion;
   }
-  function move({ clientX, clientY }: { clientX: number; clientY: number }) {
+  function move({ clientX, clientY }: Pick<MouseEvent, "clientX" | "clientY">) {
     if (clicked) {
       deltaX = (clientX - initialX) / scale;
       deltaY = (clientY - initialY) / scale;
@@ -163,20 +166,31 @@ export function configEvents(ingredient: Ingredient, scale: number) {
       element.dispatchEvent(potionRelease(ingredient.color));
     }
   }
-  element.addEventListener("mousedown", (event) => {
-    begin(event);
-  });
-  element.addEventListener("touchstart", (event) => {
-    begin(event.changedTouches[0]);
-  });
-  window.addEventListener("mousemove", (event) => {
-    move(event);
-  });
-  window.addEventListener("touchmove", (event) => {
+  const moveByTouch = (event: TouchEvent) => {
     move(event.changedTouches[0]);
-  });
+  };
+  const beginByTouch = (event: TouchEvent) => {
+    begin(event.changedTouches[0]);
+  };
+  const enableDrag = (event: WindowEventMap['dismissed']) => {
+    if(event.detail.id === 'level') {
+      canDrag = true
+    }
+  }
+  element.addEventListener("mousedown", begin);
+  element.addEventListener("touchstart", beginByTouch);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("touchmove", moveByTouch);
   window.addEventListener("mouseup", end);
   window.addEventListener("touchend", end);
+  window.addEventListener("dismissed", enableDrag);
+  window.addEventListener("reset", () => {
+    window.removeEventListener("mousemove", move);
+    window.removeEventListener("touchmove", moveByTouch);
+    window.removeEventListener("mouseup", end);
+    window.removeEventListener("touchend", end);
+    window.removeEventListener("dismissed", enableDrag);
+  });
 }
 
 function label(name: string, x: number, y: number, column: Column) {

@@ -7,7 +7,6 @@ import { createCauldron } from "./cauldron";
 import { createNotifications } from "./notifications";
 import { createWaitingLounge } from "./waitingLounge";
 import { notify, dismiss, reset } from "./events";
-import { GameStatus } from "./types";
 
 const ingredients = generateIngredients();
 
@@ -33,7 +32,6 @@ function renderApp() {
 
 function initApp() {
   const levelGenerator = generateLevels(ingredients);
-  window.gameStatus = GameStatus.Waiting;
   window.dispatchEvent(
     notify("instructions", [
       "Welcome young barber surgeon ⚕️! This is your chance to join the 13th Barber's Guild and work with the best!",
@@ -56,9 +54,6 @@ function initApp() {
           ]),
         );
       }
-    }
-    if (event.detail.id === "level") {
-      window.gameStatus = GameStatus.Playing;
     }
   }
   window.addEventListener("dismissed", updateGame);

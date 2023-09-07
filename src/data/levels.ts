@@ -31,7 +31,7 @@ export function* generateLevels(ingredients: Ingredient[]) {
     const [requiredIngredients, enableMisses] = params;
     const usedCombinations = new UsedCombinations();
     const diseasesIngredients = diseases.map((disease) => {
-      let selectedIngredients: Ingredient[];
+      let selectedIngredients: Ingredient[] | null = null;
       for (let index = 0; index < 100; index++) {
         selectedIngredients = getRandomIngredients(
           requiredIngredients,
