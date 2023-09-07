@@ -6,7 +6,7 @@ import { createPotions } from "./potions";
 import { createCauldron } from "./cauldron";
 import { createNotifications } from "./notifications";
 import { createWaitingLounge } from "./waitingLounge";
-import { notify, dismiss, reset } from "./events";
+import { notify, dismiss, newLevel, reset } from "./events";
 
 const ingredients = generateIngredients();
 
@@ -32,34 +32,34 @@ function renderApp() {
 
 function initApp() {
   const levelGenerator = generateLevels(ingredients);
-  window.dispatchEvent(
-    notify("instructions", [
-      "Welcome young barber surgeon ⚕️! This is your chance to join the 13th Barber's Guild and work with the best!",
-      "You are now in probation. Cure someone and earn a credit, lose someone and lose a credit. Lose all credits and you are fired 🔥!",
-      "I'm giving you 3 credits, do you think you can earn 10 more credits to join our Barber's Guild?",
-      "Hit <em>SPACE</em> or click anywhere in the screen to continue.\nHit <em>ESC</em> anytime to reset.\nDrag potions to the cauldron when asked.",
-    ]),
-  );
-  function updateGame(event: WindowEventMap["dismissed"]) {
-    if (event.detail.id === "instructions") {
-      const level = levelGenerator.next().value;
-      if (level) {
-        window.dispatchEvent(
-          notify("level", [
+  function createLevel() {
+    const level = levelGenerator.next().value;
+    if (level) {
+      window.dispatchEvent(
+        notify(
+          [
             "The diseases are spreading across the kingdom!",
             `Give potions according to the diseases:\n${level
               .getDiseaseIngredientsDescriptions()
               .join("\n")}`,
             "Ready to start?",
-          ]),
-        );
-      }
+          ],
+          () => window.dispatchEvent(newLevel(level)),
+        ),
+      );
     }
   }
-  window.addEventListener("dismissed", updateGame);
-  window.addEventListener("reset", () => {
-    window.removeEventListener("dismissed", updateGame);
-  });
+  window.dispatchEvent(
+    notify(
+      [
+        "Welcome young barber surgeon ⚕️! This is your chance to join the 13th Barber's Guild and work with the best!",
+        "You are now in probation. Cure someone and earn a credit, lose someone and lose a credit. Lose all credits and you are fired 🔥!",
+        "I'm giving you 3 credits, do you think you can earn 10 more credits to join our Barber's Guild?",
+        "Hit <em>SPACE</em> or click anywhere in the screen to continue.\nHit <em>ESC</em> anytime to reset.\nDrag potions to the cauldron when asked.",
+      ],
+      createLevel,
+    ),
+  );
 }
 
 function getFluidDimensions() {

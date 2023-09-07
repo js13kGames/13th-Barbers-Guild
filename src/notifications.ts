@@ -1,6 +1,5 @@
 import { getElement } from "./utils";
 import { theme } from "./theme";
-import { dismissed } from "./events";
 
 export function createNotifications(width: number, height: number) {
   const content = `
@@ -11,7 +10,7 @@ export function createNotifications(width: number, height: number) {
 </div>
 `;
   setTimeout(() => {
-    let messageId: string;
+    let onDismissed: (() => void) | undefined;
     let messages: string[] = [];
     function renderLatestMessage() {
       const message = messages.shift();
@@ -22,19 +21,22 @@ export function createNotifications(width: number, height: number) {
         throw new Error("Missing span");
       }
       span.innerHTML = message ?? "";
-      parent.style.setProperty("backdrop-filter", message ? "blur(2px)" : "none");
+      parent.style.setProperty(
+        "backdrop-filter",
+        message ? "blur(2px)" : "none",
+      );
       element.style.display = message ? "flex" : "none";
       return Boolean(message);
     }
     function onNotify(event: WindowEventMap["notify"]) {
-      messageId = event.detail.id;
+      onDismissed = event.detail.onDismissed;
       messages = event.detail.messages;
       renderLatestMessage();
     }
     function onDismiss() {
       const hasRendered = renderLatestMessage();
-      if (!hasRendered) {
-        window.dispatchEvent(dismissed(messageId));
+      if (!hasRendered && onDismissed) {
+        onDismissed();
       }
     }
     window.addEventListener("notify", onNotify);

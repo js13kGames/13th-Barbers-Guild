@@ -172,24 +172,22 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   const beginByTouch = (event: TouchEvent) => {
     begin(event.changedTouches[0]);
   };
-  const enableDrag = (event: WindowEventMap['dismissed']) => {
-    if(event.detail.id === 'level') {
-      canDrag = true
-    }
-  }
+  const enableDrag = () => {
+    canDrag = true;
+  };
   element.addEventListener("mousedown", begin);
   element.addEventListener("touchstart", beginByTouch);
   window.addEventListener("mousemove", move);
   window.addEventListener("touchmove", moveByTouch);
   window.addEventListener("mouseup", end);
   window.addEventListener("touchend", end);
-  window.addEventListener("dismissed", enableDrag);
+  window.addEventListener("newLevel", enableDrag);
   window.addEventListener("reset", () => {
     window.removeEventListener("mousemove", move);
     window.removeEventListener("touchmove", moveByTouch);
     window.removeEventListener("mouseup", end);
     window.removeEventListener("touchend", end);
-    window.removeEventListener("dismissed", enableDrag);
+    window.removeEventListener("newLevel", enableDrag);
   });
 }
 

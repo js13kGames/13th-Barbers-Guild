@@ -1,9 +1,8 @@
 interface GlobalEventHandlersEventMap {
   reset: CustomEvent;
-  notify: CustomEvent<{ id: string; messages: string[] }>;
+  notify: CustomEvent<{ messages: string[]; onDismissed?: () => void }>;
   dismiss: CustomEvent;
-  dismissed: CustomEvent<{ id: string }>;
-  newLevel: CustomEvent;
+  newLevel: CustomEvent<{ level: Level }>;
   potionClick: CustomEvent<{ color: string }>;
   potionRelease: CustomEvent<{ color: string }>;
   cauldronDrop: CustomEvent<{ color: string }>;

@@ -78,10 +78,10 @@ body {
   position: absolute;
   bottom: 90px;
   right: 150px;
-  width: 250px;
+  width: 300px;
   min-height: 5rem;
   background: #fff;
-  padding: 0.5rem;
+  padding: 1rem;
   color: #333;
   display: none;
   white-space: pre-line;
@@ -89,6 +89,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.2rem;
 }
 
 #ntf:after {
