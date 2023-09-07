@@ -4,8 +4,8 @@ import { dismissed } from "./events";
 
 export function createNotifications(width: number, height: number) {
   const content = `
-<div style="position: absolute; top: 0; left: 0; width: ${width}px; height: ${height}px">
-<div id="${theme.ids.notification}" style="z-index: ${theme.layers.notification}">
+<div style="position: absolute; top: 0; left: 0; width: ${width}px; height: ${height}px; pointer-events: none; z-index: ${theme.layers.notification}">
+<div id="${theme.ids.notification}">
 <span></span>
 </div>
 </div>
@@ -17,10 +17,12 @@ export function createNotifications(width: number, height: number) {
       const message = messages.shift();
       const element = getElement(theme.ids.notification);
       const span = element.querySelector("span");
-      if (!span) {
+      const parent = element.parentElement;
+      if (!span || !parent) {
         throw new Error("Missing span");
       }
       span.innerHTML = message ?? "";
+      parent.style.setProperty("backdrop-filter", message ? "blur(2px)" : "none");
       element.style.display = message ? "flex" : "none";
       return Boolean(message);
     }

@@ -1,5 +1,4 @@
 import { wrapper, rect, ellipsis, move } from "./utils";
-import { theme } from './theme';
 
 class Patient {
   medicines: number[];
@@ -56,7 +55,7 @@ function getTakenMedicine(patient: Patient) {
         .join(""),
       100,
       30,
-      { id: "pnt-indicator", style: `z-index: ${theme.layers.patient}` },
+      { id: "pnt-indicator" },
     ),
     0,
     150,

@@ -1,4 +1,5 @@
 import { createPatient } from "./patient";
+import { theme } from "./theme";
 
 export function createWaitingLounge(width: number, height: number) {
   setTimeout(() => {
@@ -8,5 +9,5 @@ export function createWaitingLounge(width: number, height: number) {
     }
     createPatient(element);
   });
-  return `<div id="wlg" style="position: absolute; width: ${width}px; height: ${height}px"></div>`;
+  return `<div id="wlg" style="position: absolute; width: ${width}px; height: ${height}px; pointer-events: none; z-index: ${theme.layers.patient}"></div>`;
 }

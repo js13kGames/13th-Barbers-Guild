@@ -19,9 +19,9 @@ export const theme = {
   layers: {
     potion: "10",
     shelf: "20",
-    patient: "21",
     activePotion: "30",
     cauldronLight: "40",
     notification: "50",
+    patient: "60",
   },
 };
