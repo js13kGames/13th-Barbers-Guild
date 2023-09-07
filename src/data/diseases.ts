@@ -1,3 +1,9 @@
+export enum DiseaseType {
+  Flu,
+  Measles,
+  Plague,
+}
+
 export const diseases: Disease[] = [
   { type: DiseaseType.Flu, name: "Flu" },
   { type: DiseaseType.Measles, name: "Measles" },
@@ -7,10 +13,4 @@ export const diseases: Disease[] = [
 export interface Disease {
   type: DiseaseType;
   name: string;
-}
-
-export enum DiseaseType {
-  Flu,
-  Measles,
-  Plague,
 }

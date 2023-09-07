@@ -36,9 +36,10 @@ function initApp() {
   window.gameStatus = GameStatus.Waiting;
   window.dispatchEvent(
     notify("instructions", [
-      "Welcome young barber surgeon ⚕️! Hit <em>space</em> or click anywhere in the screen to continue.",
+      "Welcome young barber surgeon ⚕️! This is your chance to join the 13th Barber's Guild and work with the best!",
       "You are now in probation. Cure someone and earn a credit, lose someone and lose a credit. Lose all credits and you are fired 🔥!",
       "I'm giving you 3 credits, do you think you can earn 10 more credits to join our Barber's Guild?",
+      "Hit <em>SPACE</em> or click anywhere in the screen to continue.\nHit <em>ESC</em> anytime to reset.\nDrag potions to the cauldron when asked.",
     ]),
   );
   function updateGame(event: WindowEventMap["dismissed"]) {
@@ -47,10 +48,11 @@ function initApp() {
       if (level) {
         window.dispatchEvent(
           notify("level", [
-            `Give potions according to the disease:\n${level
+            "The diseases are spreading across the kingdom!",
+            `Give potions according to the diseases:\n${level
               .getDiseaseIngredientsDescriptions()
               .join("\n")}`,
-            "Are you ready to start?",
+            "Ready to start?",
           ]),
         );
       }

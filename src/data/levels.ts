@@ -13,7 +13,6 @@ export class Level {
     this.enableMisses = enableMisses;
   }
 
-  // "Give potions according to the disease:\n🧪 Flu: Rat Tooth + Devil's Herb + Frog Paw\n🧪 Plague: Cat Paw\n🧪 Measles: Salamander Tail",
   getDiseaseIngredientsDescriptions() {
     return this.diseasesIngredients.map(([disease, ingredients]) => {
       const ingredientNames = ingredients
@@ -30,14 +29,45 @@ export class Level {
 export function* generateLevels(ingredients: Ingredient[]) {
   for (const params of generateLevelParameters()) {
     const [requiredIngredients, enableMisses] = params;
-    const diseasesIngredients = diseases.map(
-      (disease) =>
-        [
-          disease,
-          getRandomIngredients(requiredIngredients, ingredients),
-        ] as const,
-    );
+    const usedCombinations = new UsedCombinations();
+    const diseasesIngredients = diseases.map((disease) => {
+      let selectedIngredients: Ingredient[];
+      for (let index = 0; index < 100; index++) {
+        selectedIngredients = getRandomIngredients(
+          requiredIngredients,
+          ingredients,
+        );
+        if (usedCombinations.add(selectedIngredients)) {
+          break;
+        }
+      }
+      if (!selectedIngredients) {
+        throw new Error(); // Could not generate distinct ingredients
+      }
+      return [disease, selectedIngredients] as const;
+    });
     yield new Level(diseasesIngredients, enableMisses);
+  }
+}
+
+class UsedCombinations {
+  usedCombinations: string[];
+
+  constructor() {
+    this.usedCombinations = [];
+  }
+
+  add(ingredients: Ingredient[]) {
+    const key = ingredients
+      .map(({ id }) => id)
+      .sort()
+      .join("");
+    const hasKey = this.usedCombinations.includes(key);
+    if (!hasKey) {
+      this.usedCombinations.push(key);
+      return true;
+    }
+    return false;
   }
 }
 
