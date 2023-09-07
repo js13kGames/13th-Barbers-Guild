@@ -6,6 +6,7 @@ import { createPotions } from "./potions";
 import { createCauldron } from "./cauldron";
 import { createNotifications } from "./notifications";
 import { createWaitingLounge } from "./waitingLounge";
+import { getElement } from "./utils";
 import { notify, dismiss, newLevel, reset } from "./events";
 
 const ingredients = generateIngredients();
@@ -72,10 +73,7 @@ function getFluidDimensions() {
 }
 
 function getScaledRoot(scale: number, isLandscape: boolean) {
-  const root = document.querySelector<HTMLDivElement>("#app");
-  if (root === null) {
-    throw new Error("Missing #app");
-  }
+  const root = getElement("app");
   root.style.setProperty("transform", `scale(${scale})`);
   root.style.setProperty("transform-origin", isLandscape ? "top" : "left top");
   return root;

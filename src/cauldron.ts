@@ -1,18 +1,10 @@
-import { wrapper, ellipsis, move, className } from "./utils";
+import { getElement, wrapper, ellipsis, move, className } from "./utils";
 import { cauldronDrop, cauldronPrepared } from "./events";
-
-const id = "cdr";
 
 export function createCauldron(height: number) {
   setTimeout(() => {
-    const element = document.getElementById(id);
-    if (element === null) {
-      return;
-    }
+    const element = getElement(import.meta.env.VITE_ID_CAULDRON);
     function toggleHover(x: number, y: number) {
-      if (element === null) {
-        return;
-      }
       const rect = element.getBoundingClientRect();
       if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
         element.classList.add("hover");
@@ -58,7 +50,7 @@ const y = 83;
 
 function getGroup(height: number) {
   return wrapper(shadow + body + mouth, 216, 170, {
-    id,
+    id: import.meta.env.VITE_ID_CAULDRON,
     style: `left: 100px; top: ${height - 170}px`,
   });
 }
@@ -69,8 +61,8 @@ const body = move(ellipsis(x, y, x, y, "#1c1f24"), 4, 0);
 
 const mouth = move(
   className(
-    ellipsis(x * 0.66, y * 0.2, x * 0.66, y * 0.2 + 6, "red", "#0f1013", 5),
-    "ctd",
+    ellipsis(x * 0.66, y * 0.2, x * 0.66, y * 0.2 + 6, "", "#0f1013", 5),
+    import.meta.env.VITE_ID_CAULDRON_CONTENT,
   ),
   40,
   8,
@@ -78,10 +70,9 @@ const mouth = move(
 
 export function getDropAnimation(height: number) {
   setTimeout(() => {
-    const element = document.getElementById("cdr-anim2");
-    if (element === null) {
-      return;
-    }
+    const element = getElement(
+      import.meta.env.VITE_ID_CAULDRON_ANIMATION_INNER,
+    );
     window.addEventListener("cauldronDrop", (event) => {
       const effect = [{ top: "100%" }, { top: "-100%" }];
       const timing = {
@@ -95,7 +86,9 @@ export function getDropAnimation(height: number) {
       };
     });
   });
-  return `<div id="cdr-anim" style="height: ${
-    height - 150
-  }px"><div id="cdr-anim2"></div></div>`;
+  return `<div id="${
+    import.meta.env.VITE_ID_CAULDRON_ANIMATION
+  }" style="height: ${height - 150}px"><div id="${
+    import.meta.env.VITE_ID_CAULDRON_ANIMATION_INNER
+  }"></div></div>`;
 }

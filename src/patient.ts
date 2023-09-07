@@ -1,4 +1,4 @@
-import { wrapper, rect, ellipsis, move } from "./utils";
+import { getElement, wrapper, rect, ellipsis, move } from "./utils";
 
 class Patient {
   medicines: number[];
@@ -13,9 +13,7 @@ class Patient {
 export function createPatient(container: HTMLElement) {
   const patient = new Patient();
   setTimeout(() => {
-    const element = document.getElementById("pnt");
-    if (element === null) {
-    }
+    getElement("pnt");
   });
   const objWidth = 100;
   const objHeight = 170;
@@ -36,10 +34,7 @@ const body = move(rect(100, 100, "black"), 0, 80);
 
 function getTakenMedicine(patient: Patient) {
   setTimeout(() => {
-    const element = document.getElementById("pnt-indicator");
-    if (element === null) {
-      return;
-    }
+    const element = getElement("pnt-indicator");
     const rects = Array.from(element.querySelectorAll("rect"));
     window.addEventListener("cauldronPrepared", (event) => {
       const rect = rects.shift();

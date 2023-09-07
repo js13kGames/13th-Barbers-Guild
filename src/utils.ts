@@ -18,7 +18,13 @@ export function wrapper(
   }">${content}</svg>`;
 }
 
-export function absDiv(content: string, id: string, width: number, height: number, layer: string) {
+export function absDiv(
+  content: string,
+  id: string,
+  width: number,
+  height: number,
+  layer: string,
+) {
   return `<div id="${id}" style="position: absolute; top: 0; left: 0; width: ${width}px; height: ${height}px; pointer-events: none; z-index: ${layer}">${content}</div>`;
 }
 
@@ -91,7 +97,7 @@ export function shuffle<T>(list: T[]) {
 
 export function getElement(id: string) {
   const element = document.getElementById(id);
-  if (element === null) {
+  if (!element) {
     throw new Error(`Missing #${id}`);
   }
   return element;
