@@ -10,11 +10,11 @@ export const theme = {
   shelfBottom: "rgb(24,18,18)",
   potionCap: "#520",
   potionCork: "#a40",
-  black: "#000",
-  black50: "rgba(0,0,0,0.5)",
-  black30: "rgba(0,0,0,0.3)",
+  black: (opacity: number = 1) => `rgba(0,0,0,${opacity})`,
+  black50: "rgba(0,0,0,0.5)", // TODO use black
+  black30: "rgba(0,0,0,0.3)", // TODO use black
   character: "#f4e08e",
-  white: (opacity: number) => `rgba(255,255,255,${opacity})`,
+  white: (opacity: number = 1) => `rgba(255,255,255,${opacity})`,
   layers: {
     potion: "10",
     shelf: "20",

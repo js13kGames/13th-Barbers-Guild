@@ -89,6 +89,10 @@ export function skewY(content: string, angle: number) {
   `;
 }
 
+export function blur(content: string, value: number) {
+  return `<g style="filter: blur(${value}px)">${content}</g>`;
+}
+
 export function shuffle<T>(list: T[]) {
   return list.sort(() => Math.random() - 0.5);
 }
