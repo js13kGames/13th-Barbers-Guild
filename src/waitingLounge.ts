@@ -1,11 +1,11 @@
 import { absDiv, getElement } from "./utils";
-import { createPatient } from "./patient";
+import { createAttendant } from "./attendant";
 import { theme } from "./theme";
 
 export function createWaitingLounge(width: number, height: number) {
   setTimeout(() => {
     const element = getElement(import.meta.env.VITE_ID_WAITING_LOUNGE);
-    createPatient(element);
+    createAttendant(element);
   });
   return absDiv(
     "",
