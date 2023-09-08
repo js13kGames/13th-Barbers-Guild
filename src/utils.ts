@@ -41,12 +41,10 @@ export function rect(
   height: number,
   bg: string,
   rx: number = 0,
+  stroke: string = "#fff",
+  strokeWidth: number = 0,
 ) {
-  let output = `<rect width="${width}" height="${height}" style="fill:${bg};" `;
-  if (rx !== 0) {
-    output += `rx="${rx}" `;
-  }
-  return output + "/>";
+  return `<rect width="${width}" height="${height}" style="fill:${bg};" rx="${rx}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;
 }
 
 export function ellipsis(
