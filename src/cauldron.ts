@@ -37,6 +37,9 @@ export function createCauldron(height: number) {
         setColor(element, "var(--initColor)");
       }
     });
+    window.addEventListener("patientLeave", () => {
+      element.style.setProperty("--initColor", "var(--defaultColor)");
+    });
   });
   return getGroup(height) + getDropAnimation(height);
 }
