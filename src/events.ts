@@ -28,5 +28,5 @@ export const newLevel = (level: Level) =>
 export const patientLeave = (patient: Patient) =>
   new CustomEvent("patientLeave", {
     bubbles: true,
-    detail: { patient, level: patient.level },
+    detail: { patient },
   });

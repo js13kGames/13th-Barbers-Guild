@@ -24,17 +24,24 @@ const deadEyeLine = (direction: 1 | -1) =>
 
 const deadEye = wrapper(deadEyeLine(1) + deadEyeLine(-1), 16, 16);
 
+const curedEye = `<path d="m0.689 6c5.73-8.6 11.6-4.98 15.3 0.0886" fill="none" stroke="#000" stroke-width="1.65"/>`;
+
 const face = (health: Health) =>
   [
     back,
     opacity,
-    health !== Health.Dead ? move(eye, 10, 40) + move(eye, 40, 40) : "",
+    health !== Health.Dead && health !== Health.Cured
+      ? move(eye, 10, 40) + move(eye, 40, 40)
+      : "",
     health === Health.Bad
       ? move(eyeDecoration, 6, 40) + hmirror(move(eyeDecoration, 52, 40))
       : "",
     health === Health.Dead
       ? move(deadEye, 7.5, 36.5) + move(deadEye, 37.5, 36.5)
       : "", // instead of orig eye's position
+    health === Health.Cured
+      ? move(curedEye, 7, 40) + move(curedEye, 37, 40)
+      : "",
   ].join("");
 
 const shadow = blur(move(rect(94, 94, theme.black(0.3), 35), 2, 8), 4);
@@ -63,7 +70,8 @@ let hair2 = resize(
   0.5,
 );
 for (let i = 0; i < 4; i++) {
-  hair2 = move(ellipsis(10, 10, 10, 10, "#666"), 5 + i * 10, 45 - i * 2.5) + hair2;
+  hair2 =
+    move(ellipsis(10, 10, 10, 10, "#666"), 5 + i * 10, 45 - i * 2.5) + hair2;
 }
 
 export const character2 = (health: Health) =>
