@@ -22,10 +22,6 @@ export function createNotifications(width: number, height: number) {
         throw new Error("Missing span");
       }
       span.innerHTML = message ?? "";
-      parent.style.setProperty(
-        "backdrop-filter",
-        message ? "blur(2px)" : "none",
-      );
       element.style.display = message ? "flex" : "none";
       return Boolean(message);
     }
