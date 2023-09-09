@@ -11,7 +11,17 @@ import {
 import { theme } from "./theme";
 import { Health } from "./types";
 
-const back = move(rect(98, 98, theme.character, 35, theme.black(), 2), 2, 2);
+const faceColors: Record<number, string> = {
+  [Health.Bad]: theme.characterSick,
+  [Health.Dead]: theme.characterDead,
+};
+
+const back = (health: Health) =>
+  move(
+    rect(98, 98, faceColors[health] ?? theme.character, 35, theme.black(), 2),
+    2,
+    2,
+  );
 
 const opacity = move(rect(94, 94, theme.white(0.3), 35), 6, 0);
 
@@ -28,7 +38,7 @@ const curedEye = `<path d="m0.689 6c5.73-8.6 11.6-4.98 15.3 0.0886" fill="none" 
 
 const face = (health: Health) =>
   [
-    back,
+    back(health),
     opacity,
     health !== Health.Dead && health !== Health.Cured
       ? move(eye, 10, 40) + move(eye, 40, 40)

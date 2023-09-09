@@ -14,6 +14,8 @@ export const theme = {
   black50: "rgba(0,0,0,0.5)", // TODO use black
   black30: "rgba(0,0,0,0.3)", // TODO use black
   character: "#f4e08e",
+  characterSick: "#93ac93",
+  characterDead: "#9d93ac",
   white: (opacity: number = 1) => `rgba(255,255,255,${opacity})`,
   layers: {
     potion: "10",
