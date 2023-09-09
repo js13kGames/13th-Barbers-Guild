@@ -69,10 +69,22 @@ const hair1 = move(
 const group = (health: Health) =>
   wrapper(shadow + move(face(health), 6, 0), 106, 106);
 
-export const character1 = (health: Health) =>
-  wrapper(move(group(health), 0, 35) + move(hair1, 7, 0), 121, 141);
-character1.width = 121;
-character1.height = 141;
+function createWrapper(
+  content: (health: Health) => string,
+  width: number,
+  height: number,
+) {
+  const character = (health: Health) => wrapper(content(health), width, height);
+  character.width = width;
+  character.height = height;
+  return character;
+}
+
+export const character1 = createWrapper(
+  (health: Health) => move(group(health), 0, 35) + move(hair1, 7, 0),
+  121,
+  141,
+);
 
 let hair2 = resize(
   `<path d="m140 268c46.6-154 1.96-204-137-145 13.3-58.2 34.7-104 127-120 122 78.8 184 253 10.7 265z" fill="#603d33" stroke="#000" stroke-linejoin="round" stroke-width="4.74"/>`,
@@ -84,7 +96,32 @@ for (let i = 0; i < 4; i++) {
     move(ellipsis(10, 10, 10, 10, "#666"), 5 + i * 10, 45 - i * 2.5) + hair2;
 }
 
-export const character2 = (health: Health) =>
-  wrapper(move(group(health), 0, 35) + move(hair2, 7, 0), 132, 141);
-character2.width = 132;
-character2.height = 141;
+export const character2 = createWrapper(
+  (health: Health) => move(group(health), 0, 35) + move(hair2, 7, 0),
+  132,
+  141,
+);
+
+let hair3 = move(
+  resize(
+    `<path d="m43.8 67.3c12.3-40.7-6.28-53.5-43.1-38 3.5-15.4 11.1-45.6 60.4-16.6-8.9 6.5 4.9 38.5-17.2 54.6z" fill="#800" stroke="#000" stroke-linejoin="round" stroke-width="1.2"/>`,
+    2,
+    2,
+  ),
+  8,
+  0,
+);
+
+for (let i = 0; i < 10; i++) {
+  let y = 40 - 2 * i;
+  if (i > 4) {
+    y = 40 - 20 + i ** 1.5;
+  }
+  hair3 = move(rect(7, 25, "#d45500", 3), 12 + 9 * i, y) + hair3;
+}
+
+export const character3 = createWrapper(
+  (health: Health) => move(group(health), 0, 35) + move(hair3, 0, 0),
+  132,
+  141,
+);

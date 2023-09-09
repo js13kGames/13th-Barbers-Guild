@@ -104,3 +104,12 @@ export function getElement(id: string) {
   }
   return element;
 }
+
+export function cycle<T>(items: T[]) {
+  const current = items.shift();
+  if(!current) {
+    throw new Error(); // Array should not be empty!
+  }
+  items.push(current);
+  return current;
+}
