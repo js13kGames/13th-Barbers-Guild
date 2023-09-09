@@ -98,16 +98,3 @@ body {
 #n h4 {
   margin: 0 0 0.5rem 0;
 }
-/* notifications-wrapper */
-#nw:after {
-  content: "";
-  border-left: 4px solid transparent;
-  margin-left: 3px;
-  text-decoration: blink;
-  animation: bc .75s step-end infinite;
-}
-/* blink caret */
-@keyframes bc {
-  from, to { border-color: transparent }
-  50% { border-color: #333; }
-}
