@@ -12,7 +12,10 @@ export const cauldronDrop = (ingredient: Ingredient) =>
   new CustomEvent("cauldronDrop", { bubbles: true, detail: { ingredient } });
 
 export const cauldronPrepared = (ingredient: Ingredient) =>
-  new CustomEvent("cauldronPrepared", { bubbles: true, detail: { ingredient } });
+  new CustomEvent("cauldronPrepared", {
+    bubbles: true,
+    detail: { ingredient },
+  });
 
 export const notify = (messages: string[], onDismissed?: () => void) =>
   new CustomEvent("notify", { detail: { messages, onDismissed } });

@@ -1,6 +1,7 @@
 import { type Level, type Patient } from "./data";
 import { getElement, wrapper } from "./utils";
 import { character2 as character } from "./character";
+import { notify } from "./events";
 
 export function createPatient(container: HTMLElement, level: Level) {
   const patient = level.getRandomPatient();
@@ -13,11 +14,6 @@ export function createPatient(container: HTMLElement, level: Level) {
     getElement("pnt");
     window.addEventListener("cauldronPrepared", (event) => {
       patient.giveIngredient(event.detail.ingredient);
-      console.debug(
-        `Added ingredient ${
-          event.detail.ingredient.name
-        } - health ${patient.getHealth()}`,
-      );
       renderPatient(container, patient);
     });
   });
@@ -25,6 +21,7 @@ export function createPatient(container: HTMLElement, level: Level) {
 }
 
 function renderPatient(container: HTMLElement, patient: Patient) {
+  window.dispatchEvent(notify(patient.getSymptoms()));
   container.innerHTML = wrapper(
     character(patient.getHealth()),
     character.width,
