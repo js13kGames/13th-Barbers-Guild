@@ -22,7 +22,7 @@ export const theme = {
     shelf: "20",
     activePotion: "30",
     cauldronLight: "40",
-    notification: "50",
-    patient: "60",
+    notification: "60",
+    patient: "50",
   },
 };

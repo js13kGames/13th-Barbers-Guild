@@ -51,7 +51,7 @@ const y = 83;
 function getGroup(height: number) {
   return wrapper(shadow + body + mouth, 216, 170, {
     id: import.meta.env.VITE_ID_CAULDRON,
-    style: `left: 100px; top: ${height - 170}px`,
+    style: `left: 100px; top: ${height - 200}px`,
   });
 }
 
