@@ -12,6 +12,7 @@ export function createNotifications(width: number, height: number) {
   setTimeout(() => {
     let onDismissed: (() => void) | undefined;
     let messages: string[] = [];
+    let hasDismissed: boolean = true;
     function renderLatestMessage() {
       const message = messages.shift();
       const element = getElement(import.meta.env.VITE_ID_NOTIFICATIONS);
@@ -31,11 +32,13 @@ export function createNotifications(width: number, height: number) {
     function onNotify(event: WindowEventMap["notify"]) {
       onDismissed = event.detail.onDismissed;
       messages = event.detail.messages;
+      hasDismissed = false;
       renderLatestMessage();
     }
     function onDismiss() {
       const hasRendered = renderLatestMessage();
-      if (!hasRendered && onDismissed) {
+      if (!hasRendered && !hasDismissed && onDismissed) {
+        hasDismissed = true;
         onDismissed();
       }
     }

@@ -1,5 +1,6 @@
-import type { Ingredient } from "./ingredients";
+import { type Ingredient } from "./ingredients";
 import { type Disease, diseases } from "./diseases";
+import { Patient } from "./patients";
 import { shuffle } from "../utils";
 
 type DiseasesIngredients = Array<Readonly<[Disease, Ingredient[]]>>;
@@ -23,6 +24,13 @@ export class Level {
         .join(" + ");
       return `🧪 ${disease.name}: ${ingredientNames}`;
     });
+  }
+
+  getRandomPatient() {
+    const randomDiseases = shuffle([...this.diseasesIngredients]);
+    console.debug(randomDiseases.map(([disease]) => disease.name));
+    const [disease, ingredients] = randomDiseases[0];
+    return new Patient(disease, ingredients, this.enableMisses);
   }
 }
 

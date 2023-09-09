@@ -144,7 +144,7 @@ export function configEvents(ingredient: Ingredient, scale: number) {
     clicked = true;
     initialX = clientX;
     initialY = clientY;
-    element.dispatchEvent(potionClick(ingredient.color));
+    element.dispatchEvent(potionClick(ingredient));
     element.style.zIndex = theme.layers.activePotion;
   }
   function move({ clientX, clientY }: Pick<MouseEvent, "clientX" | "clientY">) {
@@ -163,7 +163,7 @@ export function configEvents(ingredient: Ingredient, scale: number) {
       element.style.transform = "";
       element.style.pointerEvents = "";
       element.style.zIndex = theme.layers.potion;
-      element.dispatchEvent(potionRelease(ingredient.color));
+      element.dispatchEvent(potionRelease(ingredient));
     }
   }
   const moveByTouch = (event: TouchEvent) => {

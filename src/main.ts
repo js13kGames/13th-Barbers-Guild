@@ -40,7 +40,7 @@ function initApp() {
         notify(
           [
             "The diseases are spreading across the kingdom!",
-            `Give potions according to the diseases:\n${level
+            `<h4>Pay Attention!</h4>Give potions according to the diseases:\n${level
               .getDiseaseIngredientsDescriptions()
               .join("\n")}`,
             "Ready to start?",

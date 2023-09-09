@@ -26,13 +26,13 @@ export function createCauldron(height: number) {
       });
     });
     window.addEventListener("potionClick", (event) => {
-      setColor(element, event.detail.color);
+      setColor(element, event.detail.ingredient.color);
     });
     window.addEventListener("potionRelease", (event) => {
       if (element.classList.contains("hover")) {
-        const color = event.detail.color;
+        const color = event.detail.ingredient.color;
         element.style.setProperty("--initColor", color);
-        element.dispatchEvent(cauldronDrop(color));
+        element.dispatchEvent(cauldronDrop(event.detail.ingredient));
       } else {
         setColor(element, "var(--initColor)");
       }
@@ -79,10 +79,10 @@ export function getDropAnimation(height: number) {
         duration: 1000,
         easing: "ease-in-out",
       };
-      element.style.setProperty("--animColor", event.detail.color);
+      element.style.setProperty("--animColor", event.detail.ingredient.color);
       const animation = element.animate(effect, timing);
       animation.onfinish = () => {
-        element.dispatchEvent(cauldronPrepared(event.detail.color));
+        element.dispatchEvent(cauldronPrepared(event.detail.ingredient));
       };
     });
   });

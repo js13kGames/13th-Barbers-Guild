@@ -1,5 +1,5 @@
 import { getElement, wrapper } from "./utils";
-import { character2 as character } from "./character";
+import { character1 as character } from "./character";
 import { Health } from "./types";
 
 export function createAttendant(container: HTMLElement) {

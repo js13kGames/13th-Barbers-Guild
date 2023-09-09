@@ -52,10 +52,10 @@ const hair1 = move(
 const group = (health: Health) =>
   wrapper(shadow + move(face(health), 6, 0), 106, 106);
 
-export const character = (health: Health) =>
+export const character1 = (health: Health) =>
   wrapper(move(group(health), 0, 35) + move(hair1, 7, 0), 121, 141);
-character.width = 121;
-character.height = 141;
+character1.width = 121;
+character1.height = 141;
 
 let hair2 = resize(
   `<path d="m140 268c46.6-154 1.96-204-137-145 13.3-58.2 34.7-104 127-120 122 78.8 184 253 10.7 265z" fill="#603d33" stroke="#000" stroke-linejoin="round" stroke-width="4.74"/>`,
@@ -69,4 +69,4 @@ for (let i = 0; i < 4; i++) {
 export const character2 = (health: Health) =>
   wrapper(move(group(health), 0, 35) + move(hair2, 7, 0), 132, 141);
 character2.width = 132;
-character2.health = 141;
+character2.height = 141;
