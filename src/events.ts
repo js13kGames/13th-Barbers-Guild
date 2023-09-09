@@ -25,6 +25,18 @@ export const dismiss = () => new CustomEvent("dismiss");
 export const newLevel = (level: Level) =>
   new CustomEvent("newLevel", { detail: { level } });
 
+export const patientCalled = (patient: Patient) =>
+  new CustomEvent("patientCalled", {
+    bubbles: true,
+    detail: { patient },
+  });
+
+export const patientDone = (patient: Patient) =>
+  new CustomEvent("patientDone", {
+    bubbles: true,
+    detail: { patient },
+  });
+
 export const patientLeave = (patient: Patient) =>
   new CustomEvent("patientLeave", {
     bubbles: true,

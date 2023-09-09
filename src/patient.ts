@@ -1,26 +1,24 @@
 import { type Level, type Patient } from "./data";
-import { getElement, wrapper, cycle } from "./utils";
+import { wrapper, cycle } from "./utils";
 import { character2, character3 } from "./character";
-import { notify, patientLeave } from "./events";
+import { notify, patientCalled, patientDone, patientLeave } from "./events";
 
 const characters = [character2, character3];
 
 export function createPatient(container: HTMLElement, level: Level) {
   const patient = level.getRandomPatient();
   const character = cycle(characters);
-  console.debug(
-    `Patient has ${patient.disease.name} and need ${patient.ingredients
-      .map((item) => item.name)
-      .join(" + ")}`,
-  );
-  setTimeout(() => {
-    getElement("pnt");
-    window.addEventListener("cauldronPrepared", (event) => {
-      patient.giveIngredient(event.detail.ingredient);
-      renderPatient(container, patient, character);
-    });
-  });
+  function addIngredient(event: WindowEventMap["cauldronPrepared"]) {
+    patient.giveIngredient(event.detail.ingredient);
+    renderPatient(container, patient, character);
+    if (patient.hasLeft()) {
+      window.dispatchEvent(patientDone(patient));
+      window.removeEventListener("cauldronPrepared", addIngredient);
+    }
+  }
+  window.addEventListener("cauldronPrepared", addIngredient);
   renderPatient(container, patient, character);
+  window.dispatchEvent(patientCalled(patient));
 }
 
 function renderPatient(
@@ -30,9 +28,7 @@ function renderPatient(
 ) {
   window.dispatchEvent(
     notify(patient.getSymptoms(), () => {
-      console.debug("patientLeave?");
       if (patient.hasLeft()) {
-        console.debug("patientLeave!");
         window.dispatchEvent(patientLeave(patient));
       }
     }),

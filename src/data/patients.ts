@@ -8,7 +8,7 @@ export class Patient {
   level: Level;
   disease: Disease;
   ingredients: Ingredient[];
-  givenIngredients: Set<Ingredient>;
+  givenIngredients: Ingredient[];
   attempts: number;
   health: Health;
 
@@ -26,25 +26,25 @@ export class Patient {
     if (enableMiss) {
       this.attempts++;
     }
-    this.givenIngredients = new Set();
+    this.givenIngredients = [];
   }
 
   giveIngredient(ingredient: Ingredient) {
-    this.givenIngredients.add(ingredient);
+    this.givenIngredients.push(ingredient);
     this.health = this.getHealth();
   }
 
   private getHealth() {
-    if (this.givenIngredients.size === 0) {
+    if (this.givenIngredients.length === 0) {
       return Health.Good;
     }
     const isCured = this.ingredients.every((item) =>
-      this.givenIngredients.has(item),
+      this.givenIngredients.includes(item),
     );
     if (isCured) {
       return Health.Cured;
     }
-    const isDead = this.givenIngredients.size === this.attempts;
+    const isDead = this.givenIngredients.length === this.attempts;
     if (isDead) {
       return Health.Dead;
     }
@@ -52,6 +52,7 @@ export class Patient {
   }
 
   hasLeft() {
+    console.debug('patient health', this.health)
     return this.health === Health.Cured || this.health === Health.Dead;
   }
 

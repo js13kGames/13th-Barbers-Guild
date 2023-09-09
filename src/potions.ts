@@ -175,19 +175,24 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   const enableDrag = () => {
     canDrag = true;
   };
+  const disableDrag = () => {
+    canDrag = false;
+  };
   element.addEventListener("mousedown", begin);
   element.addEventListener("touchstart", beginByTouch);
   window.addEventListener("mousemove", move);
   window.addEventListener("touchmove", moveByTouch);
   window.addEventListener("mouseup", end);
   window.addEventListener("touchend", end);
-  window.addEventListener("newLevel", enableDrag);
+  window.addEventListener("patientCalled", enableDrag);
+  window.addEventListener("patientDone", disableDrag);
   window.addEventListener("reset", () => {
     window.removeEventListener("mousemove", move);
     window.removeEventListener("touchmove", moveByTouch);
     window.removeEventListener("mouseup", end);
     window.removeEventListener("touchend", end);
-    window.removeEventListener("newLevel", enableDrag);
+    window.removeEventListener("patientCalled", enableDrag);
+    window.removeEventListener("patientDone", disableDrag);
   });
 }
 
