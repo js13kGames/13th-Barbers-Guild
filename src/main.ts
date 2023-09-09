@@ -54,8 +54,8 @@ function initApp() {
     notify(
       [
         "Welcome young barber surgeon ⚕️! This is your chance to join the 13th Barber's Guild and work with the best!",
-        "You are now in probation. Cure someone and earn a credit, lose someone and lose a credit. Lose all credits and you are fired 🔥!",
-        "I'm giving you 3 credits, do you think you can earn 10 more credits to join our Barber's Guild?",
+        "You are now in probation! Within one minute, get a credit for each person you cure!",
+        "Do you think you can earn 10 credits to join our Barber's Guild? If you fail, you are fired 🔥!",
         "Hit <em>SPACE</em> or click anywhere in the screen to continue.\nHit <em>ESC</em> anytime to reset.\nDrag potions to the cauldron when asked.",
       ],
       createLevel,

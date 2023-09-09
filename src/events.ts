@@ -1,4 +1,4 @@
-import type { Level, Ingredient } from "./data";
+import type { Level, Ingredient, Patient } from "./data";
 
 export const reset = () => new CustomEvent("reset");
 
@@ -24,3 +24,9 @@ export const dismiss = () => new CustomEvent("dismiss");
 
 export const newLevel = (level: Level) =>
   new CustomEvent("newLevel", { detail: { level } });
+
+export const patientLeave = (patient: Patient) =>
+  new CustomEvent("patientLeave", {
+    bubbles: true,
+    detail: { patient, level: patient.level },
+  });

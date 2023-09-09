@@ -7,4 +7,5 @@ interface GlobalEventHandlersEventMap {
   potionRelease: CustomEvent<{ ingredient: Ingredient }>;
   cauldronDrop: CustomEvent<{ ingredient: Ingredient }>;
   cauldronPrepared: CustomEvent<{ ingredient: Ingredient }>;
+  patientLeave: CustomEvent;
 }

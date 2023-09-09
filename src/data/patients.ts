@@ -1,19 +1,25 @@
 import { type Ingredient } from "./ingredients";
 import { type Disease } from "./diseases";
+import { type Level } from "./levels";
 import { Health } from "../types";
 import { shuffle } from "../utils";
 
 export class Patient {
+  level: Level;
   disease: Disease;
   ingredients: Ingredient[];
   givenIngredients: Set<Ingredient>;
   attempts: number;
+  health: Health;
 
   constructor(
+    level: Level,
     disease: Disease,
     ingredients: Ingredient[],
     enableMiss: boolean,
   ) {
+    this.level = level;
+    this.health = Health.Good;
     this.disease = disease;
     this.ingredients = ingredients;
     this.attempts = this.ingredients.length;
@@ -25,9 +31,10 @@ export class Patient {
 
   giveIngredient(ingredient: Ingredient) {
     this.givenIngredients.add(ingredient);
+    this.health = this.getHealth();
   }
 
-  getHealth() {
+  private getHealth() {
     if (this.givenIngredients.size === 0) {
       return Health.Good;
     }
@@ -44,14 +51,18 @@ export class Patient {
     return Health.Bad;
   }
 
+  hasLeft() {
+    return this.health === Health.Cured || this.health === Health.Dead;
+  }
+
   getSymptoms() {
-    const health = this.getHealth();
+    const health = this.health;
     const messages = messagesByHealth[health](this.disease);
     return shuffle([...messages]).slice(0, 1);
   }
 }
 
-const goodMessages = (disease) => disease.symptoms;
+const goodMessages = (disease: Disease) => disease.symptoms;
 
 const badMessages = () => [
   "I'm not felling better!",

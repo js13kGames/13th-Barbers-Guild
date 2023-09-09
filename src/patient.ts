@@ -1,7 +1,7 @@
 import { type Level, type Patient } from "./data";
 import { getElement, wrapper } from "./utils";
 import { character2 as character } from "./character";
-import { notify } from "./events";
+import { notify, patientLeave } from "./events";
 
 export function createPatient(container: HTMLElement, level: Level) {
   const patient = level.getRandomPatient();
@@ -21,9 +21,17 @@ export function createPatient(container: HTMLElement, level: Level) {
 }
 
 function renderPatient(container: HTMLElement, patient: Patient) {
-  window.dispatchEvent(notify(patient.getSymptoms()));
+  window.dispatchEvent(
+    notify(patient.getSymptoms(), () => {
+      console.debug("patientLeave?");
+      if (patient.hasLeft()) {
+        console.debug("patientLeave!");
+        window.dispatchEvent(patientLeave(patient));
+      }
+    }),
+  );
   container.innerHTML = wrapper(
-    character(patient.getHealth()),
+    character(patient.health),
     character.width,
     character.height,
     {

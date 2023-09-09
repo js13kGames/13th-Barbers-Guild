@@ -1,3 +1,4 @@
+import { type Level } from "./data";
 import { absDiv, getElement } from "./utils";
 import { createAttendant } from "./attendant";
 import { createPatient } from "./patient";
@@ -7,10 +8,11 @@ export function createWaitingLounge(width: number, height: number) {
   setTimeout(() => {
     const container = getElement(import.meta.env.VITE_ID_WAITING_LOUNGE);
     createAttendant(container);
-    function callPatient(event: WindowEventMap["newLevel"]) {
+    function callPatient(event: { detail: { level: Level } }) {
       createPatient(container, event.detail.level);
     }
     window.addEventListener("newLevel", callPatient);
+    window.addEventListener("patientLeave", callPatient);
     window.addEventListener("reset", () => {
       window.removeEventListener("newLevel", callPatient);
     });

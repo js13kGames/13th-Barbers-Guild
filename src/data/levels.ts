@@ -30,7 +30,7 @@ export class Level {
     const randomDiseases = shuffle([...this.diseasesIngredients]);
     console.debug(randomDiseases.map(([disease]) => disease.name));
     const [disease, ingredients] = randomDiseases[0];
-    return new Patient(disease, ingredients, this.enableMisses);
+    return new Patient(this, disease, ingredients, this.enableMisses);
   }
 }
 
