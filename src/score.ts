@@ -3,6 +3,7 @@ import { Health } from "./types";
 import { theme } from "./theme";
 import { levelComplete } from "./events";
 
+const limit = Number(import.meta.env.VITE_PATIENT_LIMIT);
 const width = 400;
 const height = 20;
 const deltaX = 120;
@@ -12,7 +13,6 @@ const coinMargin = 12;
 
 export function createScore() {
   let points = 0;
-  const limit = 2;
   function updateBar() {
     const newWidth = (width - margin) * (points / limit);
     const element = getElement(import.meta.env.VITE_ID_SCORE);
