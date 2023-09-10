@@ -39,6 +39,8 @@ export function createWaitingLounge(width: number, height: number) {
       window.removeEventListener("newLevel", beginLevel);
       window.removeEventListener("patientLeave", callNextPatient);
     });
+    // Create attendant by default while the game hasn't started
+    createAttendant(container);
   });
   return absDiv(
     "",
