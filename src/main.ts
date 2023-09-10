@@ -4,6 +4,7 @@ import { createWalls } from "./walls";
 import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
 import { createCauldron } from "./cauldron";
+import { createScore } from "./score";
 import { createNotifications } from "./notifications";
 import { createWaitingLounge } from "./waitingLounge";
 import { getElement } from "./utils";
@@ -24,6 +25,7 @@ function renderApp() {
     ${createCauldron(height)}
     ${createPotions(ingredients, scale)}
     ${createShelves(width, height)}
+    ${createScore()}
     ${createNotifications(width, height)}
     ${createWaitingLounge(width, height)}
   `;
@@ -35,19 +37,9 @@ function initApp() {
   const levelGenerator = generateLevels(ingredients);
   function createLevel() {
     const level = levelGenerator.next().value;
+    console.debug("New level:", level);
     if (level) {
-      window.dispatchEvent(
-        notify(
-          [
-            "The diseases are spreading across the kingdom!",
-            `<h4>Pay Attention!</h4>Give potions according to the diseases:\n${level
-              .getDiseaseIngredientsDescriptions()
-              .join("\n")}`,
-            "Ready to start?",
-          ],
-          () => window.dispatchEvent(newLevel(level)),
-        ),
-      );
+      dispatchEvent(newLevel(level));
     }
   }
   window.dispatchEvent(
@@ -61,6 +53,7 @@ function initApp() {
       createLevel,
     ),
   );
+  window.addEventListener("levelComplete", createLevel);
 }
 
 function getFluidDimensions() {

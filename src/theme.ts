@@ -8,6 +8,8 @@ export const theme = {
   shelfFront: "rgb(53,39,39)",
   shelfSide: "rgb(39,29,29)",
   shelfBottom: "rgb(24,18,18)",
+  scoreBack: "#fea",
+  scoreFront: "#a80",
   potionCap: "#520",
   potionCork: "#a40",
   black: (opacity: number = 1) => `rgba(0,0,0,${opacity})`,
@@ -20,6 +22,7 @@ export const theme = {
   layers: {
     potion: "10",
     shelf: "20",
+    score: "21",
     activePotion: "30",
     cauldronLight: "40",
     notification: "60",

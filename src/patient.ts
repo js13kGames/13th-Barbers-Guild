@@ -7,6 +7,11 @@ const characters = [character2, character3];
 
 export function createPatient(container: HTMLElement, level: Level) {
   const patient = level.getRandomPatient();
+  console.debug(
+    `Patient with: ${patient.disease.name}, ingredients: ${patient.ingredients
+      .map(({ name }) => name)
+      .join(" + ")}`,
+  );
   const character = cycle(characters);
   function addIngredient(event: WindowEventMap["cauldronPrepared"]) {
     patient.giveIngredient(event.detail.ingredient);
