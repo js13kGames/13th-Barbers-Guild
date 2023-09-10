@@ -10,6 +10,7 @@ export const theme = {
   shelfBottom: "rgb(24,18,18)",
   scoreBack: "#fea",
   scoreFront: "#a80",
+  coinBack: "#540",
   potionCap: "#520",
   potionCork: "#a40",
   black: (opacity: number = 1) => `rgba(0,0,0,${opacity})`,
