@@ -1,3 +1,5 @@
+import {type Ingredient} from './data';
+
 export function wrapper(
   content: string,
   width: number,
@@ -107,9 +109,18 @@ export function getElement(id: string) {
 
 export function cycle<T>(items: T[]) {
   const current = items.shift();
-  if(!current) {
+  if (!current) {
     throw new Error(); // Array should not be empty!
   }
   items.push(current);
   return current;
+}
+
+export function coloredIngredientNames(ingredients: Ingredient[]) {
+  return ingredients
+    .map(
+      (ingredient) =>
+        `<span style="text-decoration-line: underline; text-decoration-color: ${ingredient.color}; text-decoration-style: wavy">${ingredient.name}</span>`,
+    )
+    .join(" + ");
 }

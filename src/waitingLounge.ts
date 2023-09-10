@@ -1,4 +1,4 @@
-import { absDiv, getElement } from "./utils";
+import { absDiv, getElement, coloredIngredientNames } from "./utils";
 import { createAttendant } from "./attendant";
 import { createPatient } from "./patient";
 import { theme } from "./theme";
@@ -16,9 +16,9 @@ export function createWaitingLounge(width: number, height: number) {
         notify(
           [
             "The diseases are spreading across the kingdom!",
-            `<h4>Pay Attention!</h4>Give potions according to the diseases:\n${currentLevel
-              .getDiseaseIngredientsDescriptions()
-              .join("\n")}`,
+            `<h4>Pay Attention!</h4>Give potions according to the diseases:\n${getDiseasesAndIngredients(
+              currentLevel.diseasesIngredients,
+            )}`,
             "Ready to start?",
           ],
           () => {
@@ -49,4 +49,14 @@ export function createWaitingLounge(width: number, height: number) {
     height,
     theme.layers.patient,
   );
+}
+
+function getDiseasesAndIngredients(
+  diseasesIngredients: Level["diseasesIngredients"],
+) {
+  return diseasesIngredients
+    .map(([disease, ingredients]) => {
+      return `🧪 ${disease.name}: ${coloredIngredientNames(ingredients)}`;
+    })
+    .join("\n");
 }

@@ -32,7 +32,7 @@ function renderPatient(
   character: typeof character2,
 ) {
   window.dispatchEvent(
-    notify(patient.getSymptoms(), () => {
+    notify([patient.getSymptoms()], () => {
       if (patient.hasLeft()) {
         window.dispatchEvent(patientLeave(patient));
       }

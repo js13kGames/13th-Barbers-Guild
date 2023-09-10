@@ -2,7 +2,7 @@ import { type Ingredient } from "./ingredients";
 import { type Disease } from "./diseases";
 import { type Level } from "./levels";
 import { Health } from "../types";
-import { shuffle } from "../utils";
+import { shuffle, coloredIngredientNames } from "../utils";
 
 export class Patient {
   level: Level;
@@ -52,14 +52,16 @@ export class Patient {
   }
 
   hasLeft() {
-    console.debug('patient health', this.health)
     return this.health === Health.Cured || this.health === Health.Dead;
   }
 
   getSymptoms() {
     const health = this.health;
     const messages = messagesByHealth[health](this.disease);
-    return shuffle([...messages]).slice(0, 1);
+    const message = shuffle([...messages]).slice(0, 1)[0];
+    return message
+      .replace("#i", coloredIngredientNames(this.ingredients))
+      .replace("#d", this.disease.name);
   }
 }
 
@@ -71,8 +73,8 @@ const badMessages = () => [
 ];
 
 const deadMessages = () => [
-  "You were suposed to save people.",
-  "How do you think you'd join the guild by killing your patients?",
+  "You were suposed to save people. He only needed #i for his #d.",
+  "How do you think you'd join the guild by killing your patients? #d is supposed to be cured with #i.",
 ];
 
 const curedMessages = () => [

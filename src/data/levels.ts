@@ -14,18 +14,6 @@ export class Level {
     this.enableMisses = enableMisses;
   }
 
-  getDiseaseIngredientsDescriptions() {
-    return this.diseasesIngredients.map(([disease, ingredients]) => {
-      const ingredientNames = ingredients
-        .map(
-          (ingredient) =>
-            `<span style="text-decoration-line: underline; text-decoration-color: ${ingredient.color}; text-decoration-style: wavy">${ingredient.name}</span>`,
-        )
-        .join(" + ");
-      return `🧪 ${disease.name}: ${ingredientNames}`;
-    });
-  }
-
   getRandomPatient() {
     const randomDiseases = shuffle([...this.diseasesIngredients]);
     const [disease, ingredients] = randomDiseases[0];
