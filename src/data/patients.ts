@@ -2,7 +2,7 @@ import { type Ingredient } from "./ingredients";
 import { type Disease } from "./diseases";
 import { type Level } from "./levels";
 import { Health } from "../types";
-import { shuffle, coloredIngredientNames } from "../utils";
+import { shuffle, coloredIngredientNames, capFirst } from "../utils";
 
 export class Patient {
   level: Level;
@@ -69,17 +69,24 @@ export class Patient {
         ? Health.GettingBetter
         : Health.Bad;
     }
-    const messages = messagesByHealth[health](this.disease);
+    const messages = messagesByHealth[health](this.disease, this.ingredients);
     const message = shuffle([...messages]).slice(0, 1)[0];
-    return message
-      .replace("#i", coloredIngredientNames(this.ingredients))
-      .replace("#d", this.disease.name);
+    return message;
   }
 }
 
-const goodMessages = (disease: Disease) => disease.symptoms;
+type HealthMessageGetter = (
+  disease: Disease,
+  ingredients: Ingredient[],
+) => string[];
 
-const gettingBetterMessages = () => [
+const goodMessages: HealthMessageGetter = (disease) => [
+  `${disease.symptoms} Help me doc!`,
+  `${disease.symptoms} What can you do for me sir ? `,
+  `${disease.symptoms} I'm scared, help me please!`,
+];
+
+const gettingBetterMessages: HealthMessageGetter = () => [
   "I'm not full refresh, but I'm felling slightly better!",
   "I think there's been a small change for the better in how I feel.",
   "I've noticed a slight improvement in my condition.",
@@ -87,14 +94,18 @@ const gettingBetterMessages = () => [
   "I'm feeling a tad better, but there's still some discomfort.",
 ];
 
-const badMessages = () => [
-  "I'm not felling better!",
-  "I'm felling worse, what did you gave me doc?",
+const badMessages: HealthMessageGetter = (disease) => [
+  `I'm not felling better! Remember: ${disease.symptoms}`,
+  `I'm felling worse, what did you gave me doc? ${disease.symptoms}`,
 ];
 
-const deadMessages = () => [
-  "You were suposed to save people. He only needed #i for his #d.",
-  "How do you think you'd join the guild by killing your patients? #d is supposed to be cured with #i.",
+const deadMessages: HealthMessageGetter = (disease, ingredients) => [
+  `You were suposed to save people. He only needed ${coloredIngredientNames(
+    ingredients,
+  )} for ${disease.symptomsShort}, a clear signal of ${disease.name}.`,
+  `How do you think you'd join the guild by killing your patients? ${capFirst(disease.symptomsShort)}, symptoms of ${
+    disease.name
+  }, is supposed to be cured with ${coloredIngredientNames(ingredients)}.`,
 ];
 
 const curedMessages = () => [

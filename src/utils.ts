@@ -124,3 +124,7 @@ export function coloredIngredientNames(ingredients: Ingredient[]) {
     )
     .join(" + ");
 }
+
+export function capFirst(value: string) {
+  return value[0].toUpperCase() + value.substring(1);
+}
