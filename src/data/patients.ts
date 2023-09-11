@@ -44,6 +44,12 @@ export class Patient {
     if (isCured) {
       return Health.Cured;
     }
+    const isGettingBetter = this.givenIngredients.every((item) =>
+      this.ingredients.includes(item),
+    );
+    if (isGettingBetter) {
+      return Health.GettingBetter;
+    }
     const isDead = this.givenIngredients.length === this.attempts;
     if (isDead) {
       return Health.Dead;
@@ -56,7 +62,13 @@ export class Patient {
   }
 
   getSymptoms() {
-    const health = this.health;
+    let health = this.health;
+    if (health === Health.GettingBetter || health === Health.Bad) {
+      const latestIngredient = this.givenIngredients.slice(-1)[0];
+      health = this.ingredients.includes(latestIngredient)
+        ? Health.GettingBetter
+        : Health.Bad;
+    }
     const messages = messagesByHealth[health](this.disease);
     const message = shuffle([...messages]).slice(0, 1)[0];
     return message
@@ -66,6 +78,14 @@ export class Patient {
 }
 
 const goodMessages = (disease: Disease) => disease.symptoms;
+
+const gettingBetterMessages = () => [
+  "I'm not full refresh, but I'm felling slightly better!",
+  "I think there's been a small change for the better in how I feel.",
+  "I've noticed a slight improvement in my condition.",
+  "I'm not as bad as I was before; there's been a minor improvement.",
+  "I'm feeling a tad better, but there's still some discomfort.",
+];
 
 const badMessages = () => [
   "I'm not felling better!",
@@ -85,6 +105,7 @@ const curedMessages = () => [
 
 const messagesByHealth = {
   [Health.Good]: goodMessages,
+  [Health.GettingBetter]: gettingBetterMessages,
   [Health.Bad]: badMessages,
   [Health.Dead]: deadMessages,
   [Health.Cured]: curedMessages,
