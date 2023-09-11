@@ -76,7 +76,6 @@ export function* generateLevelParameters() {
   let enableMisses = true;
   while (requiredIngredients < 7) {
     yield [requiredIngredients, enableMisses] as const;
-    enableMisses = !enableMisses;
     if (enableMisses) {
       requiredIngredients++;
     }
