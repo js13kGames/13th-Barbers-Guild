@@ -6,12 +6,13 @@ import {
   vmirror,
   getElement,
   blur,
+  rotate,
+  skewY,
 } from "./utils";
 import { gameOver } from "./events";
 import { theme } from "./theme";
 
 const height = 100;
-const duration = 6;
 
 export function createTimer() {
   setTimeout(() => {
@@ -66,10 +67,14 @@ function gradient(reverse: boolean = false) {
   }" x1="0" x2="0" y1="-20" y2="57" gradientUnits="userSpaceOnUse">
 ${gradientStop(gradientColor, reverse ? 0 : 1, 0)}/>
 ${gradientStop(gradientColor, reverse ? 0 : 1, 0)}>
-  <animate attributeName="offset" dur="${duration}s" values="0;1" repeatCount="1" fill="freeze" pause />
+  <animate attributeName="offset" dur="${
+    import.meta.env.VITE_TIME_LIMIT
+  }s" values="0;1" repeatCount="1" fill="freeze" pause />
 </stop>
 ${gradientStop(gradientColor, reverse ? 1 : 0, 0)}>
-  <animate attributeName="offset" dur="${duration}s" values="0;1" repeatCount="1" fill="freeze" pause />
+  <animate attributeName="offset" dur="${
+    import.meta.env.VITE_TIME_LIMIT
+  }s" values="0;1" repeatCount="1" fill="freeze" pause />
 </stop>
 ${gradientStop(gradientColor, reverse ? 1 : 0, 1)}/>
 </linearGradient>
@@ -123,6 +128,8 @@ const group = resize(
       -20,
     ),
     cover,
+    move(rotate(ellipsis(7, 12, 7, 12, theme.white(0.3)), -25), 29, 8),
+    vmirror(move(rotate(ellipsis(7, 12, 7, 12, theme.white(0.3)), -25), 29, 0)),
   ].join(""),
   0.8,
   1,
