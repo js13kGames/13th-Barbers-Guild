@@ -25,6 +25,8 @@ export const dismiss = () => new CustomEvent("dismiss");
 export const newLevel = (level: Level) =>
   new CustomEvent("newLevel", { detail: { level } });
 
+export const scoreMaxed = () => new CustomEvent("scoreMaxed");
+
 export const levelComplete = () => new CustomEvent("levelComplete");
 
 export const patientCalled = (patient: Patient) =>

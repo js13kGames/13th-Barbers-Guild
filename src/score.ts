@@ -1,7 +1,7 @@
 import { wrapper, rect, ellipsis, move, getElement, blur, id } from "./utils";
 import { Health } from "./types";
 import { theme } from "./theme";
-import { levelComplete } from "./events";
+import { levelComplete, scoreMaxed } from "./events";
 
 const limit = Number(import.meta.env.VITE_PATIENT_LIMIT);
 const width = 400;
@@ -27,6 +27,9 @@ export function createScore() {
     }
     points++;
     updateBar();
+    if (points === limit) {
+      window.dispatchEvent(scoreMaxed());
+    }
   }
   function informLevelComplete() {
     if (points === limit) {

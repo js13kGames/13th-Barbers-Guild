@@ -3,6 +3,7 @@ interface GlobalEventHandlersEventMap {
   notify: CustomEvent<{ messages: string[]; onDismissed?: () => void }>;
   dismiss: CustomEvent;
   newLevel: CustomEvent<{ level: Level }>;
+  scoreMaxed: CustomEvent;
   levelComplete: CustomEvent;
   potionClick: CustomEvent<{ ingredient: Ingredient }>;
   potionRelease: CustomEvent<{ ingredient: Ingredient }>;

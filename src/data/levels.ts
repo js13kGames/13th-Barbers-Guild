@@ -73,7 +73,7 @@ function getRandomIngredients(count: number, ingredients: Ingredient[]) {
 
 export function* generateLevelParameters() {
   let requiredIngredients = 1;
-  let enableMisses = true;
+  const enableMisses = true;
   while (requiredIngredients < 7) {
     yield [requiredIngredients, enableMisses] as const;
     if (enableMisses) {

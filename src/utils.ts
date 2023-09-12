@@ -105,8 +105,8 @@ export function shuffle<T>(list: T[]) {
   return list.sort(() => Math.random() - 0.5);
 }
 
-export function getElement(id: string) {
-  const element = document.getElementById(id);
+export function getElement<T = HTMLElement>(id: string): T {
+  const element = document.getElementById(id) as T;
   if (!element) {
     throw new Error(`Missing #${id}`);
   }

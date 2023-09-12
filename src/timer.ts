@@ -1,9 +1,68 @@
-import { wrapper, rect, ellipsis, move, resize, vmirror } from "./utils";
+import { wrapper, ellipsis, move, resize, vmirror, getElement } from "./utils";
 
 const height = 100;
 
 export function createTimer() {
-  return wrapper(group, 70, height, { style: "top: 10px; left: 560px" });
+  setTimeout(() => {
+    const timer = getElement<SVGSVGElement>(import.meta.env.VITE_ID_TIMER);
+    const animations = timer.querySelectorAll("animate");
+
+    animations[0].addEventListener("beginEvent", () => {
+      console.debug("beginEvent");
+    });
+    animations[0].addEventListener("endEvent", () => {
+      console.debug("endEvent");
+    });
+
+    function initTimer() {
+      timer.unpauseAnimations();
+    }
+    function stopTimer() {
+      timer.pauseAnimations();
+    }
+    function resetTimer() {
+      animations.forEach((element) => {
+        element.beginElement();
+      });
+      stopTimer();
+    }
+    window.addEventListener("patientCalled", initTimer);
+    window.addEventListener("newLevel", resetTimer);
+    window.addEventListener("scoreMaxed", stopTimer);
+    window.addEventListener("reset", () => {
+      window.removeEventListener("patientCalled", initTimer);
+      window.removeEventListener("newLevel", resetTimer);
+      window.removeEventListener("scoreMaxed", stopTimer);
+    });
+    resetTimer();
+  });
+  return wrapper(gradient() + gradient(true) + group, 70, height, {
+    id: import.meta.env.VITE_ID_TIMER,
+    style: "top: 10px; left: 560px",
+  });
+}
+
+function gradient(reverse: boolean = false) {
+  const duration = 15;
+  const gradientColor = "#c8ab37";
+  return `<defs>
+<linearGradient id="${import.meta.env.VITE_ID_TIMER_GRADIENT}_${
+    reverse ? "r" : "d"
+  }" x1="0" x2="0" y1="-20" y2="57" gradientUnits="userSpaceOnUse">
+${gradientStop(gradientColor, reverse ? 0 : 1, 0)}/>
+${gradientStop(gradientColor, reverse ? 0 : 1, 0)}>
+  <animate attributeName="offset" dur="${duration}s" values="0;1" repeatCount="1" fill="freeze" pause />
+</stop>
+${gradientStop(gradientColor, reverse ? 1 : 0, 0)}>
+  <animate attributeName="offset" dur="${duration}s" values="0;1" repeatCount="1" fill="freeze" pause />
+</stop>
+${gradientStop(gradientColor, reverse ? 1 : 0, 1)}/>
+</linearGradient>
+</defs>`;
+}
+
+function gradientStop(color: string, opacity: number, offset: number) {
+  return `<stop stop-color="${color}" stop-opacity="${opacity}" offset="${offset}"`;
 }
 
 const coverLid = ellipsis(35, 10, 35, 10, "#784421");
@@ -19,8 +78,26 @@ const group = resize(
     move(resize(triangle("#afe"), 0.9, 0.75), 4, 20),
     move(cover, 0, height - 25),
     move(vmirror(resize(triangle("#afe"), 0.9, 0.65)), 4, -18),
-    move(resize(triangle("#c8ab37"), 0.65, 0.5), 12, 24),
-    move(vmirror(resize(triangle("#c8ab37"), 0.65, 0.5)), 12, -20),
+    move(
+      resize(
+        triangle(`url(#${import.meta.env.VITE_ID_TIMER_GRADIENT}_r)`),
+        0.65,
+        0.5,
+      ),
+      12,
+      24,
+    ),
+    move(
+      vmirror(
+        resize(
+          triangle(`url(#${import.meta.env.VITE_ID_TIMER_GRADIENT}_d)`),
+          0.65,
+          0.5,
+        ),
+      ),
+      12,
+      -20,
+    ),
     cover,
   ].join(""),
   0.8,
