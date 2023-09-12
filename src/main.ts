@@ -106,16 +106,15 @@ function listenToEvents() {
       isLandscape ? "top" : "left top",
     );
   });
-  getElement("reset").addEventListener("mouseup", (event) => {
-    event.stopPropagation();
-  });
+  for (const button of getElement("menu").querySelectorAll("button")) {
+    button.addEventListener("mouseup", (event) => {
+      event.stopPropagation();
+    });
+  }
   getElement("reset").addEventListener("click", (event) => {
     event.stopPropagation();
     window.dispatchEvent(reset());
     renderApp(); // reset application
-  });
-  getElement("music").addEventListener("mouseup", (event) => {
-    event.stopPropagation();
   });
   getElement("music").addEventListener("click", (event) => {
     event.stopPropagation();
