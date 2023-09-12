@@ -1,6 +1,10 @@
 interface GlobalEventHandlersEventMap {
   reset: CustomEvent;
-  notify: CustomEvent<{ messages: string[]; onDismissed?: () => void, preventDismiss?: boolean }>;
+  notify: CustomEvent<{
+    messages: string[];
+    onDismissed?: () => void;
+    preventDismiss?: boolean;
+  }>;
   dismiss: CustomEvent;
   newLevel: CustomEvent<{ level: Level }>;
   scoreMaxed: CustomEvent;

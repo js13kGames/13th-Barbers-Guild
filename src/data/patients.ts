@@ -103,7 +103,9 @@ const deadMessages: HealthMessageGetter = (disease, ingredients) => [
   `You were suposed to save people. He only needed ${coloredIngredientNames(
     ingredients,
   )} for ${disease.symptomsShort}, a clear signal of ${disease.name}.`,
-  `How do you think you'd join the guild by killing your patients? ${capFirst(disease.symptomsShort)}, symptoms of ${
+  `How do you think you'd join the guild by killing your patients? ${capFirst(
+    disease.symptomsShort,
+  )}, symptoms of ${
     disease.name
   }, is supposed to be cured with ${coloredIngredientNames(ingredients)}.`,
 ];

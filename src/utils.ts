@@ -1,4 +1,4 @@
-import {type Ingredient} from './data';
+import { type Ingredient } from "./data";
 
 export function wrapper(
   content: string,

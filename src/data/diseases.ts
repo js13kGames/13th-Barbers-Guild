@@ -9,7 +9,7 @@ export const diseases: Disease[] = [
     type: DiseaseType.Flu,
     name: "Flu",
     symptoms: "I'm felling feverish and just hate this snuffing nose!",
-    symptomsShort: 'fever and runny nose',
+    symptomsShort: "fever and runny nose",
   },
   {
     type: DiseaseType.Measles,

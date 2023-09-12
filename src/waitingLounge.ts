@@ -2,7 +2,7 @@ import { absDiv, getElement, coloredIngredientNames } from "./utils";
 import { createAttendant } from "./attendant";
 import { createPatient } from "./patient";
 import { theme } from "./theme";
-import { notify, reset } from "./events";
+import { notify } from "./events";
 import { type Level } from "./data";
 
 export function createWaitingLounge(width: number, height: number) {

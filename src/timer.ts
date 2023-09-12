@@ -13,7 +13,7 @@ import { theme } from "./theme";
 
 const height = 100;
 let hasBeginBeforeEnding = false;
-let timeoutId = null;
+let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
 export function createTimer() {
   setTimeout(() => {
