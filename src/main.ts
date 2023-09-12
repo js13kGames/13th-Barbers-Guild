@@ -5,6 +5,7 @@ import { createShelves } from "./shelves";
 import { createPotions } from "./potions";
 import { createCauldron } from "./cauldron";
 import { createScore } from "./score";
+import { createTimer } from "./timer";
 import { createNotifications } from "./notifications";
 import { createWaitingLounge } from "./waitingLounge";
 import { getElement } from "./utils";
@@ -26,6 +27,7 @@ function renderApp() {
     ${createPotions(ingredients, scale)}
     ${createShelves(width, height)}
     ${createScore()}
+    ${createTimer()}
     ${createNotifications(width, height)}
     ${createWaitingLounge(width, height)}
   `;

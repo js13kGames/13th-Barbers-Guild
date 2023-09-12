@@ -79,6 +79,12 @@ export function hmirror(content: string) {
   `;
 }
 
+export function vmirror(content: string) {
+  return `
+    <g style="transform: scale(1, -1); transform-origin: center">${content}</g>;
+  `;
+}
+
 export function rotate(content: string, angle: number) {
   return `
     <g style="transform: rotate(${angle}deg); transform-origin: center">${content}</g>;
