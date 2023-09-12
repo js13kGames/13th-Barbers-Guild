@@ -48,3 +48,5 @@ export const patientLeave = (patient: Patient) =>
   });
 
 export const gameOver = () => new CustomEvent("gameOver", { bubbles: true });
+
+export const gameComplete = () => new CustomEvent("gameComplete", { bubbles: true });

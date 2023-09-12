@@ -98,11 +98,9 @@ function getRandomIngredients(
 }
 
 export function* generateLevelParameters() {
-  let requiredIngredients = 1;
+  let requiredIngredients = Number(import.meta.env.VITE_FIRST_LEVEL);
   const enableMisses = true;
-  // generate levels up to 5 because we wouldn't be able to generate distinct
-  // choices for the level 6
-  while (requiredIngredients < 6) {
+  while (requiredIngredients <= Number(import.meta.env.VITE_LAST_LEVEL)) {
     yield [requiredIngredients, enableMisses] as const;
     if (enableMisses) {
       requiredIngredients++;

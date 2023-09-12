@@ -9,7 +9,7 @@ import { createTimer } from "./timer";
 import { createNotifications } from "./notifications";
 import { createWaitingLounge } from "./waitingLounge";
 import { getElement } from "./utils";
-import { notify, dismiss, newLevel, reset } from "./events";
+import { notify, dismiss, newLevel, reset, gameComplete } from "./events";
 
 const ingredients = generateIngredients();
 
@@ -42,13 +42,17 @@ function initApp() {
     console.debug("New level:", level);
     if (level) {
       dispatchEvent(newLevel(level));
+    } else {
+      dispatchEvent(gameComplete());
     }
   }
   window.dispatchEvent(
     notify(
       [
         "Welcome young barber surgeon ⚕️! This is your chance to join the <b>13th Barber's Guild</b> and work with the best!",
-        `✅ Hit <em>SPACE</em> or click anywhere in the screen to continue.\n✅ Hit <em>ESC</em> anytime to reset.\n✅ Drag potions to the cauldron when asked.\n✅ Within ${import.meta.env.VITE_TIME_LIMIT} seconds, get a credit for each cure!`,
+        `✅ Hit <em>SPACE</em> or click anywhere in the screen to continue.\n✅ Hit <em>ESC</em> anytime to reset.\n✅ Drag potions to the cauldron when asked.\n✅ Within ${
+          import.meta.env.VITE_TIME_LIMIT
+        } seconds, get a credit for each cure!`,
       ],
       createLevel,
     ),
