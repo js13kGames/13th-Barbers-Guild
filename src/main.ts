@@ -80,6 +80,7 @@ function getScaledRoot(scale: number, isLandscape: boolean) {
 }
 
 function listenToEvents() {
+  const root = getElement("app");
   window.addEventListener("keyup", (event) => {
     if (event.key === "Escape") {
       window.dispatchEvent(reset());
@@ -95,8 +96,6 @@ function listenToEvents() {
   });
   // Reset on resize
   window.addEventListener("resize", () => {
-    console.debug("resize");
-    const root = getElement("app");
     const [scale, isLandscape] = getFluidDimensions();
     window.scale = scale;
     root.style.setProperty("transform", `scale(${scale})`);
@@ -104,6 +103,11 @@ function listenToEvents() {
       "transform-origin",
       isLandscape ? "top" : "left top",
     );
+  });
+  getElement("reset").addEventListener("click", (event) => {
+    event.stopPropagation();
+    window.dispatchEvent(reset());
+    renderApp(); // reset application
   });
 }
 
