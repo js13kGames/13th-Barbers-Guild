@@ -1,4 +1,5 @@
 export default {
+  base: "./",
   build: {
     minify: "terser",
     cssMinify: "lightningcss",
