@@ -125,3 +125,18 @@ export const character3 = createWrapper(
   132,
   141,
 );
+
+const hair4 = resize(
+  `<g transform="translate(-67.7 -105)" stroke="#000">
+<path d="m105 175c9.27-30.6-6.77-42.7-13.9-40.6-7.04 1.21-6.42-0.288-11.6-1.89-6.93 0.171-6.69 11.8-11.2 12.3-1.94-25 2.17-37.4 24.9-38.8 43.9-2.33 41.3 65.4 11.8 68.9z" fill="#4d4d4d" stroke-linejoin="round" stroke-width="1.26"/>
+<path d="m90.5 107 10.9 0.0201c-9.28 9.04-11.2 22-10.5 35.3h-10.3c0.0514-13.7-2.62-28.9 9.89-35.3z" fill="#3f3f3f" stop-color="#000000" stroke-width=".973"/>
+</g>`,
+  1.9,
+  1.9,
+);
+
+export const character4 = createWrapper(
+  (health: Health) => move(group(health), 0, 35) + move(hair4, 7, 0),
+  121,
+  141,
+);

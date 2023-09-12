@@ -1,9 +1,9 @@
 import { type Level, type Patient } from "./data";
 import { wrapper, cycle } from "./utils";
-import { character2, character3 } from "./character";
+import { character2, character3, character4 } from "./character";
 import { notify, patientCalled, patientDone, patientLeave } from "./events";
 
-const characters = [character2, character3];
+const characters = [character2, character3, character4];
 
 export function createPatient(container: HTMLElement, level: Level) {
   const patient = level.getRandomPatient();
