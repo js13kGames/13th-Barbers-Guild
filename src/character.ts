@@ -80,8 +80,32 @@ function createWrapper(
   return character;
 }
 
+const mask = `
+<g transform="translate(-106 -82.5)">
+<g transform="matrix(.265 0 0 .265 285 183)">
+<g fill="none" stroke="#000" stroke-width="2.3">
+<path d="m-598-318 84.7-61.1"/>
+<path d="m-598-318 48.7 47"/>
+<path d="m-623-318-52-50.2"/>
+</g>
+<path d="m-650-345c29.6 10.8 59.2 6.91 88.8 0-6.77 20.1-8.93 40.6 0 62.1-28.1-18-55.3-11-82.4-2.13l-4.98-4.87c3.05-15.7 4.92-32.3-1.43-55.1z" fill="#fff" stop-color="#000000" stroke="#000" stroke-width="3.98"/>
+<g fill="none">
+<path d="m-565-302c-29.1-7.86-55.6-7.45-79.6 0.753" stroke="#f2f2f2" stroke-width="6.1"/>
+<path d="m-565-298c-29.1-7.86-55.6-7.45-79.6 0.753" stroke="#000" stroke-width="2.3"/>
+</g>
+<g transform="rotate(180 -605 -315)" fill="none">
+<path d="m-565-302c-29.1-7.86-55.6-7.45-79.6 0.753" stroke="#f2f2f2" stroke-width="6.1"/>
+<path d="m-565-298c-29.1-7.86-55.6-7.45-79.6 0.753" stroke="#000" stroke-width="2.3"/>
+</g>
+<path d="m-650-345c29.6 10.8 59.2 6.91 88.8 0-6.77 20.1-8.93 40.6 0 62.1-28.1-18-55.3-11-82.4-2.13l-4.98-4.87c3.05-15.7 4.92-32.3-1.43-55.1z" fill="none" stop-color="#000000" stroke="#000" stroke-width="3.98"/>
+</g>
+</g>`;
+
 export const character1 = createWrapper(
-  (health: Health) => move(group(health), 0, 35) + move(hair1, 7, 0),
+  (health: Health) =>
+    move(group(health), 0, 35) +
+    move(hair1, 7, 0) +
+    move(resize(mask, 1.9, 1.9), 7, 80),
   121,
   141,
 );
