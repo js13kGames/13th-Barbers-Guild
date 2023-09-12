@@ -79,7 +79,7 @@ export function getDropAnimation(height: number) {
     window.addEventListener("cauldronDrop", (event) => {
       const effect = [{ top: "100%" }, { top: "-100%" }];
       const timing = {
-        duration: 1000,
+        duration: Number(import.meta.env.VITE_CAULDRON_TIMEOUT),
         easing: "ease-in-out",
       };
       element.style.setProperty("--animColor", event.detail.ingredient.color);

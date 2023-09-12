@@ -13,6 +13,7 @@ import { theme } from "./theme";
 
 const height = 100;
 let hasBeginBeforeEnding = false;
+let timeoutId = null;
 
 export function createTimer() {
   setTimeout(() => {
@@ -23,7 +24,12 @@ export function createTimer() {
       // Move event ending to the next event cycle to catch a duplicate call before begin
       setTimeout(() => {
         if (!hasBeginBeforeEnding) {
-          window.dispatchEvent(gameOver());
+          timeoutId = setTimeout(
+            () => {
+              window.dispatchEvent(gameOver());
+            },
+            Number(import.meta.env.VITE_CAULDRON_TIMEOUT),
+          );
         }
         hasBeginBeforeEnding = false;
       });
@@ -48,6 +54,9 @@ export function createTimer() {
     window.addEventListener("newLevel", resetTimer);
     window.addEventListener("scoreMaxed", stopTimer);
     window.addEventListener("reset", () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       window.removeEventListener("patientCalled", initTimer);
       window.removeEventListener("newLevel", resetTimer);
       window.removeEventListener("scoreMaxed", stopTimer);
