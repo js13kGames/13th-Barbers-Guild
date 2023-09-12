@@ -5,9 +5,7 @@ let timeoutId: ReturnType<typeof setInterval> | null = null;
 let oscillators: OscillatorNode[] = [];
 
 export function configSound(): void {
-  console.debug("configSound");
   function setAction() {
-    console.debug("setAction");
     currentMusic = action;
     if (isPlaying) {
       stop();
@@ -15,7 +13,6 @@ export function configSound(): void {
     }
   }
   function setIdle() {
-    console.debug("setIdle");
     currentMusic = idle;
     if (isPlaying) {
       stop();
@@ -23,21 +20,25 @@ export function configSound(): void {
     }
   }
   window.addEventListener("beginLevel", setAction);
+  window.addEventListener("reset", setIdle);
   window.addEventListener("gameOver", setIdle);
   window.addEventListener("gameComplete", setIdle);
   window.addEventListener("reset", () => {
+    window.removeEventListener("reset", setIdle);
     window.removeEventListener("beginLevel", setAction);
     window.removeEventListener("gameOver", setIdle);
     window.removeEventListener("gameComplete", setIdle);
   });
 }
 
-export function startSound(): void {
+export function startSound(button: HTMLElement): void {
   stop();
   isPlaying = !isPlaying;
   if (isPlaying) {
-    console.debug(currentMusic);
     currentMusic();
+    button.innerHTML = 'Music is on';
+  } else {
+    button.innerHTML = 'Music is off';
   }
 }
 
