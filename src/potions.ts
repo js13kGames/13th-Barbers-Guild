@@ -155,14 +155,17 @@ export function configEvents(ingredient: Ingredient, scale: number) {
       element.style.pointerEvents = "none";
     }
   }
+  function moveToStart() {
+    deltaX = 0;
+    deltaY = 0;
+    element.style.transform = "";
+    element.style.pointerEvents = "";
+    element.style.zIndex = theme.layers.potion;
+  }
   function end() {
     if (clicked) {
       clicked = false;
-      deltaX = 0;
-      deltaY = 0;
-      element.style.transform = "";
-      element.style.pointerEvents = "";
-      element.style.zIndex = theme.layers.potion;
+      moveToStart();
       element.dispatchEvent(potionRelease(ingredient));
     }
   }
@@ -178,6 +181,16 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   const disableDrag = () => {
     canDrag = false;
   };
+  const cancelDrag = () => {
+    window.removeEventListener("mousemove", move);
+    window.removeEventListener("touchmove", moveByTouch);
+    window.removeEventListener("mouseup", end);
+    window.removeEventListener("touchend", end);
+    window.removeEventListener("patientCalled", enableDrag);
+    window.removeEventListener("patientDone", disableDrag);
+    disableDrag();
+    moveToStart();
+  };
   element.addEventListener("mousedown", begin);
   element.addEventListener("touchstart", beginByTouch);
   window.addEventListener("mousemove", move);
@@ -186,7 +199,7 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   window.addEventListener("touchend", end);
   window.addEventListener("patientCalled", enableDrag);
   window.addEventListener("patientDone", disableDrag);
-  window.addEventListener("gameOver", disableDrag);
+  window.addEventListener("gameOver", cancelDrag);
   window.addEventListener("reset", () => {
     window.removeEventListener("mousemove", move);
     window.removeEventListener("touchmove", moveByTouch);
@@ -194,7 +207,7 @@ export function configEvents(ingredient: Ingredient, scale: number) {
     window.removeEventListener("touchend", end);
     window.removeEventListener("patientCalled", enableDrag);
     window.removeEventListener("patientDone", disableDrag);
-    window.removeEventListener("gameOver", disableDrag);
+    window.removeEventListener("gameOver", cancelDrag);
   });
 }
 

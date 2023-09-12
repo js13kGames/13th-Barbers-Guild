@@ -13,8 +13,12 @@ export function createNotifications(width: number, height: number) {
     let onDismissed: (() => void) | undefined;
     let messages: string[] = [];
     let hasDismissed: boolean = true;
-    function renderLatestMessage() {
+    let canDismiss: boolean = true;
+    function renderLatestMessage(canDismiss: boolean) {
       const message = messages.shift();
+      if (!message && !canDismiss) {
+        return false;
+      }
       const element = getElement(import.meta.env.VITE_ID_NOTIFICATIONS);
       const span = element.querySelector("span");
       const parent = element.parentElement;
@@ -29,10 +33,11 @@ export function createNotifications(width: number, height: number) {
       onDismissed = event.detail.onDismissed;
       messages = event.detail.messages;
       hasDismissed = false;
-      renderLatestMessage();
+      canDismiss = !event.detail.preventDismiss;
+      renderLatestMessage(canDismiss);
     }
     function onDismiss() {
-      const hasRendered = renderLatestMessage();
+      const hasRendered = renderLatestMessage(canDismiss);
       if (!hasRendered && !hasDismissed && onDismissed) {
         hasDismissed = true;
         onDismissed();
@@ -41,6 +46,7 @@ export function createNotifications(width: number, height: number) {
     window.addEventListener("notify", onNotify);
     window.addEventListener("dismiss", onDismiss);
     window.addEventListener("reset", () => {
+      canDismiss = true;
       window.removeEventListener("notify", onNotify);
       window.removeEventListener("dismiss", onDismiss);
     });

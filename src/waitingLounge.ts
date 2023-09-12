@@ -41,10 +41,14 @@ export function createWaitingLounge(width: number, height: number) {
       console.debug("Game over!");
       createAttendant(container);
       window.dispatchEvent(
-        notify([
-          "<h4>Game Over!</h4><p>You are a shame for our guild! Don't you dare getting back here until you are really prepared!</p>" +
-            teardownIntructions,
-        ]),
+        notify(
+          [
+            "<h4>Game Over!</h4><p>You are a shame for our guild! Don't you dare getting back here until you are really prepared!</p>" +
+              teardownIntructions,
+          ],
+          undefined,
+          true,
+        ),
       );
     }
     function gameComplete() {
@@ -52,10 +56,14 @@ export function createWaitingLounge(width: number, height: number) {
       console.debug("Game complete!");
       createAttendant(container);
       window.dispatchEvent(
-        notify([
-          "<h4>Game Complete!</h4><p>Congratulations! Your name will be remembered 1300 years from now as the greatest barber-surgeon from ever. Ben Kingleys will interpret you on movies!</p>" +
-            teardownIntructions,
-        ]),
+        notify(
+          [
+            "<h4>Game Complete!</h4><p>Congratulations! Your name will be remembered 1300 years from now as the greatest barber-surgeon from ever. Ben Kingleys will interpret you on movies!</p>" +
+              teardownIntructions,
+          ],
+          undefined,
+          true,
+        ),
       );
     }
     function callNextPatient(event: WindowEventMap["patientLeave"]) {

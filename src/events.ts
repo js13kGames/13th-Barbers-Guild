@@ -17,8 +17,14 @@ export const cauldronPrepared = (ingredient: Ingredient) =>
     detail: { ingredient },
   });
 
-export const notify = (messages: string[], onDismissed?: () => void) =>
-  new CustomEvent("notify", { detail: { messages, onDismissed } });
+export const notify = (
+  messages: string[],
+  onDismissed?: () => void,
+  preventDismiss: boolean = false,
+) =>
+  new CustomEvent("notify", {
+    detail: { messages, onDismissed, preventDismiss },
+  });
 
 export const dismiss = () => new CustomEvent("dismiss");
 
@@ -49,4 +55,5 @@ export const patientLeave = (patient: Patient) =>
 
 export const gameOver = () => new CustomEvent("gameOver", { bubbles: true });
 
-export const gameComplete = () => new CustomEvent("gameComplete", { bubbles: true });
+export const gameComplete = () =>
+  new CustomEvent("gameComplete", { bubbles: true });
