@@ -1,5 +1,14 @@
-import { wrapper, ellipsis, move, resize, vmirror, getElement } from "./utils";
+import {
+  wrapper,
+  ellipsis,
+  move,
+  resize,
+  vmirror,
+  getElement,
+  blur,
+} from "./utils";
 import { gameOver } from "./events";
+import { theme } from "./theme";
 
 const height = 100;
 const duration = 6;
@@ -38,10 +47,15 @@ export function createTimer() {
     });
     resetTimer();
   });
-  return wrapper(gradient() + gradient(true) + group, 70, height, {
-    id: import.meta.env.VITE_ID_TIMER,
-    style: "top: 10px; left: 560px",
-  });
+  return wrapper(
+    gradient() + gradient(true) + move(group, 0, 0),
+    74,
+    height + 4,
+    {
+      id: import.meta.env.VITE_ID_TIMER,
+      style: "top: 10px; left: 560px",
+    },
+  );
 }
 
 function gradient(reverse: boolean = false) {
@@ -74,10 +88,19 @@ const path =
   "M 0,0 C 0,-20.654185 70,-21.872077 70,0 70,22.378835 39.954921,54.914604 35,55 30.084107,55.084723 0,21.945938 0,0 Z";
 const triangle = (color: string) => `<path d="${path}" fill="${color}" />`;
 
+const shadow = (color: string) =>
+  blur(
+    move(resize(triangle(color), 0.9, 0.75), 8, 20) +
+      move(vmirror(resize(triangle(color), 0.9, 0.65)), 8, -20) +
+      move(ellipsis(35, 10, 35, 10, color), 4, height - 21),
+    4,
+  );
+
 const group = resize(
   [
+    shadow(theme.black(0.3)),
     move(resize(triangle("#afe"), 0.9, 0.75), 4, 20),
-    move(cover, 0, height - 25),
+    move(cover, 0, height - 21),
     move(vmirror(resize(triangle("#afe"), 0.9, 0.65)), 4, -18),
     move(
       resize(
