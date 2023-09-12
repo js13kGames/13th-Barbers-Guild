@@ -61,15 +61,18 @@ const backRow = rect(270, 50, theme.bg);
 const shadow = rect(800, 2800, "url('#shadow')");
 
 function createShadow(width: number, height: number) {
+  const from = "52";
+  const to = "48";
+  const keySpline = ".2,0,0.5,1";
+  const keySplines = [keySpline, keySpline].join(";");
   return `<svg width="${width}" height="${height}">
     <defs>
       <radialGradient fr="25%" id="shadow">
-        <stop offset="0%" stop-color="rgba(0,0,0,0)">
-        </stop>
-        <stop offset="75%" stop-color="${theme.bg}">
+        <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+        <stop offset="75%" stop-color="${theme.bg}" />
         <stop offset="100%" stop-color="${theme.bg}" />
-        <animate attributeName="fx" dur="2s" values="50%;40%;50%;60%" repeatCount="indefinite" />
-        <animate attributeName="fy" dur="2s" begin="2s" values="50%;40%;50%;60%" repeatCount="indefinite" />
+        <animate attributeName="fx" dur="5s" values="${from}%;${to}%;${from}%" repeatCount="indefinite" calcMode="spline" keySplines="${keySplines}" />
+        <animate attributeName="fy" dur="5s" values="${from}%;${to}%;${from}%" repeatCount="indefinite" calcMode="spline" keySplines="${keySplines}"  />
       </radialGradient>
     </defs>
     ${move(shadow, -40, -900)}
