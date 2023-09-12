@@ -10,6 +10,7 @@ import { createNotifications } from "./notifications";
 import { createWaitingLounge } from "./waitingLounge";
 import { getElement } from "./utils";
 import { notify, dismiss, newLevel, reset, gameComplete } from "./events";
+import { configSound, startSound } from "./sounds";
 
 const ingredients = generateIngredients();
 
@@ -62,6 +63,7 @@ function initApp() {
     ),
   );
   window.addEventListener("levelComplete", createLevel);
+  configSound();
 }
 
 function getFluidDimensions() {
@@ -108,6 +110,10 @@ function listenToEvents() {
     event.stopPropagation();
     window.dispatchEvent(reset());
     renderApp(); // reset application
+  });
+  getElement("music").addEventListener("click", (event) => {
+    event.stopPropagation();
+    startSound();
   });
 }
 

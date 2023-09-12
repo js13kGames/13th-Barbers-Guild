@@ -2,7 +2,7 @@ import { absDiv, getElement, coloredIngredientNames } from "./utils";
 import { createAttendant } from "./attendant";
 import { createPatient } from "./patient";
 import { theme } from "./theme";
-import { notify } from "./events";
+import { notify, beginLevel } from "./events";
 import { type Level } from "./data";
 
 export function createWaitingLounge(width: number, height: number) {
@@ -10,7 +10,7 @@ export function createWaitingLounge(width: number, height: number) {
   let currentLevel: Level;
   setTimeout(() => {
     const container = getElement(import.meta.env.VITE_ID_WAITING_LOUNGE);
-    function beginLevel(event: WindowEventMap["newLevel"]) {
+    function startLevel(event: WindowEventMap["newLevel"]) {
       currentLevel = event.detail.level;
       createAttendant(container);
       const nextLevelAction =
@@ -33,6 +33,7 @@ export function createWaitingLounge(width: number, height: number) {
             )}</p><p>Ready to start?</p>`,
           ],
           () => {
+            window.dispatchEvent(beginLevel());
             createPatient(container, currentLevel);
           },
         ),
@@ -76,12 +77,12 @@ export function createWaitingLounge(width: number, height: number) {
         createPatient(container, event.detail.patient.level);
       }
     }
-    window.addEventListener("newLevel", beginLevel);
+    window.addEventListener("newLevel", startLevel);
     window.addEventListener("patientLeave", callNextPatient);
     window.addEventListener("gameOver", gameOver);
     window.addEventListener("gameComplete", gameComplete);
     window.addEventListener("reset", () => {
-      window.removeEventListener("newLevel", beginLevel);
+      window.removeEventListener("newLevel", startLevel);
       window.removeEventListener("patientLeave", callNextPatient);
       window.removeEventListener("gameOver", gameOver);
       window.removeEventListener("gameComplete", gameComplete);

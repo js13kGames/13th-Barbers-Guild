@@ -14,6 +14,7 @@ declare global {
     }>;
     dismiss: CustomEvent;
     newLevel: CustomEvent<{ level: Level }>;
+    beginLevel: CustomEvent;
     scoreMaxed: CustomEvent;
     levelComplete: CustomEvent;
     potionClick: CustomEvent<{ ingredient: Ingredient }>;
