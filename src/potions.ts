@@ -186,6 +186,7 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   window.addEventListener("touchend", end);
   window.addEventListener("patientCalled", enableDrag);
   window.addEventListener("patientDone", disableDrag);
+  window.addEventListener("gameOver", disableDrag);
   window.addEventListener("reset", () => {
     window.removeEventListener("mousemove", move);
     window.removeEventListener("touchmove", moveByTouch);
@@ -193,6 +194,7 @@ export function configEvents(ingredient: Ingredient, scale: number) {
     window.removeEventListener("touchend", end);
     window.removeEventListener("patientCalled", enableDrag);
     window.removeEventListener("patientDone", disableDrag);
+    window.removeEventListener("gameOver", disableDrag);
   });
 }
 

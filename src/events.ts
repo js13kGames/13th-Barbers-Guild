@@ -46,3 +46,5 @@ export const patientLeave = (patient: Patient) =>
     bubbles: true,
     detail: { patient },
   });
+
+export const gameOver = () => new CustomEvent("gameOver", { bubbles: true });

@@ -2,7 +2,7 @@ import { absDiv, getElement, coloredIngredientNames } from "./utils";
 import { createAttendant } from "./attendant";
 import { createPatient } from "./patient";
 import { theme } from "./theme";
-import { notify } from "./events";
+import { notify, reset } from "./events";
 import { type Level } from "./data";
 
 export function createWaitingLounge(width: number, height: number) {
@@ -30,6 +30,20 @@ export function createWaitingLounge(width: number, height: number) {
         ),
       );
     }
+    function gameOver() {
+      console.debug("Game over!");
+      createAttendant(container);
+      window.dispatchEvent(
+        notify(
+          [
+            "You are a shame for our guild! Get back here only when you are really prepared!",
+          ],
+          () => {
+            reset();
+          },
+        ),
+      );
+    }
     function callNextPatient(event: WindowEventMap["patientLeave"]) {
       const level = event.detail.patient.level;
       if (level === currentLevel) {
@@ -38,9 +52,11 @@ export function createWaitingLounge(width: number, height: number) {
     }
     window.addEventListener("newLevel", beginLevel);
     window.addEventListener("patientLeave", callNextPatient);
+    window.addEventListener("gameOver", gameOver);
     window.addEventListener("reset", () => {
       window.removeEventListener("newLevel", beginLevel);
       window.removeEventListener("patientLeave", callNextPatient);
+      window.removeEventListener("gameOver", gameOver);
     });
     // Create attendant by default while the game hasn't started
     createAttendant(container);

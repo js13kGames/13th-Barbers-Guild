@@ -12,4 +12,5 @@ interface GlobalEventHandlersEventMap {
   patientCalled: CustomEvent<{ patient: Patient }>;
   patientDone: CustomEvent<{ patient: Patient }>;
   patientLeave: CustomEvent<{ patient: Patient }>;
+  gameOver: CustomEvent;
 }

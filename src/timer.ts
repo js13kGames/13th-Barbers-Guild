@@ -1,6 +1,8 @@
 import { wrapper, ellipsis, move, resize, vmirror, getElement } from "./utils";
+import { gameOver } from "./events";
 
 const height = 100;
+const duration = 6;
 
 export function createTimer() {
   setTimeout(() => {
@@ -11,7 +13,7 @@ export function createTimer() {
       console.debug("beginEvent");
     });
     animations[0].addEventListener("endEvent", () => {
-      console.debug("endEvent");
+      window.dispatchEvent(gameOver());
     });
 
     function initTimer() {
@@ -43,7 +45,6 @@ export function createTimer() {
 }
 
 function gradient(reverse: boolean = false) {
-  const duration = 15;
   const gradientColor = "#c8ab37";
   return `<defs>
 <linearGradient id="${import.meta.env.VITE_ID_TIMER_GRADIENT}_${
