@@ -6,10 +6,16 @@ import { shuffle } from "../utils";
 type DiseasesIngredients = Array<Readonly<[Disease, Ingredient[]]>>;
 
 export class Level {
+  requiredIngredientsCount: number;
   diseasesIngredients: DiseasesIngredients;
   enableMisses: boolean;
 
-  constructor(diseasesIngredients: DiseasesIngredients, enableMisses: boolean) {
+  constructor(
+    requiredIngredientsCount: number,
+    diseasesIngredients: DiseasesIngredients,
+    enableMisses: boolean,
+  ) {
+    this.requiredIngredientsCount = requiredIngredientsCount;
     this.diseasesIngredients = diseasesIngredients;
     this.enableMisses = enableMisses;
   }
@@ -23,13 +29,13 @@ export class Level {
 
 export function* generateLevels(ingredients: Ingredient[]) {
   for (const params of generateLevelParameters()) {
-    const [requiredIngredients, enableMisses] = params;
+    const [requiredIngredientsCount, enableMisses] = params;
     const usedCombinations = new UsedCombinations();
     const diseasesIngredients = diseases.map((disease) => {
       let selectedIngredients: Ingredient[] | null = null;
       for (let index = 0; index < 100; index++) {
         selectedIngredients = getRandomIngredients(
-          requiredIngredients,
+          requiredIngredientsCount,
           ingredients,
         );
         if (usedCombinations.add(selectedIngredients)) {
@@ -41,7 +47,11 @@ export function* generateLevels(ingredients: Ingredient[]) {
       }
       return [disease, selectedIngredients] as const;
     });
-    yield new Level(diseasesIngredients, enableMisses);
+    yield new Level(
+      requiredIngredientsCount,
+      diseasesIngredients,
+      enableMisses,
+    );
   }
 }
 

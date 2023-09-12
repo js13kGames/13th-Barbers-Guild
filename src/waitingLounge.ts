@@ -15,7 +15,9 @@ export function createWaitingLounge(width: number, height: number) {
       window.dispatchEvent(
         notify(
           [
-            "You are in probation! The diseases are spreading across the kingdom!",
+            currentLevel.requiredIngredientsCount === 1
+              ? "You are in probation! The diseases are spreading across the kingdom!"
+              : `Diseases are worse than ever! Now you need to combine ${currentLevel.requiredIngredientsCount} ingredients for a cure.`,
             `Within ${
               import.meta.env.VITE_TIME_LIMIT
             } minute, do you think you can earn ${
