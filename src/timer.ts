@@ -7,23 +7,29 @@ import {
   getElement,
   blur,
   rotate,
-  skewY,
 } from "./utils";
 import { gameOver } from "./events";
 import { theme } from "./theme";
 
 const height = 100;
+let hasBeginBeforeEnding = false;
 
 export function createTimer() {
   setTimeout(() => {
     const timer = getElement<SVGSVGElement>(import.meta.env.VITE_ID_TIMER);
     const animations = timer.querySelectorAll("animate");
 
-    animations[0].addEventListener("beginEvent", () => {
-      console.debug("beginEvent");
-    });
     animations[0].addEventListener("endEvent", () => {
-      window.dispatchEvent(gameOver());
+      // Move event ending to the next event cycle to catch a duplicate call before begin
+      setTimeout(() => {
+        if (!hasBeginBeforeEnding) {
+          window.dispatchEvent(gameOver());
+        }
+        hasBeginBeforeEnding = false;
+      });
+    });
+    animations[0].addEventListener("beginEvent", () => {
+      hasBeginBeforeEnding = true;
     });
 
     function initTimer() {
