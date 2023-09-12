@@ -15,7 +15,10 @@ export function createWaitingLounge(width: number, height: number) {
       window.dispatchEvent(
         notify(
           [
-            "The diseases are spreading across the kingdom!",
+            "You are in probation! The diseases are spreading across the kingdom!",
+            `Within 1 minute, do you think you can earn ${
+              import.meta.env.VITE_PATIENT_LIMIT
+            } credits to join our Barber's Guild? If you fail, you are fired 🔥!`,
             `<h4>Pay Attention!</h4>Give potions according to the diseases:\n${getDiseasesAndIngredients(
               currentLevel.diseasesIngredients,
             )}`,
