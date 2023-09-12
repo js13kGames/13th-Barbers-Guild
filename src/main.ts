@@ -13,18 +13,22 @@ import { notify, dismiss, newLevel, reset, gameComplete } from "./events";
 
 const ingredients = generateIngredients();
 
+const width = 720;
+const height = 800;
+
 function runApp() {
   listenToEvents();
   renderApp();
 }
 
 function renderApp() {
-  const [width, height, scale, isLandscape] = getFluidDimensions();
+  const [scale, isLandscape] = getFluidDimensions();
+  window.scale = scale;
   const root = getScaledRoot(scale, isLandscape);
   root.innerHTML = `
     ${createWalls(width, height)}
     ${createCauldron(height)}
-    ${createPotions(ingredients, scale)}
+    ${createPotions(ingredients)}
     ${createShelves(width, height)}
     ${createScore()}
     ${createTimer()}
@@ -61,12 +65,11 @@ function initApp() {
 }
 
 function getFluidDimensions() {
-  const width = 720;
-  const height = 800;
+  const menuHeight = 42;
   const xRate = window.innerWidth / width;
-  const yRate = window.innerHeight / height;
+  const yRate = (window.innerHeight - menuHeight) / height;
   const scale = Math.min(xRate, yRate);
-  return [width, height, scale, xRate > yRate] as const;
+  return [scale, xRate > yRate] as const;
 }
 
 function getScaledRoot(scale: number, isLandscape: boolean) {
@@ -89,6 +92,18 @@ function listenToEvents() {
   // Dismiss on mouseup, which covers also mobile environments
   window.addEventListener("mouseup", () => {
     window.dispatchEvent(dismiss());
+  });
+  // Reset on resize
+  window.addEventListener("resize", () => {
+    console.debug("resize");
+    const root = getElement("app");
+    const [scale, isLandscape] = getFluidDimensions();
+    window.scale = scale;
+    root.style.setProperty("transform", `scale(${scale})`);
+    root.style.setProperty(
+      "transform-origin",
+      isLandscape ? "top" : "left top",
+    );
   });
 }
 

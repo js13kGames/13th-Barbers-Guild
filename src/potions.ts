@@ -7,11 +7,11 @@ type Column = 1 | 2 | 3;
 
 const centerDeltaY = 15;
 
-export function createPotions(ingredients: Ingredient[], scale: number) {
+export function createPotions(ingredients: Ingredient[]) {
   const positions = Array.from(generatePositions());
   return ingredients
     .map((ingredient, index) =>
-      createPotion(ingredient, scale, ...positions[index]),
+      createPotion(ingredient, ...positions[index]),
     )
     .join("");
 }
@@ -47,13 +47,12 @@ function* generatePositions() {
 
 function createPotion(
   ingredient: Ingredient,
-  scale: number,
   x: number,
   y: number,
   column: Column,
 ) {
   setTimeout(() => {
-    configEvents(ingredient, scale);
+    configEvents(ingredient);
   });
   return [
     potion(ingredient.id, ingredient.color, x, y, column),
@@ -125,7 +124,7 @@ function shape(color: string, width: number, height: number, blur?: boolean) {
   );
 }
 
-export function configEvents(ingredient: Ingredient, scale: number) {
+export function configEvents(ingredient: Ingredient) {
   let canDrag = false;
   let clicked = false;
   let initialX = 0;
@@ -149,8 +148,8 @@ export function configEvents(ingredient: Ingredient, scale: number) {
   }
   function move({ clientX, clientY }: Pick<MouseEvent, "clientX" | "clientY">) {
     if (clicked) {
-      deltaX = (clientX - initialX) / scale;
-      deltaY = (clientY - initialY) / scale;
+      deltaX = (clientX - initialX) / window.scale;
+      deltaY = (clientY - initialY) / window.scale;
       element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
       element.style.pointerEvents = "none";
     }
