@@ -18,7 +18,9 @@ export function createPatient(container: HTMLElement, level: Level) {
     renderPatient(container, patient, character);
     if (patient.hasLeft()) {
       window.dispatchEvent(patientDone(patient));
-      window.removeEventListener("cauldronPrepared", addIngredient);
+      setTimeout(() => {
+        window.removeEventListener("cauldronPrepared", addIngredient);
+      });
     }
   }
   window.addEventListener("cauldronPrepared", addIngredient);
