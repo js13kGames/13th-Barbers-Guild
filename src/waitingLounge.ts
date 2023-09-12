@@ -13,6 +13,10 @@ export function createWaitingLounge(width: number, height: number) {
     function beginLevel(event: WindowEventMap["newLevel"]) {
       currentLevel = event.detail.level;
       createAttendant(container);
+      const nextLevelAction =
+        currentLevel.requiredIngredientsCount === 1
+          ? "join our Barber's Guild"
+          : `advance to level ${currentLevel.requiredIngredientsCount}`;
       window.dispatchEvent(
         notify(
           [
@@ -23,7 +27,7 @@ export function createWaitingLounge(width: number, height: number) {
               import.meta.env.VITE_TIME_LIMIT
             } seconds, do you think you can earn ${
               import.meta.env.VITE_PATIENT_LIMIT
-            } credits to join our Barber's Guild? If you fail, you are fired 🔥!`,
+            } credits to ${nextLevelAction}? If you fail, you are fired 🔥!`,
             `<h4>Pay Attention!</h4><p>Give potions according to the diseases:</p><p>${getDiseasesAndIngredients(
               currentLevel.diseasesIngredients,
             )}</p><p>Ready to start?</p>`,
