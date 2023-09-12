@@ -95,6 +95,6 @@ body {
   justify-content: center;
   font-size: 1.1rem;
 }
-#n h4 {
+#n h4, #n p {
   margin: 0 0 0.5rem 0;
 }
