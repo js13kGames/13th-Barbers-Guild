@@ -16,13 +16,14 @@ export function createWaitingLounge(width: number, height: number) {
         notify(
           [
             "You are in probation! The diseases are spreading across the kingdom!",
-            `Within 1 minute, do you think you can earn ${
+            `Within ${
+              import.meta.env.VITE_TIME_LIMIT
+            } minute, do you think you can earn ${
               import.meta.env.VITE_PATIENT_LIMIT
             } credits to join our Barber's Guild? If you fail, you are fired 🔥!`,
-            `<h4>Pay Attention!</h4>Give potions according to the diseases:\n${getDiseasesAndIngredients(
+            `<h4>Pay Attention!</h4><p>Give potions according to the diseases:</p><p>${getDiseasesAndIngredients(
               currentLevel.diseasesIngredients,
-            )}`,
-            "Ready to start?",
+            )}</p><p>Ready to start?</p>`,
           ],
           () => {
             createPatient(container, currentLevel);
@@ -36,7 +37,7 @@ export function createWaitingLounge(width: number, height: number) {
       window.dispatchEvent(
         notify(
           [
-            "You are a shame for our guild! Get back here only when you are really prepared!",
+            "<h4>Game Over!</h4><p>You are a shame for our guild! Don't you dare getting back here until you are really prepared!</p><p>Press <i>ESC</i> or hit <i>Reset</i> to restart.</p>",
           ],
           () => {
             reset();
