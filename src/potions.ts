@@ -20,7 +20,7 @@ function* generatePositions() {
   const x1 = 115;
   const x2 = 320;
   const x3 = 530;
-  const y1 = 162;
+  const y1 = 192;
   const y2 = 395;
   const columns = [
     [

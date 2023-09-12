@@ -4,7 +4,7 @@ import { theme } from "./theme";
 export function createShelves(width: number, height: number) {
   const x1 = 95;
   const x2 = 185;
-  const y1 = 170;
+  const y1 = 200;
   const y2 = 400;
   const delta = 50;
   const shelves = [
