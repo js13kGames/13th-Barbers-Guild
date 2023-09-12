@@ -28,23 +28,27 @@ export class Level {
 }
 
 export function* generateLevels(ingredients: Ingredient[]) {
+  const latestDiseasesIngredients: Record<Disease["name"], Ingredient[]> = {};
   for (const params of generateLevelParameters()) {
     const [requiredIngredientsCount, enableMisses] = params;
     const usedCombinations = new UsedCombinations();
     const diseasesIngredients = diseases.map((disease) => {
       let selectedIngredients: Ingredient[] | null = null;
-      for (let index = 0; index < 100; index++) {
-        selectedIngredients = getRandomIngredients(
+      for (let index = 0; index < 200; index++) {
+        const randomIngredients = getRandomIngredients(
           requiredIngredientsCount,
           ingredients,
+          latestDiseasesIngredients?.[disease.name] ?? [],
         );
-        if (usedCombinations.add(selectedIngredients)) {
+        if (usedCombinations.add(randomIngredients)) {
+          selectedIngredients = randomIngredients;
           break;
         }
       }
       if (!selectedIngredients) {
         throw new Error(); // Could not generate distinct ingredients
       }
+      latestDiseasesIngredients[disease.name] = selectedIngredients;
       return [disease, selectedIngredients] as const;
     });
     yield new Level(
@@ -76,15 +80,29 @@ class UsedCombinations {
   }
 }
 
-function getRandomIngredients(count: number, ingredients: Ingredient[]) {
-  const availableIngredients = shuffle([...ingredients]);
-  return availableIngredients.slice(0, count);
+function getRandomIngredients(
+  count: number,
+  ingredients: Ingredient[],
+  existingIngredients: Ingredient[],
+) {
+  const availableIngredients = ingredients.filter(
+    (ingredient) => !existingIngredients.includes(ingredient),
+  );
+  return [
+    ...existingIngredients,
+    ...shuffle(availableIngredients).slice(
+      0,
+      count - existingIngredients.length,
+    ),
+  ];
 }
 
 export function* generateLevelParameters() {
   let requiredIngredients = 1;
   const enableMisses = true;
-  while (requiredIngredients < 7) {
+  // generate levels up to 5 because we wouldn't be able to generate distinct
+  // choices for the level 6
+  while (requiredIngredients < 6) {
     yield [requiredIngredients, enableMisses] as const;
     if (enableMisses) {
       requiredIngredients++;
