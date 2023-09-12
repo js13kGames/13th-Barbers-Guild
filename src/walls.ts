@@ -25,7 +25,7 @@ export function createWalls(width: number, height: number) {
     </svg>
   `;
   return wrapper(
-    move(walls, 0, -30) + createShadow(width, height),
+    move(walls, 0, -30) + wrapper(shadow, width, height),
     width,
     height,
   );
@@ -58,15 +58,13 @@ const pillar = rect(20, 1100, theme.bg);
 
 const backRow = rect(270, 50, theme.bg);
 
-const shadow = rect(800, 2800, "url('#shadow')");
+const shadowRect = rect(800, 2800, "url('#shadow')");
 
-function createShadow(width: number, height: number) {
-  const from = "52";
-  const to = "48";
-  const keySpline = ".2,0,0.5,1";
-  const keySplines = [keySpline, keySpline].join(";");
-  return `<svg width="${width}" height="${height}">
-    <defs>
+const from = "52";
+const to = "48";
+const keySpline = ".2,0,0.5,1";
+const keySplines = [keySpline, keySpline].join(";");
+const shadow = `<defs>
       <radialGradient fr="25%" id="shadow">
         <stop offset="0%" stop-color="rgba(0,0,0,0)" />
         <stop offset="75%" stop-color="${theme.bg}" />
@@ -75,6 +73,4 @@ function createShadow(width: number, height: number) {
         <animate attributeName="fy" dur="5s" values="${from}%;${to}%;${from}%" repeatCount="indefinite" calcMode="spline" keySplines="${keySplines}"  />
       </radialGradient>
     </defs>
-    ${move(shadow, -40, -900)}
-  </svg>`;
-}
+    ${move(shadowRect, -40, -900)}`;
