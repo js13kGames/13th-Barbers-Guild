@@ -18,8 +18,8 @@ export function generateIngredients() {
     "Salamander Tail",
     "Cat Paw",
     "Rat Tooth",
-    "Devil's Herb",
-    "Badger Eyes",
+    "Hellfire Herb",
+    "Badger Bone",
   ];
   const colors = [
     "#ff6600",
