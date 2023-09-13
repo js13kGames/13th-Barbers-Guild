@@ -11,6 +11,7 @@ import { createWaitingLounge } from "./waitingLounge";
 import { getElement } from "./utils";
 import { notify, dismiss, newLevel, reset, gameComplete } from "./events";
 import { configSound, startSound } from "./sounds";
+import { i18n } from "./i18n";
 
 const ingredients = generateIngredients();
 
@@ -51,17 +52,7 @@ function initApp() {
       dispatchEvent(gameComplete());
     }
   }
-  window.dispatchEvent(
-    notify(
-      [
-        "Welcome young barber-surgeon ⚕️! This is your chance to join the <b>13th Barber's Guild</b> and work with the best!",
-        `✅ Hit <em>SPACE</em> or click anywhere on the screen to continue.\n✅ Hit <em>ESC</em> at anytime to reset.\n✅ Drag potions to the cauldron when prompted.\n✅ Within ${
-          import.meta.env.VITE_TIME_LIMIT
-        } seconds, earn a credit for each cure!`,
-      ],
-      createLevel,
-    ),
-  );
+  window.dispatchEvent(notify([i18n.welcome, i18n.instructions], createLevel));
   window.addEventListener("levelComplete", createLevel);
   configSound();
 }
@@ -106,7 +97,7 @@ function listenToEvents() {
       isLandscape ? "top" : "left top",
     );
   });
-  for (const button of getElement("menu").querySelectorAll("button")) {
+  for (const button of getElement("menu").querySelectorAll("button, a")) {
     button.addEventListener("mouseup", (event) => {
       event.stopPropagation();
     });

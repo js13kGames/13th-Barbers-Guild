@@ -31,7 +31,8 @@ export const dismiss = () => new CustomEvent("dismiss");
 export const newLevel = (level: Level) =>
   new CustomEvent("newLevel", { detail: { level } });
 
-export const beginLevel = () => new CustomEvent("beginLevel", { bubbles: true });
+export const beginLevel = () =>
+  new CustomEvent("beginLevel", { bubbles: true });
 
 export const scoreMaxed = () => new CustomEvent("scoreMaxed");
 

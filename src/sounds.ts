@@ -36,9 +36,9 @@ export function startSound(button: HTMLElement): void {
   isPlaying = !isPlaying;
   if (isPlaying) {
     currentMusic();
-    button.innerHTML = 'Music is on';
+    button.innerHTML = "Music is on";
   } else {
-    button.innerHTML = 'Music is off';
+    button.innerHTML = "Music is off";
   }
 }
 

@@ -4,6 +4,7 @@ import { createPatient } from "./patient";
 import { theme } from "./theme";
 import { notify, beginLevel } from "./events";
 import { type Level } from "./data";
+import { i18n } from "./i18n";
 
 export function createWaitingLounge(width: number, height: number) {
   let isGameDone = false;
@@ -13,24 +14,16 @@ export function createWaitingLounge(width: number, height: number) {
     function startLevel(event: WindowEventMap["newLevel"]) {
       currentLevel = event.detail.level;
       createAttendant(container);
-      const nextLevelAction =
-        currentLevel.requiredIngredientsCount === 1
-          ? "join our Barber's Guild"
-          : `advance to level ${currentLevel.requiredIngredientsCount}`;
       window.dispatchEvent(
         notify(
           [
             currentLevel.requiredIngredientsCount === 1
-              ? "You are on probation! The diseases are spreading across the kingdom!"
-              : `Diseases are worse than ever! Now you need to combine ${currentLevel.requiredIngredientsCount} ingredients for a cure.`,
-            `Do you believe you can earn ${
-              import.meta.env.VITE_PATIENT_LIMIT
-            } credits ${nextLevelAction} within ${
-              import.meta.env.VITE_TIME_LIMIT
-            } seconds? Failure results in termination! 🔥!`,
-            `<h4>Pay Attention!</h4><p>Give potions according to the diseases:</p><p>${getDiseasesAndIngredients(
-              currentLevel.diseasesIngredients,
-            )}</p><p>Are you ready to start?</p>`,
+              ? i18n.level1Callout
+              : i18n.levelNCallout(currentLevel.requiredIngredientsCount),
+            i18n.levelParams(currentLevel.requiredIngredientsCount),
+            i18n.ingredientList(
+              getDiseasesAndIngredients(currentLevel.diseasesIngredients),
+            ),
           ],
           () => {
             window.dispatchEvent(beginLevel());
@@ -39,21 +32,12 @@ export function createWaitingLounge(width: number, height: number) {
         ),
       );
     }
-    const teardownIntructions =
-      "<p>Press <i>ESC</i> or hit <i>Reset</i> to restart.</p>";
     function gameOver() {
       isGameDone = true;
       console.debug("Game over!");
       createAttendant(container);
       window.dispatchEvent(
-        notify(
-          [
-            "<h4>Game Over!</h4><p>You are a shame to our guild! Don't you dare come back here until you are really prepared!</p>" +
-              teardownIntructions,
-          ],
-          undefined,
-          true,
-        ),
+        notify([i18n.gameOver + i18n.teardownIntructions], undefined, true),
       );
     }
     function gameComplete() {
@@ -61,14 +45,7 @@ export function createWaitingLounge(width: number, height: number) {
       console.debug("Game complete!");
       createAttendant(container);
       window.dispatchEvent(
-        notify(
-          [
-            "<h4>Game Complete!</h4><p>Congratulations! Your name will be remembered 1300 years from now as the greatest barber-surgeon ever. Ben Kingsley will portray you in movies!</p>" +
-              teardownIntructions,
-          ],
-          undefined,
-          true,
-        ),
+        notify([i18n.gameComplete + i18n.teardownIntructions], undefined, true),
       );
     }
     function callNextPatient(event: WindowEventMap["patientLeave"]) {

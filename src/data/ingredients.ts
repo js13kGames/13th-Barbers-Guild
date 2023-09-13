@@ -1,4 +1,5 @@
 import { shuffle } from "../utils";
+import { i18n } from "../i18n";
 
 export class Ingredient {
   id: string;
@@ -13,14 +14,7 @@ export class Ingredient {
 }
 
 export function generateIngredients() {
-  const names = [
-    "Frog Tongue",
-    "Salamander Tail",
-    "Cat Paw",
-    "Rat Tooth",
-    "Hellfire Herb",
-    "Badger Bone",
-  ];
+  const names = i18n.ingredients;
   const colors = [
     "#ff6600",
     "#ff0000",

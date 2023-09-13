@@ -10,9 +10,7 @@ const centerDeltaY = 15;
 export function createPotions(ingredients: Ingredient[]) {
   const positions = Array.from(generatePositions());
   return ingredients
-    .map((ingredient, index) =>
-      createPotion(ingredient, ...positions[index]),
-    )
+    .map((ingredient, index) => createPotion(ingredient, ...positions[index]))
     .join("");
 }
 

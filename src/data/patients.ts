@@ -2,7 +2,8 @@ import { type Ingredient } from "./ingredients";
 import { type Disease } from "./diseases";
 import { type Level } from "./levels";
 import { Health } from "../types";
-import { shuffle, coloredIngredientNames, capFirst } from "../utils";
+import { shuffle, coloredIngredientNames } from "../utils";
+import { i18n } from "../i18n";
 
 export class Patient {
   level: Level;
@@ -81,40 +82,33 @@ type HealthMessageGetter = (
 ) => string[];
 
 const goodMessages: HealthMessageGetter = (disease) => [
-  `${disease.symptoms} Help me doc!`,
-  `${disease.symptoms} What can you do for me sir ? `,
-  `${disease.symptoms} I'm scared, help me please!`,
+  `${disease.symptoms} ${i18n.health.good[0]}`,
+  `${disease.symptoms} ${i18n.health.good[1]}`,
+  `${disease.symptoms} ${i18n.health.good[2]}`,
 ];
 
-const gettingBetterMessages: HealthMessageGetter = () => [
-  "I'm not full refresh, but I'm feeling slightly better!",
-  "I think there's been a small change for the better in how I feel.",
-  "I've noticed a slight improvement in my condition.",
-  "I'm not as bad as I was before; there's been a minor improvement.",
-  "I'm feeling a tad better, but there's still some discomfort.",
-];
+const gettingBetterMessages: HealthMessageGetter = () =>
+  i18n.health.gettingBetter;
 
 const badMessages: HealthMessageGetter = (disease) => [
-  `I'm not feeling better! Remember: ${disease.symptoms}`,
-  `I'm feeling worse, what did you gave me doc? ${disease.symptoms}`,
+  `${i18n.health.bad[0]} ${disease.symptoms}`,
+  `${i18n.health.bad[1]} ${disease.symptoms}`,
 ];
 
 const deadMessages: HealthMessageGetter = (disease, ingredients) => [
-  `You were supposed to save people. He only needed ${coloredIngredientNames(
-    ingredients,
-  )} for ${disease.symptomsShort}, clear signals of ${disease.name}.`,
-  `How do you think you'd join the guild by killing your patients? ${capFirst(
-    disease.symptomsShort,
-  )}, symptoms of ${capFirst(
+  i18n.health.dead[0](
     disease.name,
-  )}, are supposed to be cured with ${coloredIngredientNames(ingredients)}.`,
+    disease.symptomsShort,
+    coloredIngredientNames(ingredients),
+  ),
+  i18n.health.dead[1](
+    disease.name,
+    disease.symptomsShort,
+    coloredIngredientNames(ingredients),
+  ),
 ];
 
-const curedMessages = () => [
-  "I'm feeling much better, doc! Thanks!",
-  "You are a lifesaver, sir, I feel renewed!",
-  "It's a miracle! I'm feeling like myself again!",
-];
+const curedMessages = () => i18n.health.cured;
 
 const messagesByHealth = {
   [Health.Good]: goodMessages,

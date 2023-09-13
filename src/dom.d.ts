@@ -1,4 +1,4 @@
-import type { Level, Ingredient, Patient } from './data';
+import type { Level, Ingredient, Patient } from "./data";
 
 declare global {
   interface Window {
