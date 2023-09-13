@@ -2,7 +2,7 @@ import { capFirst } from "../utils";
 
 export const messages = {
   welcome:
-    "Bem-vindo jovem barbeiro-cirurgião ⚕️! Esta é sua change de entrar para a <b>13º Guilda de Barbeiros</b> e trabalhar com os melhores!",
+    "Bem-vindo jovem barbeiro-cirurgião ⚕️! Esta é sua chance de entrar para a <b>13º Guilda de Barbeiros</b> e trabalhar com os melhores!",
   instructions: `✅ Pressione <em>ESPAÇO</em> ou clique em qualquer lugar da tela para continuar.\n✅ Pressione <em>ESC</em> a qualquer momento para recomeçar.\n✅ Arraste poções para o caldeirão quando solicitado.\n✅ Dentro de ${
     import.meta.env.VITE_TIME_LIMIT
   } segundos, ganhe um crédito por cada cura!`,
