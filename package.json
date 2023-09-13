@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint 'src/**'",
-    "build": "tsc && vite build && rm -f dist.zip && advzip -a dist.zip dist/index.html dist/assets/* && ls -l dist.zip",
+    "build": "tsc && vite build && rm -f dist.zip && advzip -a dist.zip dist/index.html && ls -l dist.zip",
     "preview": "vite preview",
     "test": "vitest",
     "serve": "python -m http.server 8008"
@@ -21,14 +21,13 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-promise": "^6.0.0",
+    "eslint": "^8.0.1",
     "lightningcss": "^1.21.7",
     "prettier": "^3.0.3",
     "terser": "^5.19.3",
     "typescript": "*",
     "vite": "^4.4.5",
+    "vite-plugin-singlefile": "^0.13.5",
     "vitest": "^0.34.3"
-  },
-  "dependencies": {
-    "eslint": "^8.0.1"
   }
 }

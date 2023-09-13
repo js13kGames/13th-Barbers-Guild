@@ -1,3 +1,5 @@
+import { viteSingleFile } from "vite-plugin-singlefile"
+
 export default {
   base: "./",
   build: {
@@ -9,7 +11,11 @@ export default {
       },
     },
   },
+  plugins: [viteSingleFile()],
   server: {
     host: true,
+    fs: {
+      strict: false,
+    },
   },
 };
