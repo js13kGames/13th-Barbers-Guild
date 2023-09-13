@@ -10,7 +10,7 @@
     "build": "tsc && vite build && rm -f dist.zip && advzip -a dist.zip dist/index.html dist/assets/* && ls -l dist.zip",
     "preview": "vite preview",
     "test": "vitest",
-    "serve": "cd dist && python -m http.server 8008"
+    "serve": "python -m http.server 8008"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.4.0",
