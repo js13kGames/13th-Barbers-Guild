@@ -21,16 +21,16 @@ export function createWaitingLounge(width: number, height: number) {
         notify(
           [
             currentLevel.requiredIngredientsCount === 1
-              ? "You are in probation! The diseases are spreading across the kingdom!"
+              ? "You are on probation! The diseases are spreading across the kingdom!"
               : `Diseases are worse than ever! Now you need to combine ${currentLevel.requiredIngredientsCount} ingredients for a cure.`,
-            `Within ${
-              import.meta.env.VITE_TIME_LIMIT
-            } seconds, do you think you can earn ${
+            `Do you believe you can earn ${
               import.meta.env.VITE_PATIENT_LIMIT
-            } credits to ${nextLevelAction}? If you fail, you are fired 🔥!`,
+            } credits ${nextLevelAction} within ${
+              import.meta.env.VITE_TIME_LIMIT
+            } seconds? Failure results in termination! 🔥!`,
             `<h4>Pay Attention!</h4><p>Give potions according to the diseases:</p><p>${getDiseasesAndIngredients(
               currentLevel.diseasesIngredients,
-            )}</p><p>Ready to start?</p>`,
+            )}</p><p>Are you ready to start?</p>`,
           ],
           () => {
             window.dispatchEvent(beginLevel());
@@ -48,7 +48,7 @@ export function createWaitingLounge(width: number, height: number) {
       window.dispatchEvent(
         notify(
           [
-            "<h4>Game Over!</h4><p>You are a shame for our guild! Don't you dare getting back here until you are really prepared!</p>" +
+            "<h4>Game Over!</h4><p>You are a shame to our guild! Don't you dare come back here until you are really prepared!</p>" +
               teardownIntructions,
           ],
           undefined,
@@ -63,7 +63,7 @@ export function createWaitingLounge(width: number, height: number) {
       window.dispatchEvent(
         notify(
           [
-            "<h4>Game Complete!</h4><p>Congratulations! Your name will be remembered 1300 years from now as the greatest barber-surgeon from ever. Ben Kingleys will interpret you on movies!</p>" +
+            "<h4>Game Complete!</h4><p>Congratulations! Your name will be remembered 1300 years from now as the greatest barber-surgeon ever. Ben Kingsley will portray you in movies!</p>" +
               teardownIntructions,
           ],
           undefined,

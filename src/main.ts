@@ -54,10 +54,10 @@ function initApp() {
   window.dispatchEvent(
     notify(
       [
-        "Welcome young barber surgeon ⚕️! This is your chance to join the <b>13th Barber's Guild</b> and work with the best!",
-        `✅ Hit <em>SPACE</em> or click anywhere in the screen to continue.\n✅ Hit <em>ESC</em> anytime to reset.\n✅ Drag potions to the cauldron when asked.\n✅ Within ${
+        "Welcome young barber-surgeon ⚕️! This is your chance to join the <b>13th Barber's Guild</b> and work with the best!",
+        `✅ Hit <em>SPACE</em> or click anywhere on the screen to continue.\n✅ Hit <em>ESC</em> at anytime to reset.\n✅ Drag potions to the cauldron when prompted.\n✅ Within ${
           import.meta.env.VITE_TIME_LIMIT
-        } seconds, get a credit for each cure!`,
+        } seconds, earn a credit for each cure!`,
       ],
       createLevel,
     ),

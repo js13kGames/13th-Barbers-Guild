@@ -87,7 +87,7 @@ const goodMessages: HealthMessageGetter = (disease) => [
 ];
 
 const gettingBetterMessages: HealthMessageGetter = () => [
-  "I'm not full refresh, but I'm felling slightly better!",
+  "I'm not full refresh, but I'm feeling slightly better!",
   "I think there's been a small change for the better in how I feel.",
   "I've noticed a slight improvement in my condition.",
   "I'm not as bad as I was before; there's been a minor improvement.",
@@ -95,25 +95,25 @@ const gettingBetterMessages: HealthMessageGetter = () => [
 ];
 
 const badMessages: HealthMessageGetter = (disease) => [
-  `I'm not felling better! Remember: ${disease.symptoms}`,
-  `I'm felling worse, what did you gave me doc? ${disease.symptoms}`,
+  `I'm not feeling better! Remember: ${disease.symptoms}`,
+  `I'm feeling worse, what did you gave me doc? ${disease.symptoms}`,
 ];
 
 const deadMessages: HealthMessageGetter = (disease, ingredients) => [
-  `You were suposed to save people. He only needed ${coloredIngredientNames(
+  `You were supposed to save people. He only needed ${coloredIngredientNames(
     ingredients,
-  )} for ${disease.symptomsShort}, a clear signal of ${disease.name}.`,
+  )} for ${disease.symptomsShort}, clear signals of ${disease.name}.`,
   `How do you think you'd join the guild by killing your patients? ${capFirst(
     disease.symptomsShort,
-  )}, symptoms of ${
-    disease.name
-  }, is supposed to be cured with ${coloredIngredientNames(ingredients)}.`,
+  )}, symptoms of ${capFirst(
+    disease.name,
+  )}, are supposed to be cured with ${coloredIngredientNames(ingredients)}.`,
 ];
 
 const curedMessages = () => [
-  "I'm felling much better doc! Thanks!",
-  "You are a life safer sir, I feel renewed!",
-  "It's a miracle! I'm feeling myself again!",
+  "I'm feeling much better, doc! Thanks!",
+  "You are a lifesaver, sir, I feel renewed!",
+  "It's a miracle! I'm feeling like myself again!",
 ];
 
 const messagesByHealth = {

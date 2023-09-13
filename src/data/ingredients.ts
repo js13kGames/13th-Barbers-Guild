@@ -14,12 +14,12 @@ export class Ingredient {
 
 export function generateIngredients() {
   const names = [
-    "Frog Paw",
+    "Frog Tongue",
     "Salamander Tail",
     "Cat Paw",
     "Rat Tooth",
     "Devil's Herb",
-    "Barracuda Eyes",
+    "Badger Eyes",
   ];
   const colors = [
     "#ff6600",
